@@ -23,5 +23,7 @@ module ShippingService
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
+    #ads lib folder to autoload paths
+    config.autoload_paths << config.root.join("lib")
   end
 end
