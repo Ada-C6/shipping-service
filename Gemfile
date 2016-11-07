@@ -4,6 +4,9 @@ ruby '2.3.1'
 # Set up api server
 gem 'rails-api'
 
+#add active-shipping gem!
+gem 'active_shipping'
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.7'
 
