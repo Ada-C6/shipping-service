@@ -13,10 +13,14 @@ class ShippingOptionTest < ActiveSupport::TestCase
     weight = 10 #in pounds
     package = ShippingOption.package(weight)
 
-    assert_instance_of ActiveShipping::Package, package 
+    assert_instance_of ActiveShipping::Package, package
   end
 
   test "we return an error if package_weight is below zero" do
+    assert_raises ArgumentError do
+      weight = -10 #in pounds
+      package = ShippingOption.package(weight)
+    end
 
   end
 end

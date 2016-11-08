@@ -10,6 +10,7 @@ class ShippingOption < ActiveRecord::Base
   end
 
   def self.package(package_weight)
+    raise ArgumentError, 'Package Weight cannot be less than zero' if package_weight < 0
     # First, we make a package based on the info we get from query[:package]
     package = ActiveShipping::Package.new(
       package_weight * 16, # weight times 16 oz/lb.
