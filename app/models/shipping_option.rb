@@ -4,7 +4,9 @@ class ShippingOption < ActiveRecord::Base
 
   def self.search(query)
     # This is where we call Active shipping given a package, origin, and destination, we'll create new ShippingOption objects and return them in an array.
-    # query is going to be a hash with three keys: package, destination, and origin.
+    # query is going to be a hash with three keys: package, destination (a location call), and origin (a location call).
+
+    @package = Self.package(19)
 
 
   end
@@ -29,8 +31,10 @@ class ShippingOption < ActiveRecord::Base
     return location
   end
 
-  def get_rates_from_provider(provider)
+  def self.get_rates_from_provider(provider, origin, destination, package)
     # This is where we call activeshipper for a given provider and get back their rates
+    response = provider.find_rates(origin, destination, package)
+    return response.rates.sort_by(&:price).collect {|rate| [rate.service_name, rate.price]}
   end
 
   def ups_rates

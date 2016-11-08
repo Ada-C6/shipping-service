@@ -1,6 +1,12 @@
 require 'test_helper'
 
 class ShippingOptionTest < ActiveSupport::TestCase
+  setup do
+    @package = ShippingOption.package(10)
+    @origin = ShippingOption.location('98101')
+    @destination = ShippingOption.location('01003')
+  end
+
   test "ShippingOption must have a name and cost greater than 0" do
     positive_case = shipping_options(:one)
     negative_case = shipping_options(:two)
@@ -19,7 +25,7 @@ class ShippingOptionTest < ActiveSupport::TestCase
   test "Self.package: we return an error if package_weight is below zero" do
     assert_raises ArgumentError do
       weight = -10 #in pounds
-      package = ShippingOption.package(weight)
+      ShippingOption.package(weight)
     end
   end
 
@@ -33,7 +39,24 @@ class ShippingOptionTest < ActiveSupport::TestCase
   test "Self.location will not be able to create a location without a valid postal code and country and will raise an error" do
     assert_raises ArgumentError do
       zip_code = ""
-      location = ShippingOption.location(zip_code)
+      ShippingOption.location(zip_code)
     end
+  end
+
+  test "Self.get_rates_from_provider will take in a provider and return an array of arrays containing service name and price" do
+    provider = ActiveShipping::USPS.new(login: ENV['ACTIVESHIPPING_USPS_LOGIN'])
+
+    response = ShippingOption.get_rates_from_provider(provider, @origin, @destination, @package)
+
+    assert_kind_of Array, response
+
+    response.each do |array|
+      assert array[0].include? 'USPS'
+      assert_operator 0,:<=, array[1].to_i
+    end
+  end
+
+  test "" do
+    skip
   end
 end
