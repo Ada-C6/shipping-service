@@ -20,15 +20,13 @@ class ShippingOption < ActiveRecord::Base
     return package
   end
 
-  def self.origin(zip_code)
-    # Then, we make an origin, based on the info we get from query[:origin]
-    origin = ActiveShipping::Location.new(country: 'US', zip: zip_code)
+  def self.location(zip_code)
+    # Then, we make a location used for either the origin or destination, based on the info we get from query[:origin/:destination]
+    raise ArgumentError, 'Zip code must be valid' if (99951 < zip_code.to_i || zip_code.to_i < 1000)
 
-    return origin
-  end
+    location = ActiveShipping::Location.new(country: 'US', zip: zip_code)
 
-  def destination
-    # Then we make a destination, based on the info we get from query[:destination]
+    return location
   end
 
   def get_rates_from_provider(provider)

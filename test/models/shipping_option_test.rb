@@ -23,17 +23,17 @@ class ShippingOptionTest < ActiveSupport::TestCase
     end
   end
 
-  test "Self.origin will create a valid location" do
+  test "Self.location will create a valid location" do
       zip_code = "98109"
-      origin_location = ShippingOption.origin(zip_code)
+      location = ShippingOption.location(zip_code)
 
-      assert_instance_of ActiveShipping::Location, origin_location
+      assert_instance_of ActiveShipping::Location, location
   end
 
-  # test "Self.origin will not be able to create a location without a valid postal code and country and will raise an error" do
-  #   assert_raises ArgumentError do
-  #     zip_code =
-  #     origin_location = ShippingOption.origin(zip_code)
-  #   end
-  # end
+  test "Self.location will not be able to create a location without a valid postal code and country and will raise an error" do
+    assert_raises ArgumentError do
+      zip_code = ""
+      location = ShippingOption.location(zip_code)
+    end
+  end
 end
