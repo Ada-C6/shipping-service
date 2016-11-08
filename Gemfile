@@ -42,6 +42,7 @@ group :development, :test do
   gem 'better_errors'
   gem 'minitest-vcr'
   gem 'webmock'
+  gem 'minitest-reporters'
 
 end
 
