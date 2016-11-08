@@ -46,6 +46,7 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.5.0)
       public_suffix (~> 2.0, >= 2.0.2)
+    ansi (1.5.0)
     arel (6.0.3)
     better_errors (2.1.1)
       coderay (>= 1.0.0)
@@ -93,6 +94,11 @@ GEM
     minispec-metadata (2.0.0)
       minitest
     minitest (5.9.1)
+    minitest-reporters (1.1.12)
+      ansi
+      builder
+      minitest (>= 5.0)
+      ruby-progressbar
     minitest-vcr (1.4.0)
       minispec-metadata (~> 2.0)
       minitest (>= 4.7.5)
@@ -134,6 +140,7 @@ GEM
       thor (>= 0.18.1, < 2.0)
     rake (11.3.0)
     rdoc (4.3.0)
+    ruby-progressbar (1.8.1)
     safe_yaml (1.0.4)
     sass (3.4.22)
     sass-rails (5.0.6)
@@ -191,6 +198,7 @@ DEPENDENCIES
   coffee-rails (~> 4.1.0)
   jbuilder (~> 2.0)
   jquery-rails
+  minitest-reporters
   minitest-vcr
   rails (= 4.2.7)
   rails-api
