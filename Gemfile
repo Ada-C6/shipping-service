@@ -43,7 +43,7 @@ group :development, :test do
   gem 'minitest-vcr'
   gem 'webmock'
   gem 'minitest-reporters'
-
+  gem 'dotenv-rails'
 end
 
 group :development do
