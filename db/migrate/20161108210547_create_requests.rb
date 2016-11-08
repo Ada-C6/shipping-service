@@ -1,7 +1,6 @@
 class CreateRequests < ActiveRecord::Migration
   def change
     create_table :requests do |t|
-      t.array :size
       t.string :seller_country
       t.string :seller_state
       t.string :seller_city
