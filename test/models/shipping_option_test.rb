@@ -8,4 +8,15 @@ class ShippingOptionTest < ActiveSupport::TestCase
     assert positive_case.valid?
     assert_not negative_case.valid?
   end
+
+  test "we can create a package given a positive weight" do
+    weight = 10 #in pounds
+    package = ShippingOption.package(weight)
+
+    assert_instance_of ActiveShipping::Package, package 
+  end
+
+  test "we return an error if package_weight is below zero" do
+
+  end
 end

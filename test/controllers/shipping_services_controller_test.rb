@@ -6,19 +6,19 @@ class ShippingServicesControllerTest < ActionController::TestCase
     @request.headers['Content-Type'] = Mime::JSON.to_s
   end
 
-  test "can get index" do
-    get :index
+  test "can get search" do
+    get :search
     assert_response :success
   end
 
-  test "#index returns json" do
-    get :index
+  test "#search returns json" do
+    get :search
     assert_match 'application/json',
     response.header['Content-Type']
   end
 
-  test "#index returns an array of shipping service objects" do
-    get :index
+  test "#search returns an array of shipping service objects" do
+    get :search
     body = JSON.parse(response.body)
     assert_instance_of Array, body
 
