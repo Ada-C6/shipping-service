@@ -5,6 +5,7 @@ class Quote
   UPS_PASSWORD = ENV["ACTIVESHIPPING_UPS_PASSWORD"]
   USPS_LOGIN = ENV["ACTIVESHIPPING_USPS_LOGIN"]
 
+  attr_reader :package, :origin, :destination
 
   def initialize(weight, origin = {}, destination = {}, dimensions = [15, 10, 4.5])
 
@@ -33,7 +34,7 @@ class Quote
     response.rates.sort_by(&:price).each do |rate|
       usps_rates[rate.service_name] = [rate.price, rate.delivery_date]
     end
-    return response
+    return usps_rates
 
   end
 end
