@@ -30,4 +30,14 @@ class ShippingServicesControllerTest < ActionController::TestCase
       assert_instance_of Hash, body.first
     end
   end
+
+  test "each option object contains the relevant keys" do
+    VCR.use_cassette("shipments") do
+      keys = %w( cost id name  )
+      get :search, { origin: '98101', destination: '98107', package: 10 }
+
+      body = JSON.parse(response.body)
+      assert_equal keys, body.map(&:keys).flatten.uniq.sort
+    end
+  end
 end
