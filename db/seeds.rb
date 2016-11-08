@@ -5,3 +5,14 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+#origin
+origin = {
+  country: 'US',
+  state: 'WA',
+  city: 'Seattle',
+  zip: '98122'
+  }
+
+
+#login info
