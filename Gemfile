@@ -43,6 +43,8 @@ group :development, :test do
   gem 'dotenv-rails'
   gem 'pry-byebug'
   gem 'better_errors'
+  gem 'minitest-reporters'
+
 end
 
 group :development do
