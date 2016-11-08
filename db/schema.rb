@@ -14,6 +14,16 @@
 ActiveRecord::Schema.define(version: 20161108191333) do
 
   create_table "shipments", force: :cascade do |t|
+    t.string   "carrier"
+    t.float    "weight"
+    t.float    "height"
+    t.float    "length"
+    t.float    "width"
+    t.string   "city"
+    t.string   "state"
+    t.string   "country"
+    t.string   "zipcode"
+    t.string   "units"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
