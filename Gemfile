@@ -1,12 +1,8 @@
 source 'https://rubygems.org'
 
-#### RAILS GEM
-### Three steps: application control inherits from API, added below Gem & config/application.rb ->     config.api_only = true
+### Four steps: application control inherits from API, added below Gem & config/application.rb -> config.api_only = true, comment out forgery line in ApplicationController
 gem 'rails-api'
-# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-
-#### SHIPPING GEM
-gem 'active_shipping'
+gem 'httparty'
 
 
 gem 'rails', '4.2.7'
