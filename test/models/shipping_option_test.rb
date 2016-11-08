@@ -56,7 +56,10 @@ class ShippingOptionTest < ActiveSupport::TestCase
     end
   end
 
-  test "" do
-    skip
+  test "Self.get_rates_from_provider returns an error if provider is not a supported ActiveShipping provider" do
+    assert_raises ArgumentError do
+      provider = "fedex"
+      ShippingOption.get_rates_from_provider(provider, @origin, @destination, @package)
+    end
   end
 end

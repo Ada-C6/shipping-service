@@ -33,13 +33,18 @@ class ShippingOption < ActiveRecord::Base
 
   def self.get_rates_from_provider(provider, origin, destination, package)
     # This is where we call activeshipper for a given provider and get back their rates
+    # an example provider is an ActiveShipping::UPS.new object
+    raise ArgumentError unless ((provider.class == ActiveShipping::USPS) || (provider.class == ActiveShipping::UPS))
+    
     response = provider.find_rates(origin, destination, package)
     return response.rates.sort_by(&:price).collect {|rate| [rate.service_name, rate.price]}
   end
 
-  def ups_rates
+  def ups
+    # This is where we're going to make the provider UPS
   end
 
-  def usps_rates
+  def usps
+    # This is where we're going to make the provider USPS
   end
 end
