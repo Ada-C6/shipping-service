@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161108212023) do
+ActiveRecord::Schema.define(version: 20161108220234) do
 
   create_table "quotes", force: :cascade do |t|
     t.string   "carrier"
@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(version: 20161108212023) do
     t.integer  "length"
     t.integer  "width"
     t.integer  "height"
+    t.integer  "weight"
   end
 
 end
