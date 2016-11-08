@@ -18,13 +18,14 @@ class ShippingOption < ActiveRecord::Base
     ups_rates = get_rates_from_provider(self.ups, orig, dest, pack)
 
     ups_rates.each do |rate|
-      options << ShippingOption.create(name: rate[0], cost: rate[1])
+      # cost.to_f/100 because Petsy expects cost in dollars not cents
+      options << ShippingOption.create(name: rate[0], cost: rate[1].to_f/100)
     end
 
     usps_rates =  get_rates_from_provider(self.usps,orig,dest,pack)
 
     usps_rates.each do |rate|
-      options << ShippingOption.create(name: rate[0], cost: rate[1])
+      options << ShippingOption.create(name: rate[0], cost: rate[1].to_f/100)
     end
 
     return options
