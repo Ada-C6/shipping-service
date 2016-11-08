@@ -1,0 +1,56 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://production.shippingapis.com/ShippingAPI.dll?API=RateV4&XML=%3C?xml%20version=%221.0%22?%3E%0A%3CRateV4Request%20USERID=%22<ACTIVESHIPPING_USPS_LOGIN>%22%3E%0A%20%20%3CPackage%20ID=%220%22%3E%0A%20%20%20%20%3CService%3EALL%3C/Service%3E%0A%20%20%20%20%3CFirstClassMailType/%3E%0A%20%20%20%20%3CZipOrigination%3E98101%3C/ZipOrigination%3E%0A%20%20%20%20%3CZipDestination%3E01003%3C/ZipDestination%3E%0A%20%20%20%20%3CPounds%3E0%3C/Pounds%3E%0A%20%20%20%20%3COunces%3E160.0%3C/Ounces%3E%0A%20%20%20%20%3CContainer/%3E%0A%20%20%20%20%3CSize%3EREGULAR%3C/Size%3E%0A%20%20%20%20%3CWidth%3E10.00%3C/Width%3E%0A%20%20%20%20%3CLength%3E10.00%3C/Length%3E%0A%20%20%20%20%3CHeight%3E5.00%3C/Height%3E%0A%20%20%20%20%3CGirth%3E30.00%3C/Girth%3E%0A%20%20%20%20%3CMachinable%3ETRUE%3C/Machinable%3E%0A%20%20%3C/Package%3E%0A%3C/RateV4Request%3E%0A
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Backside-Transport:
+      - OK OK
+      Cache-Control:
+      - private
+      Content-Type:
+      - text/xml
+      Server:
+      - Microsoft-IIS/7.5
+      X-Aspnet-Version:
+      - 2.0.50727
+      X-Powered-By:
+      - ASP.NET
+      Date:
+      - Tue, 08 Nov 2016 21:57:10 GMT
+      X-Client-Ip:
+      - 56.0.33.9
+      X-Global-Transaction-Id:
+      - '1509904285'
+      Access-Control-Allow-Origin:
+      - "*"
+      Connection:
+      - Keep-Alive
+      Cteonnt-Length:
+      - '1240'
+      X-Frame-Options:
+      - SAMEORIGIN
+      Content-Length:
+      - '423'
+    body:
+      encoding: ASCII-8BIT
+      string: |-
+        <?xml version="1.0" encoding="UTF-8"?>
+        <RateV4Response><Package ID="0"><ZipOrigination>98101</ZipOrigination><ZipDestination>01003</ZipDestination><Pounds>0</Pounds><Ounces>160.0</Ounces><Size>REGULAR</Size><Machinable>TRUE</Machinable><Zone>8</Zone><Postage CLASSID="3"><MailService>Priority Mail Express 2-Day&amp;lt;sup&amp;gt;&amp;#8482;&amp;lt;/sup&amp;gt;</MailService><Rate>84.85</Rate></Postage><Postage CLASSID="2"><MailService>Priority Mail Express 2-Day&amp;lt;sup&amp;gt;&amp;#8482;&amp;lt;/sup&amp;gt; Hold For Pickup</MailService><Rate>84.85</Rate></Postage><Postage CLASSID="1"><MailService>Priority Mail 2-Day&amp;lt;sup&amp;gt;&amp;#8482;&amp;lt;/sup&amp;gt;</MailService><Rate>38.60</Rate></Postage><Postage CLASSID="22"><MailService>Priority Mail 2-Day&amp;lt;sup&amp;gt;&amp;#8482;&amp;lt;/sup&amp;gt; Large Flat Rate Box</MailService><Rate>18.75</Rate></Postage><Postage CLASSID="4"><MailService>USPS Retail Ground&amp;lt;sup&amp;gt;&amp;#8482;&amp;lt;/sup&amp;gt;</MailService><Rate>33.95</Rate></Postage><Postage CLASSID="6"><MailService>Media Mail Parcel</MailService><Rate>6.93</Rate></Postage><Postage CLASSID="7"><MailService>Library Mail Parcel</MailService><Rate>6.62</Rate></Postage></Package></RateV4Response>
+    http_version: 
+  recorded_at: Tue, 08 Nov 2016 21:57:10 GMT
+recorded_with: VCR 3.0.3

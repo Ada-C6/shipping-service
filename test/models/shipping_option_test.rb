@@ -44,22 +44,26 @@ class ShippingOptionTest < ActiveSupport::TestCase
   end
 
   test "Self.get_rates_from_provider will take in a provider and return an array of arrays containing service name and price" do
-    provider = ActiveShipping::USPS.new(login: ENV['ACTIVESHIPPING_USPS_LOGIN'])
+    VCR.use_cassette("shipments") do
+      provider = ActiveShipping::USPS.new(login: ENV['ACTIVESHIPPING_USPS_LOGIN'])
 
-    response = ShippingOption.get_rates_from_provider(provider, @origin, @destination, @package)
+      response = ShippingOption.get_rates_from_provider(provider, @origin, @destination, @package)
 
-    assert_kind_of Array, response
+      assert_kind_of Array, response
 
-    response.each do |array|
-      assert array[0].include? 'USPS'
-      assert_operator 0,:<=, array[1].to_i
+      response.each do |array|
+        assert array[0].include? 'USPS'
+        assert_operator 0,:<=, array[1].to_i
+      end
     end
   end
 
   test "Self.get_rates_from_provider returns an error if provider is not a supported ActiveShipping provider" do
-    assert_raises ArgumentError do
-      provider = "fedex"
-      ShippingOption.get_rates_from_provider(provider, @origin, @destination, @package)
+    VCR.use_cassette("shipments") do
+      assert_raises ArgumentError do
+        provider = "fedex"
+        ShippingOption.get_rates_from_provider(provider, @origin, @destination, @package)
+      end
     end
   end
 end
