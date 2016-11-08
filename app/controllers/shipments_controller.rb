@@ -5,14 +5,18 @@ class ShipmentsController < ApplicationController
   end
 
   def create
-    @package = ActiveShipping::Package.new(weight * 16, dimensions, units: :imperial)
+    package_weight = params[:weight]
+    package_dimensions = params[:dimensions]
 
-    # {country: "US"
-    # state :"XX"
-    # city: "Zxxxx"
-    # zip: "00000"}
-    @origin = ActiveShipping::Location.new(hash[:origin])
-    @destination = ActiveShipping::Location.new(hash[:destination])
+    destination_hash = {
+      country: params[:country],
+      state: params[:state],
+      city: params[:city],
+      postal_code: params[:postal_code],
+    }
 
+    @package = Shipment.packages(package_weight,package_dimensions)
+    @origin = Shipment.origin
+    @destination = Shipment.destination(destination_hash)
   end
 end

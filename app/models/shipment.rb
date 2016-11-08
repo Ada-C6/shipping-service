@@ -1,4 +1,5 @@
 require 'active_shipping'
+
 class Shipment < ActiveRecord::Base
 
   # validates :name, presence: true
@@ -26,7 +27,7 @@ class Shipment < ActiveRecord::Base
   end
 
   # (weight * 16, dimensions = [length x width x height], units: :imperial)
-  def packages(weight, dimensions)
+  def package(weight, dimensions)
     Package.new(weight * 16, dimensions, units: :imperial)
   end
 
@@ -45,8 +46,8 @@ class Shipment < ActiveRecord::Base
   #   get_rates_from_shipper(fedex)
   # end
 
-  # def usps_rates
-  #   usps = USPS.new(login: ENV['ACTIVESHIPPING_USPS_LOGIN'], password: 'your usps password')
-  #   get_rates_from_shipper(usps)
-  # end
+  def usps_rates
+    usps = USPS.new(login: ENV['ACTIVESHIPPING_USPS_LOGIN'])
+    get_rates_from_shipper(usps)
+  end
 end
