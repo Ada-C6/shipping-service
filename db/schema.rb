@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161108200739) do
+ActiveRecord::Schema.define(version: 20161108223100) do
 
   create_table "locations", force: :cascade do |t|
     t.string   "country"
@@ -27,6 +27,16 @@ ActiveRecord::Schema.define(version: 20161108200739) do
     t.integer  "length"
     t.integer  "width"
     t.integer  "height"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "shipments", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "shippings", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
