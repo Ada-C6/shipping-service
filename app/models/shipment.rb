@@ -2,15 +2,15 @@ require 'active_shipping'
 
 class Shipment < ActiveRecord::Base
 
-  # validates :name, presence: true
-  # validates :country, presence: true
-  # validates :city, presence: true
-  # validates :state, presence: true
-  # validates :postal_code, presence: true
-  # validates :length, presence: true
-  # validates :width, presence: true
-  # validates :height, presence: true
-  # validates :weight, presence: true
+  validates :name, presence: true
+  validates :country, presence: true
+  validates :city, presence: true
+  validates :state, presence: true
+  validates :postal_code, presence: true
+  validates :length, presence: true
+  validates :width, presence: true
+  validates :height, presence: true
+  validates :weight, presence: true
 
 
   def self.origin
@@ -30,14 +30,10 @@ class Shipment < ActiveRecord::Base
     ActiveShipping::Package.new(weight * 16, [length, width, height], units: :imperial)
   end
 
-  def self.get_rates_from_shipper(shipper)
-    response = shipper.find_rates(origin, destination, packages)
-    response.rates.sort_by(&:price)
-  end
-
-  def self.ups_rates
+  def self.ups_rates(origin, destination, package)
     ups = ActiveShipping::UPS.new(login: ENV['ACTIVESHIPPING_UPS_LOGIN'], password: ENV['ACTIVESHIPPING_UPS_PASSWORD'], key: ENV['ACTIVESHIPPING_UPS_KEY'])
-    get_rates_from_shipper(ups)
+    response = ups.find_rates(origin, destination, package)
+    response.rates.sort_by(&:price)
   end
 
   # def fedex_rates
@@ -45,8 +41,9 @@ class Shipment < ActiveRecord::Base
   #   get_rates_from_shipper(fedex)
   # end
 
-  def self.usps_rates
-    usps = USPS.new(login: ENV['ACTIVESHIPPING_USPS_LOGIN'])
-    get_rates_from_shipper(usps)
+  def self.usps_rates(origin, destination, package)
+    usps = ActiveShipping::USPS.new(login: ENV['ACTIVESHIPPING_USPS_LOGIN'])
+    response = usps.find_rates(origin, destination, package)
+    response.rates.sort_by(&:price)
   end
 end

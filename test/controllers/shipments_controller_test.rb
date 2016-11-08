@@ -65,6 +65,5 @@ class ShipmentsControllerTest < ActionController::TestCase
 
       assert_equal x.city, "Seattle"
       assert_equal x.state, "WA"
-
   end
 end
