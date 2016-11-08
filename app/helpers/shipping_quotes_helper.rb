@@ -1,0 +1,2 @@
+module ShippingQuotesHelper
+end

@@ -1,7 +1,7 @@
 {
   "MiniTest": {
     "coverage": {
-      "/Users/aymaiz/ada/shipping/shipping-service/app/models/log.rb": [
+      "/Users/ShariMeggs/Documents/ada/Partner-Projects/shipping-service/app/models/log.rb": [
         1,
         null,
         null,
@@ -17,7 +17,22 @@
         null,
         null
       ],
-      "/Users/aymaiz/ada/shipping/shipping-service/lib/shipping_quote.rb": [
+      "/Users/ShariMeggs/Documents/ada/Partner-Projects/shipping-service/app/controllers/shipping_quotes_controller.rb": [
+        1,
+        null,
+        1,
+        1,
+        null,
+        null
+      ],
+      "/Users/ShariMeggs/Documents/ada/Partner-Projects/shipping-service/app/controllers/application_controller.rb": [
+        1,
+        null,
+        null,
+        null,
+        null
+      ],
+      "/Users/ShariMeggs/Documents/ada/Partner-Projects/shipping-service/lib/shipping_quote.rb": [
         1,
         null,
         1,
@@ -47,18 +62,15 @@
         null,
         null
       ],
-      "/Users/aymaiz/ada/shipping/shipping-service/app/controllers/application_controller.rb": [
-        0,
-        0,
-        0,
+      "/Users/ShariMeggs/Documents/ada/Partner-Projects/shipping-service/app/helpers/application_helper.rb": [
         0,
         0
       ],
-      "/Users/aymaiz/ada/shipping/shipping-service/app/helpers/application_helper.rb": [
+      "/Users/ShariMeggs/Documents/ada/Partner-Projects/shipping-service/app/helpers/shipping_quotes_helper.rb": [
         0,
         0
       ]
     },
-    "timestamp": 1478644633
+    "timestamp": 1478649132
   }
 }
