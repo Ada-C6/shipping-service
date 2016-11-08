@@ -32,6 +32,7 @@ class ShipmentsControllerTest < ActionController::TestCase
     VCR.use_cassette("shipments") do
       post :create, params
 
+      puts ">>>>>>>#{assigns[:package]}"
       assert_instance_of Shipment, assigns[:package]
       assert_instance_of Shipment, assigns[:origin]
       assert_instance_of Shipment, assigns[:destination]

@@ -15,7 +15,7 @@ class ShipmentsController < ApplicationController
       postal_code: params[:postal_code],
     }
 
-    @package = Shipment.packages(package_weight,package_dimensions)
+    @package = Shipment.package(package_weight,package_dimensions)
     @origin = Shipment.origin
     @destination = Shipment.destination(destination_hash)
   end

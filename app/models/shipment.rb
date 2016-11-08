@@ -13,7 +13,7 @@ class Shipment < ActiveRecord::Base
   # validates :weight, presence: true
 
 
-  def origin
+  def self.origin
     Location.new(country: "US", state: "WA", city: "Seattle", postal_code: "98161")
   end
 
@@ -22,21 +22,21 @@ class Shipment < ActiveRecord::Base
   # state :"XX"
   # city: "Zxxxx"
   # zip: "00000"}
-  def destination(destination_hash)
+  def self.destination(destination_hash)
     Location.new(destination_hash)
   end
 
   # (weight * 16, dimensions = [length x width x height], units: :imperial)
-  def package(weight, dimensions)
+  def self.package(weight, dimensions)
     Package.new(weight * 16, dimensions, units: :imperial)
   end
 
-  def get_rates_from_shipper(shipper)
+  def self.get_rates_from_shipper(shipper)
     response = shipper.find_rates(origin, destination, packages)
     response.rates.sort_by(&:price)
   end
 
-  def ups_rates
+  def self.ups_rates
     ups = UPS.new(login: ENV['ACTIVESHIPPING_UPS_LOGIN'], password: ENV['ACTIVESHIPPING_UPS_PASSWORD'], key: ENV['ACTIVESHIPPING_UPS_KEY'])
     get_rates_from_shipper(ups)
   end
