@@ -66,4 +66,21 @@ class ShippingOptionTest < ActiveSupport::TestCase
       end
     end
   end
+
+  test "Self.ups successfully makes an ActiveShipping::UPS" do
+    VCR.use_cassette("shipments") do
+      ups = ShippingOption.ups
+      assert_instance_of ActiveShipping::UPS, ups
+    end
+  end
+
+  test "Self.usps successfully makes an ActiveShipping::USPS" do
+    VCR.use_cassette("shipments") do
+      usps = ShippingOption.usps
+      assert_instance_of ActiveShipping::USPS, usps
+    end
+  end
+
+
+
 end
