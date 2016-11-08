@@ -12,6 +12,12 @@ class ShipmentsControllerTest < ActionController::TestCase
     get :index
     assert_response :success
     assert_match 'application/json', response.header['Content-Type']
-    # assert_match Mime::JSON.to_s, response.header['Content-Type']
+  end
+
+  test "#index returns an Array of Shipment objects" do
+    get :index
+    body = JSON.parse(response.body)
+    assert_instance_of Array, body
+    assert_instance_of Shipment, body[0]
   end
 end
