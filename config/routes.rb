@@ -1,4 +1,18 @@
 Rails.application.routes.draw do
+  get 'quotes/index'
+
+  get 'quotes/show'
+
+  get 'quotes/new'
+
+  get 'quotes/create'
+
+  get 'quotes/edit'
+
+  get 'quotes/update'
+
+  get 'quotes/destroy'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

@@ -4,6 +4,11 @@ source 'https://rubygems.org'
 ### Three steps: application control inherits from API, added below Gem & config/application.rb ->     config.api_only = true
 gem 'rails-api'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
+
+#### SHIPPING GEM
+gem 'active_shipping'
+
+
 gem 'rails', '4.2.7'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
@@ -37,6 +42,10 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
+  gem 'dotenv-rails'
+  gem 'better_errors'
+  gem 'minitest-reporters'
+  gem 'simplecov'
 end
 
 group :development do
