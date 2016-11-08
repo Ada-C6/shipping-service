@@ -18,8 +18,8 @@ class QuotesController < ApplicationController
     # http://localhost:3000/quotes/create?weight=8&from=92675&to=98034
     distance = Zipcode_Api_Wrapper.get_distance(params["from"], params["to"])
     cost = (params[:weight].to_i * SHIPPING_PER_MILE) * distance.to_i
-    quote = {cost: cost, name: NAME, id: 1}
-    render :json => quote, :status => :ok
+    quotes = {cost: cost, name: NAME, id: 1}, {cost: cost, name: NAME, id: 1}
+    render :json => quotes, :status => :ok
   end
 
   def edit
