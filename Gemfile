@@ -15,7 +15,7 @@ gem 'coffee-rails', '~> 4.1.0'
 # gem 'therubyracer', platforms: :ruby
 
 gem 'rails-api'
-
+gem 'zip-codes'
 gem 'active_shipping'
 
 # Use jquery as the JavaScript library

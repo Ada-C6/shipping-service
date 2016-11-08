@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
 
+  get 'carriers' => 'carriers#index', as: "carriers"
+
   get 'shipments' => 'shipments#index', as: "shipments"
+
+  get 'shipments/:carrier' => 'shipments#show', as: "shipments_by_carrier"
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
