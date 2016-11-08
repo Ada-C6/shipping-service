@@ -6,17 +6,17 @@ require 'minitest/reporters'
 require 'simplecov'
 SimpleCov.start 'rails'
 
-require 'vcr'
-require 'webmock/minitest'
+# require 'vcr'
+# require 'webmock/minitest'
 
-VCR.configure do |config|
-  config.cassette_library_dir = 'test/cassettes' # folder where casettes will be located
-  config.hook_into :webmock # tie into this other tool called webmock
-  config.default_cassette_options = {
-    :record => :new_episodes,    # record new data when we don't have it yet
-    :match_requests_on => [:method, :uri, :body] # The http method, URI and body of a request all need to match
-  }
-end
+# VCR.configure do |config|
+#   config.cassette_library_dir = 'test/cassettes' # folder where casettes will be located
+#   config.hook_into :webmock # tie into this other tool called webmock
+#   config.default_cassette_options = {
+#     :record => :new_episodes,    # record new data when we don't have it yet
+#     :match_requests_on => [:method, :uri, :body] # The http method, URI and body of a request all need to match
+#   }
+# end
 
 class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
