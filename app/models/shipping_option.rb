@@ -2,18 +2,37 @@ class ShippingOption < ActiveRecord::Base
   validates :name, presence: true
   validates :cost, presence: true, numericality: { greater_than_or_equal_to: 0 }
 
-  def self.search(query)
+  def self.search(origin, destination, package)
     # This is where we call Active shipping given a package, origin, and destination, we'll create new ShippingOption objects and return them in an array.
     # query is going to be a hash with three keys: package, destination (a location call), and origin (a location call).
+    # Something like ShippingOption.search(params[:package], etc)
 
-    @package = Self.package(19)
+    # First, we make a package based on the info we get from params[:package]
+    orig = location(origin)
+    dest = location(destination)
+    pack = create_package(package)
 
+    # initialize an empty array to store all our objects
+    options = []
 
+    ups_rates = get_rates_from_provider(self.ups, orig, dest, pack)
+
+    ups_rates.each do |rate|
+      options << ShippingOption.create(name: rate[0], cost: rate[1])
+    end
+
+    usps_rates =  get_rates_from_provider(self.usps,orig,dest,pack)
+
+    usps_rates.each do |rate|
+      options << ShippingOption.create(name: rate[0], cost: rate[1])
+    end
+
+    return options
   end
 
-  def self.package(package_weight)
+  def self.create_package(package_weight)
     raise ArgumentError, 'Package Weight cannot be less than zero' if package_weight < 0
-    # First, we make a package based on the info we get from query[:package]
+
     package = ActiveShipping::Package.new(
       package_weight * 16, # weight times 16 oz/lb.
       [10, 10, 5],     # 10x10x5 inches
@@ -41,7 +60,8 @@ class ShippingOption < ActiveRecord::Base
   end
 
   def self.ups
-    ups = ActiveShipping::UPS.new(login: ENV['ACTIVESHIPPING_UPS_LOGIN'], password: ENV['ACTIVESHIPPING_UPS_KEY'], key: ENV['ACTIVESHIPPING_UPS_PASSWORD'])
+    ups = ActiveShipping::UPS.new(login: ENV['ACTIVESHIPPING_UPS_LOGIN'], password: ENV['ACTIVESHIPPING_UPS_PASSWORD'],
+    key: ENV['ACTIVESHIPPING_UPS_KEY'] )
 
     return ups
   end

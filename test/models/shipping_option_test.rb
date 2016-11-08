@@ -2,7 +2,7 @@ require 'test_helper'
 
 class ShippingOptionTest < ActiveSupport::TestCase
   setup do
-    @package = ShippingOption.package(10)
+    @package = ShippingOption.create_package(10)
     @origin = ShippingOption.location('98101')
     @destination = ShippingOption.location('01003')
   end
@@ -15,17 +15,34 @@ class ShippingOptionTest < ActiveSupport::TestCase
     assert_not negative_case.valid?
   end
 
-  test "Self.package: we can create a package given a positive weight" do
+  test "Self.search should return an array of ShippingOption objects" do
+    VCR.use_cassette("shipments") do
+        package = 10
+        destination = '98107'
+        origin = '98101'
+
+      options = ShippingOption.search(origin, destination, package)
+
+      assert_kind_of Array, options
+
+      options.each do |item|
+        assert_kind_of ShippingOption, item
+      end
+    end
+
+  end
+
+  test "Self.create_package: we can create a package given a positive weight" do
     weight = 10 #in pounds
-    package = ShippingOption.package(weight)
+    package = ShippingOption.create_package(weight)
 
     assert_instance_of ActiveShipping::Package, package
   end
 
-  test "Self.package: we return an error if package_weight is below zero" do
+  test "Self.create_package: we return an error if package_weight is below zero" do
     assert_raises ArgumentError do
       weight = -10 #in pounds
-      ShippingOption.package(weight)
+      ShippingOption.create_package(weight)
     end
   end
 
@@ -58,6 +75,21 @@ class ShippingOptionTest < ActiveSupport::TestCase
     end
   end
 
+  test "Self.get_rates_from_provider will take in a ups and return an array of arrays containing service name and price" do
+    VCR.use_cassette("shipments") do
+      provider = ActiveShipping::UPS.new(login: ENV['ACTIVESHIPPING_UPS_LOGIN'], password: ENV['ACTIVESHIPPING_UPS_PASSWORD'],key: ENV['ACTIVESHIPPING_UPS_KEY'] )
+
+      response = ShippingOption.get_rates_from_provider(provider, @origin, @destination, @package)
+
+      assert_kind_of Array, response
+
+      response.each do |array|
+        assert array[0].include? 'UPS'
+        assert_operator 0,:<=, array[1].to_i
+      end
+    end
+  end
+
   test "Self.get_rates_from_provider returns an error if provider is not a supported ActiveShipping provider" do
     VCR.use_cassette("shipments") do
       assert_raises ArgumentError do
@@ -66,6 +98,7 @@ class ShippingOptionTest < ActiveSupport::TestCase
       end
     end
   end
+
 
   test "Self.ups successfully makes an ActiveShipping::UPS" do
     VCR.use_cassette("shipments") do
