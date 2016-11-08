@@ -16,27 +16,55 @@ class ShipmentsControllerTest < ActionController::TestCase
     assert_match 'application/json', response.header['Content-Type']
   end
 
-  test "#create returns Shipment objects" do
+  test "#create returns a package object" do
     params = {
-      package_weight: 3.5,
-      package_dimensions: [15, 10, 4.5],
+      weight: 3.5,
+      # dimensions: [15, 10, 4.5],
+      length: 15,
+      width: 10,
+      height: 4.5,
 
-      destination_hash: {
-        country: "US",
-        state: "CA",
-        city: "Los Angeles",
-        postal_code: "90078"
-      }
+      country: "US",
+      state: "CA",
+      city: "Los Angeles",
+      postal_code: "90078"
     }
 
-    VCR.use_cassette("shipments") do
       post :create, params
 
-      puts ">>>>>>>#{assigns[:package]}"
-      assert_instance_of Shipment, assigns[:package]
-      assert_instance_of Shipment, assigns[:origin]
-      assert_instance_of Shipment, assigns[:destination]
-    end
+      assert_instance_of ActiveShipping::Package, assigns[:package]
+
+      x = assigns[:package]
+      assert_equal params[:weight], x.pounds
+      assert_equal x.inches, [4.5, 10.0, 15.0]
+  end
+
+  test "#create returns a location objects" do
+    params = {
+      weight: 3.5,
+      # dimensions: [15, 10, 4.5],
+      length: 15,
+      width: 10,
+      height: 4.5,
+
+      country: "US",
+      state: "CA",
+      city: "Los Angeles",
+      postal_code: "90078"
+    }
+
+      post :create, params
+
+      assert_instance_of ActiveShipping::Location,assigns[:origin]
+      assert_instance_of ActiveShipping::Location,assigns[:destination]
+
+      x = assigns[:origin]
+      y = assigns[:destination]
+      assert_equal params[:city], y.city
+      assert_equal params[:state], y.state
+
+      assert_equal x.city, "Seattle"
+      assert_equal x.state, "WA"
 
   end
 end

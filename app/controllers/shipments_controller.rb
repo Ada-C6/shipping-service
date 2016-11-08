@@ -5,8 +5,10 @@ class ShipmentsController < ApplicationController
   end
 
   def create
-    package_weight = params[:weight]
-    package_dimensions = params[:dimensions]
+    package_weight = params[:weight].to_f
+    length = params[:length].to_f
+    width = params[:width].to_f
+    height =params[:height].to_f
 
     destination_hash = {
       country: params[:country],
@@ -15,7 +17,7 @@ class ShipmentsController < ApplicationController
       postal_code: params[:postal_code],
     }
 
-    @package = Shipment.package(package_weight,package_dimensions)
+    @package = Shipment.package(package_weight, length, width, height)
     @origin = Shipment.origin
     @destination = Shipment.destination(destination_hash)
   end

@@ -14,7 +14,7 @@ class Shipment < ActiveRecord::Base
 
 
   def self.origin
-    Location.new(country: "US", state: "WA", city: "Seattle", postal_code: "98161")
+    ActiveShipping::Location.new(country: "US", state: "WA", city: "Seattle", postal_code: "98161")
   end
 
   # destination_hash
@@ -23,12 +23,11 @@ class Shipment < ActiveRecord::Base
   # city: "Zxxxx"
   # zip: "00000"}
   def self.destination(destination_hash)
-    Location.new(destination_hash)
+    ActiveShipping::Location.new(destination_hash)
   end
 
-  # (weight * 16, dimensions = [length x width x height], units: :imperial)
-  def self.package(weight, dimensions)
-    Package.new(weight * 16, dimensions, units: :imperial)
+  def self.package(weight, length, width, height)
+    ActiveShipping::Package.new(weight * 16, [length, width, height], units: :imperial)
   end
 
   def self.get_rates_from_shipper(shipper)
@@ -37,7 +36,7 @@ class Shipment < ActiveRecord::Base
   end
 
   def self.ups_rates
-    ups = UPS.new(login: ENV['ACTIVESHIPPING_UPS_LOGIN'], password: ENV['ACTIVESHIPPING_UPS_PASSWORD'], key: ENV['ACTIVESHIPPING_UPS_KEY'])
+    ups = ActiveShipping::UPS.new(login: ENV['ACTIVESHIPPING_UPS_LOGIN'], password: ENV['ACTIVESHIPPING_UPS_PASSWORD'], key: ENV['ACTIVESHIPPING_UPS_KEY'])
     get_rates_from_shipper(ups)
   end
 
@@ -46,7 +45,7 @@ class Shipment < ActiveRecord::Base
   #   get_rates_from_shipper(fedex)
   # end
 
-  def usps_rates
+  def self.usps_rates
     usps = USPS.new(login: ENV['ACTIVESHIPPING_USPS_LOGIN'])
     get_rates_from_shipper(usps)
   end
