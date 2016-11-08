@@ -20,8 +20,11 @@ class ShippingOption < ActiveRecord::Base
     return package
   end
 
-  def origin
+  def self.origin(zip_code)
     # Then, we make an origin, based on the info we get from query[:origin]
+    origin = ActiveShipping::Location.new(country: 'US', zip: zip_code)
+
+    return origin
   end
 
   def destination
