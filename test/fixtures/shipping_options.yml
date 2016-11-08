@@ -2,8 +2,8 @@
 
 one:
   name: "USPS Priority Mail International"
-  cost: 500
+  cost: 5.00
 
 two:
   name: "USPS First Class Package"
-  cost: -500
+  cost: -5.00

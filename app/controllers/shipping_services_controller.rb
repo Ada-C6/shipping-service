@@ -9,6 +9,8 @@ class ShippingServicesController < ApplicationController
   end
 
   def show
+    option = ShippingOption.find(params[:id])
     # The details of a specific shipping option.
+    render json: option
   end
 end

@@ -13,6 +13,11 @@
 
 ActiveRecord::Schema.define(version: 20161108173850) do
 
+  create_table "shipping_details", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "shipping_options", force: :cascade do |t|
     t.string   "name"
     t.float    "cost"

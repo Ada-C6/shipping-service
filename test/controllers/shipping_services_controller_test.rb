@@ -40,4 +40,22 @@ class ShippingServicesControllerTest < ActionController::TestCase
       assert_equal keys, body.map(&:keys).flatten.uniq.sort
     end
   end
+
+  test "given an id, show returns a json hash for that shipping option" do
+
+    keys = %w( cost id name )
+    get :show, { id: shipping_options(:one).id }
+
+    body = JSON.parse(response.body)
+
+    assert_instance_of Hash, body
+
+    # This is checking that the values at each of the keys equals what we think it should.
+    keys.each do |key|
+       assert_equal body[key], shipping_options(:one)[key]
+     end
+
+     # make sure there are only the keys we want
+     assert_equal keys, body.keys.sort
+  end
 end
