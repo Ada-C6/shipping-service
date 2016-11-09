@@ -11,7 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161108195624) do
+ActiveRecord::Schema.define(version: 20161109195502) do
+
+  create_table "quotes", force: :cascade do |t|
+    t.integer  "shipment_id"
+    t.string   "name"
+    t.integer  "price"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "quotes", ["shipment_id"], name: "index_quotes_on_shipment_id"
 
   create_table "shipments", force: :cascade do |t|
     t.string   "country",    default: "US"
