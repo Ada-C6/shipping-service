@@ -1,4 +1,5 @@
 require 'active_shipping'
+require 'ship_wrapper'
 
 class ShippingController < ApplicationController
   def quote
@@ -13,12 +14,12 @@ class ShippingController < ApplicationController
 
     # Need to be a CONSTANT. Where to put the constant?
 
-    destination = ActiveShipping::Location.new(request.buyer_country,
-                                            request.buyer_state,
-                                            request.buyer_city,
-                                          request.buyer_zip)
-  
-  rates =  ShipWrapper.get_rates(carrier, package, destination)
+    destination = ActiveShipping::Location.new(country: request.buyer_country,
+                                             state: request.buyer_state,
+                                            city: request.buyer_city,
+                                           zip: request.buyer_zip)
+
+  rates =  ShipWrapper.get_rates("usps", package, destination)
 
   rates.each do |rate_array|
     Quote.create(carrier: rate_array[0], rate: rate_array[1], request_id: params[:id])

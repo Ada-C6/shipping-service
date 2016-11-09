@@ -1,5 +1,3 @@
-require 'httparty'
-require 'uri'
 require 'active_shipping'
 
 class ShipWrapper
