@@ -32,24 +32,27 @@ class ShippingRateGetter
       request.results << Result.create(price: cost, provider: "UPS", service: method, delivery_est: delivery_estimate)
     end
 
+    if weight <= 70
+      usps = ActiveShipping::USPS.new(login: ENV['USPS_LOGIN'])
+      usps_response = usps.find_rates(sender, receiver, package)
+      usps_response_trimmed = usps_response.rates.sort_by(&:price).collect {|rate| [rate.service_name, rate.price, rate.delivery_range]}
 
-    usps = ActiveShipping::USPS.new(login: ENV['USPS_LOGIN'])
-    usps_response = usps.find_rates(sender, receiver, package)
-    usps_response_trimmed = usps_response.rates.sort_by(&:price).collect {|rate| [rate.service_name, rate.price, rate.delivery_range]}
+      results_hash["USPS"] = usps_response_trimmed
 
-    results_hash["USPS"] = usps_response_trimmed
+      results_hash["USPS"].each do |line|
+        method = line[0]
+        cost = line[1]
 
-    results_hash["USPS"].each do |line|
-      method = line[0]
-      cost = line[1]
+        if line[2] != []
+          delivery_estimate = line[2].first
+        else
+          delivery_estimate = nil
+        end
 
-      if line[2] != []
-        delivery_estimate = line[2].first
-      else
-        delivery_estimate = nil
+        request.results << Result.create(price: cost, provider: "USPS", service: method, delivery_est: delivery_estimate)
       end
-
-      request.results << Result.create(price: cost, provider: "USPS", service: method, delivery_est: delivery_estimate)
+    else
+      results_hash["USPS"] = "USPS CAN ONLY SHIP PACKAGES WEIGHING 70 LBS OR LESS."
     end
 
 
