@@ -5,11 +5,11 @@
 # below each fixture, per the syntax in the comments below
 #
 one:
-  shipment_id: one
+  shipment: one
   service_name: UPS Ground
   total_price: 432432
 
 two:
-  shipment_id: one
+  shipment: two
   service_name: USPS First Class
   total_price: 5438534

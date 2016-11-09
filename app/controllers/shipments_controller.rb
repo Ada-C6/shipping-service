@@ -7,4 +7,6 @@ class ShipmentsController < ApplicationController
     render json: results
   end
 
+  
+
 end

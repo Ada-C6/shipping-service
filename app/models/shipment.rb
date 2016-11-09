@@ -12,9 +12,9 @@ class Shipment < ActiveRecord::Base
   validates :units, presence: true
 
   USPS_LOGIN = ENV["USPS_LOGIN"]
-  UPS_LOGIN = ENV["UPS_LOGIN"]
-  UPS_PASSWORD = ENV["UPS_PASSWORD"]
-  UPS_KEY = ENV["UPS_KEY"]
+  UPS_LOGIN = "shopifolk"
+  UPS_PASSWORD = "Shopify_rocks"
+  UPS_KEY = "7CE85DED4C9D07AB"
 
   # package information
   def weight_conversion(weight)
@@ -47,16 +47,15 @@ class Shipment < ActiveRecord::Base
     ups = ActiveShipping::UPS.new(login: UPS_LOGIN, password: UPS_PASSWORD, key: UPS_KEY)
     response = ups.find_rates(origin, destination, package)
     response.rates.each do |rate|
-      Rate.new(shipment_id: id, service_name: rate.service_name, total_price: rate.total_price)
+      rates << Rate.create(shipment_id: id, service_name: rate.service_name, total_price: rate.total_price)
     end
   end
 
   def usps_rates
     usps = ActiveShipping::USPS.new(login: USPS_LOGIN)
     response = usps.find_rates(origin, destination, package)
-    response.rates
     response.rates.each do |rate|
-      Rate.new(shipment_id: id, service_name: rate.service_name, total_price: rate.total_price)
+      rates << Rate.create(shipment_id: id, service_name: rate.service_name, total_price: rate.total_price)
     end
   end
 end
