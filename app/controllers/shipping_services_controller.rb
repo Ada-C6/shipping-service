@@ -7,9 +7,10 @@ class ShippingServicesController < ApplicationController
     begin
       options = ShippingOption.search(params[:origin], params[:destination], params[:package])
     rescue ArgumentError
-      render nothing: true, status: :bad_request and return 
+      render nothing: true, status: :bad_request and return
     end
-
+    # if there is no ArgumentError we render the options.
+    # if there is an ArugmentError, we will have returned out of the action
     render json: options
 
   end
