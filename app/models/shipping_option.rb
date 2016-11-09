@@ -32,7 +32,7 @@ class ShippingOption < ActiveRecord::Base
   end
 
   def self.create_package(package_weight)
-    raise ArgumentError, 'Package Weight cannot be less than zero' if package_weight.to_i < 0
+    raise ArgumentError, 'Package Weight cannot be less than zero' if package_weight.to_i <= 0
 
     package = ActiveShipping::Package.new(
       package_weight.to_i * 16, # weight times 16 oz/lb.

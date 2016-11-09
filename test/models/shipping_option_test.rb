@@ -46,6 +46,13 @@ class ShippingOptionTest < ActiveSupport::TestCase
     end
   end
 
+  test "Self.create_package: we return an error if package_weight is zero" do
+    assert_raises ArgumentError do
+      weight = 0 #in pounds
+      ShippingOption.create_package(weight)
+    end
+  end
+
   test "Self.location will create a valid location" do
       zip_code = "98109"
       location = ShippingOption.location(zip_code)
