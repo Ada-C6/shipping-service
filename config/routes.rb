@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
-  # resources :shipment, except: [:new, :edit]
-  get 'rates/&:weight&:country&:state&:city&:zip', to: 'shipments#index', as: 'services'
 
-  get 'rates/&:carrier&:weight&:country&:state&:city&:zip', to: 'shipments#show', as: 'carrier'
+  get 'rates/', to: 'shipments#index', as: 'services'
+
+  get 'rates/', to: 'shipments#show', as: 'carrier'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

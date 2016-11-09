@@ -1,7 +1,7 @@
 require 'active_shipping'
 
-class ShipmentController < ApplicationController
-  before_action: :origin, :destination, :packages, :get_rates_from_shipper, :ups_rates, :fedex_rates, :usps_rates
+class ShipmentsController < ApplicationController
+  before_action :origin, :destination, :packages, :get_rates_from_shipper, :ups_rates, :fedex_rates, :usps_rates
 
   def index
 
@@ -34,7 +34,7 @@ class ShipmentController < ApplicationController
   end
 
   def ups_rates
-    ups = UPS.new(login: ENV['UPS_LOGIN'], password: ENV['UPS_PW'], key: ENV['UPS_KEY')
+    ups = UPS.new(login: ENV['UPS_LOGIN'], password: ENV['UPS_PW'], key: ENV['UPS_KEY'])
     get_rates_from_shipper(ups)
   end
 
