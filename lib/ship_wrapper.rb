@@ -2,15 +2,17 @@ require 'active_shipping'
 
 class ShipWrapper
 
-  ORIGIN =  ActiveShipping::Location.new(country: 'US', state: 'WA', city: 'Seattle', zip: '98119')
+  SELLER_ADDRESS = ActiveShipping::Location.new(country: 'US', state: 'WA', city: 'Seattle', zip: '98119')
   USPS_LOGIN = ENV["USPS_USERNAME"]
 
-  def self.get_rates(carrier, package, destination)
+  raise "cannot find USPS login" unless USPS_LOGIN
+
+  def self.get_rates(carrier, packages, buyer_address)
     case carrier.downcase
     when 'usps'
       usps = ActiveShipping::USPS.new(login: USPS_LOGIN)
-      response = usps.find_rates(ORIGIN, destination, package)
-      rates = response.rates.sort_by(&:price).collect {|rate| [rate.service_name, rate.price]}
+      response = usps.find_rates(SELLER_ADDRESS, buyer_address, packages)
+      rates = response.rates.sort_by(&:price).to_a
     when 'fedex'
       # this will be populated later. right now we are just trying with one single carrier.
     when 'ups'
