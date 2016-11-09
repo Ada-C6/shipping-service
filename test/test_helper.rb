@@ -17,8 +17,20 @@ VCR.configure do |config|
     :match_requests_on => [:method, :uri, :body] # The http method, URI and body of a request all need to match
   }
   # Don't leave our tokens lying around in a cassette file.
+  #USPS
   config.filter_sensitive_data("<ACTIVESHIPPING_USPS_LOGIN>") do
     ENV['ACTIVESHIPPING_USPS_LOGIN']
+  end
+
+  #UPS
+  config.filter_sensitive_data("<ACTIVESHIPPING_UPS_LOGIN>") do
+    ENV['ACTIVESHIPPING_UPS_LOGIN']
+  end
+  config.filter_sensitive_data("<ACTIVESHIPPING_UPS_KEY>") do
+    ENV['ACTIVESHIPPING_UPS_KEY']
+  end
+  config.filter_sensitive_data("<ACTIVESHIPPING_UPS_PASSWORD>") do
+    ENV['ACTIVESHIPPING_UPS_PASSWORD']
   end
 end
 
