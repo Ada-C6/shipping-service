@@ -15,4 +15,21 @@ class ShippingTest < ActiveSupport::TestCase
     location = Shipping.destination(country, state, city, zip)
     assert_not_nil location
   end
+
+
+
+
+
+
+  test "find the rates for a package using ups as the carrier" do
+    city = shippings(:one).city
+    state = shippings(:one).state
+    zip = shippings(:one).zip
+    country = shippings(:one).country
+
+    origin = ActiveShipping::Location.new(country: 'US', state: 'WA', city: 'Seattle', zip: '98122')
+
+    packages 
+    destination = Shipping.destination(country, state, city, zip)
+  end
 end
