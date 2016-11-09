@@ -24,8 +24,6 @@ class ShippingControllerTest < ActionController::TestCase
     assert_match 'application/json', response.header['Content-Type']
     body = JSON.parse(response.body)
 
-    puts body
-
     assert_instance_of Array, body
 
     body.each do |rate|

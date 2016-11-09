@@ -1,5 +1,7 @@
 class ShippingController < ApplicationController
   def search
+    logger.info(">>>>>>>>>>> REQUEST PARAMS: #{ params }")
+
     shipment_hash = {
       weight: params[:weight].to_f,
       origin_country: params[:origin_country],
@@ -20,5 +22,6 @@ class ShippingController < ApplicationController
 
     render json: results, except: [:created_at, :updated_at]
 
+    logger.info(">>>>>>>>>>> RENDERED: #{ results.to_json }")
   end
 end
