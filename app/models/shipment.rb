@@ -11,7 +11,7 @@ class Shipment < ActiveRecord::Base
   validates :zipcode, presence: true
   validates :units, presence: true
 
-  USPS_LOGIN = ENV["USPS_LOGIN"]
+  USPS_LOGIN = "677JADED7283"
   UPS_LOGIN = "shopifolk"
   UPS_PASSWORD = "Shopify_rocks"
   UPS_KEY = "7CE85DED4C9D07AB"

@@ -232,10 +232,4 @@ class ShipmentTest < ActiveSupport::TestCase
       end
     end
   end
-
-#   test "#ups_rates should create Rate instances" do
-#     VCR.use_cassette("shipments") do
-#       ups_rates = shipments(:one).ups_rates
-#     end
-#   end
-# end
+end
