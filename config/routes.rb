@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  get 'shippping_quotes', to: 'shipping_quotes#index', as: 'shipping_quotes'
+  get 'shipping_quotes', to: 'shipping_quotes#index', as: 'shipping_quotes'
   post 'shipping_quotes', to: 'shipping_quotes#index', as: 'shipping'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
