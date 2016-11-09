@@ -12,7 +12,7 @@ class ShipWrapper
     when 'usps'
       usps = ActiveShipping::USPS.new(login: USPS_LOGIN)
       response = usps.find_rates(SELLER_ADDRESS, buyer_address, packages)
-      rates = response.rates.sort_by(&:price).collect {|rate| [rate.service_name, rate.price]}
+      rates = response.rates.sort_by(&:price).to_a
     when 'fedex'
       # this will be populated later. right now we are just trying with one single carrier.
     when 'ups'

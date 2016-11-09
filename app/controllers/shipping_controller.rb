@@ -78,14 +78,29 @@ class ShippingController < ApplicationController
 
     rates =  ShipWrapper.get_rates("usps", packages, destination)
 
-    rates.each do |rate_array|
-      Quote.create(carrier: rate_array[0], rate: rate_array[1], request_id: params[:id])
+    responses = []
+    rates.each do |rate|
+      carrier = rate.carrier
+      service_name = rate.service_name
+      delivery_date = rate.delivery_date
+      total_price = rate.total_price
+
+      # TODO, update Quote model to include all info above
+      Quote.create(
+        carrier: carrier,
+        rate: total_price,
+        request_id: params[:id]
+      )
+
+      responses << {
+        :carrier            => carrier,
+        :service_name       => service_name,
+        :cost               => total_price,
+        :tracking_info      => nil,
+        :delivery_estimate  => delivery_date,
+      }
     end
 
-    list_of_quotes = Quote.where(request_id: params[:id])
-
-
-    render :json => list_of_quotes.as_json
-
+    render :json => responses.as_json
   end
 end
