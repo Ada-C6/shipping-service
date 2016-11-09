@@ -4,8 +4,17 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-one: {}
+one:
+  city: Pasadena
+  state: CA
+  zip: 91107
+  weight: 15
+
 # column: value
 #
-two: {}
+two:
+  city: Seattle
+  state: WA
+  zip: 98115
+  weight: 4
 #  column: value
