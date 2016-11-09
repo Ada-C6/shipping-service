@@ -21,7 +21,7 @@ class ShippingRate < ActiveRecord::Base
     usps_rates = response_usps.rates.sort_by(&:price).collect {|rate| [rate.service_name, rate.price]}
 
     ups = ActiveShipping::UPS.new(login: 'shopifolk', password: 'Shopify_rocks', key: '7CE85DED4C9D07AB')
-    response_ups = ups.find_rates(origin, destination, packages)
+    response_ups = ups.find_rates(origin, destination, package)
     ups_rates = response_ups.rates.sort_by(&:price).collect {|rate| [rate.service_name, rate.price]}
 
     all_rates = []
