@@ -1,5 +1,6 @@
 class Shipment < ActiveRecord::Base
-
+  has_many :quotes
+  
   def get_destination
     return ActiveShipping::Location.new(country: self.country, city: self.city, zip: self.zip)
   end
@@ -24,12 +25,28 @@ class Shipment < ActiveRecord::Base
     return ups_rates
   end
 
-  # def usps_rates
-  #   ups = ActiveShipping::USPS.new(login: ENV["ACTIVESHIPPING_USPS_LOGIN"])
-  #   response = usps.find_rates(origin, destination, packages)
-  #   usps_rates = response.rates.sort_by(&:price).collect {|rate| [rate.service_name, rate.price]}
-  #   return ups_rates
-  # end
+  def usps_rates
+    usps = ActiveShipping::USPS.new(login: ENV["ACTIVESHIPPING_USPS_LOGIN"])
+    dest = get_destination
+    pack = []
+    pack << get_package
+    origin = get_origin
+    response = usps.find_rates(origin, dest, pack)
+    usps_rates = response.rates.sort_by(&:price).collect {|rate| [rate.service_name, rate.price]}
+    return usps_rates
+  end
+
+  def all_rates
+    usps_rates + ups_rates
+  end
+
+  def generate_quotes
+    quote_array = []
+    all_rates.each do |rate|
+      quote_array << Quote.create(shipment_id: self.id, name: rate[0], price: rate[1])
+    end
+    return quote_array
+  end
 end
 
 # TODO: Make Rates model which belongs-to Shipment. This will store all the rates, so later Petsy can go find that rate. Somehow.
