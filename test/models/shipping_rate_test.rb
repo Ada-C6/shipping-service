@@ -37,16 +37,26 @@ class ShippingRateTest < ActiveSupport::TestCase
 
 
 
+  test "get_rates should return an appropriate response when zip code and state don't match" do
+    shipment = { weight: 10,
+      origin_country: "US",
+      origin_state: "WA",
+      origin_city: "Seattle",
+      origin_zip: "98122",
+      destination_country: "US",
+      destination_state: "NY",
+      destination_city: "Brooklyn",
+      destination_zip: "98101" }
+
+    assert_raises ActiveShipping::ResponseError do
+      ShippingRate.get_rates(shipment)
+      assert_match /Failure/, ActiveShipping::ResponseError.response
+    end
+  end
 
 
-  # test "get_rate method should return an arra" do
-  #
-  # end
 
-  # test "" do
-  #
-  # end
-  #
+
   # test "" do
   #
   # end

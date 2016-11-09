@@ -41,6 +41,27 @@ class ShippingControllerTest < ActionController::TestCase
 
   end
 
+  test "API passes back ResponseErrors in json" do
+    get :search, { weight: 10,
+      origin_country: "US",
+      origin_state: "WA",
+      origin_city: "Seattle",
+      origin_zip: "98122",
+      destination_country: "US",
+      destination_state: "NY",
+      destination_city: "Brooklyn",
+      destination_zip: "98101" }
+
+    # Check the response
+    assert_match 'application/json', response.header['Content-Type']
+    body = JSON.parse(response.body)
+    assert_instance_of Hash, body
+
+    assert_not_empty body["error"]
+
+    assert_match /Failure/, body["error"]
+  end
+
   # test "search_rates will " do
   #
   # end
