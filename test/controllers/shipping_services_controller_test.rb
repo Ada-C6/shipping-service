@@ -41,6 +41,13 @@ class ShippingServicesControllerTest < ActionController::TestCase
     end
   end
 
+  test "if model returns ArgumentError, search returns a bad_request status" do
+    VCR.use_cassette("shipments") do
+      get :search, { origin: '98101', destination: '98107' }
+      assert_response :bad_request
+    end
+  end
+
   test "given an id, show returns a json hash for that shipping option" do
 
     keys = %w( cost id name )
