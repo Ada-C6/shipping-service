@@ -10,11 +10,8 @@ one:
   zip: 91107
   weight: 15
 
-# column: value
-#
 two:
   city: Seattle
   state: WA
   zip: 98115
   weight: 4
-#  column: value

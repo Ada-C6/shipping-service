@@ -1,5 +1,6 @@
 class Shipment < ActiveRecord::Base
   has_many :quotes
+  #add validation
   
   def get_destination
     return ActiveShipping::Location.new(country: self.country, city: self.city, zip: self.zip)
@@ -48,5 +49,3 @@ class Shipment < ActiveRecord::Base
     return quote_array
   end
 end
-
-# TODO: Make Rates model which belongs-to Shipment. This will store all the rates, so later Petsy can go find that rate. Somehow.
