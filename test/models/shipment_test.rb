@@ -177,6 +177,12 @@ class ShipmentTest < ActiveSupport::TestCase
     assert_includes shipment.errors, :units
   end
 
+  test "#origin returns a Location object" do
+    shipment = shipments(:one)
+    origin = shipment.origin
+    assert_instance_of ActiveShipping::Location, origin
+  end
+
   test "#destination returns a Location object" do
     shipment = shipments(:one)
     destination = shipment.destination
