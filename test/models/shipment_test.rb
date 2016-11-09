@@ -177,6 +177,24 @@ class ShipmentTest < ActiveSupport::TestCase
     assert_includes shipment.errors, :units
   end
 
+  test "#package will return a Package object" do
+    shipment = shipments(:one)
+    package = shipment.package
+    assert_instance_of ActiveShipping::Package, package
+  end
+
+  test "#weight_conversion on a package measured in metric system will return the same weight value" do
+    shipment = shipments(:two)
+    metric_weight = shipment.weight_conversion(shipment.weight)
+    assert_equal metric_weight, shipment.weight
+  end
+
+  test "#weight_conversion on a package measured in imperial system will return the weight value times 16" do
+    shipment = shipments(:one)
+    imperial_weight = shipment.weight_conversion(shipment.weight)
+    assert_equal imperial_weight, (shipment.weight*16)
+  end
+
   test "#origin returns a Location object" do
     shipment = shipments(:one)
     origin = shipment.origin
@@ -194,6 +212,24 @@ class ShipmentTest < ActiveSupport::TestCase
     assert_equal shipment.zipcode, destination.postal_code
   end
 
-  # test "#get_rates returns an array"
+  # reason: we don't know if UPS impose a limit on the number of times we can call their API
+  test "#ups_rates would return an array of UPS rates" do
+    VCR.use_cassette("shipments") do
+      ups_rates = shipments(:one).ups_rates
+      assert_instance_of Array, ups_rates
+      ups_rates.each do |rate|
+        assert_instance_of ActiveShipping::RateEstimate, rate
+      end
+    end
+  end
 
+  test "#usps_rates would return an array of USPS rates" do
+    VCR.use_cassette("shipments") do
+      usps_rates = shipments(:one).usps_rates
+      assert_instance_of Array, usps_rates
+      usps_rates.each do |rate|
+        assert_instance_of ActiveShipping::RateEstimate, rate
+      end
+    end
+  end
 end

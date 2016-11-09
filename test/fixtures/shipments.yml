@@ -11,3 +11,16 @@ one:
   country: United States
   zipcode: 89121
   units: imperial
+
+
+two:
+  carrier: USPS
+  weight: 12.0
+  height: 12.0
+  length: 12.0
+  width: 12.0
+  city: Las Vegas
+  state: NV
+  country: United States
+  zipcode: 89121
+  units: metric
