@@ -11,11 +11,10 @@ def self.destination(country, state, city, zip)
   ActiveShipping::Location.new(address)
 end
 
-
-
 # create_packages will create objects and take array of weights ex: [12, 35, 5]
-def create_packages(weights_array)
+def self.create_packages(weights_string)
   packages = []
+  weights_array = weights_string.split(",").map(&:to_i)
   weights_array.each do |item|
     packages << ActiveShipping::Package.new(item * 16, [15, 10, 4.5], units: :imperial)
   end

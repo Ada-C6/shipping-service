@@ -15,4 +15,12 @@ class ShippingTest < ActiveSupport::TestCase
     location = Shipping.destination(country, state, city, zip)
     assert_not_nil location
   end
+
+  test "should return array of packages" do
+    weights_string = shippings(:weights_one).weights
+    packages = Shipping.create_packages(weights_string)
+    assert_not_nil packages
+    assert_kind_of Array, packages
+    assert_equal packages.count, 5
+  end
 end

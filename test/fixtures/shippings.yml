@@ -10,16 +10,17 @@ one:
   city: 'Portland'
   zip: '97201'
 
-# two:
-#   destination_hash:
-#         country: US
-#         state: WA
-#         city: Seattle
-#         zip: 98126
-#
-# three:
-#   destination_hash:
-#     country: CA
-#     state: British Columbia
-#     city: Vancouver
-#     zip: V6C 2Y9
+two:
+  country: 'US'
+  state: 'WA'
+  city: 'Seattle'
+  zip: '98126'
+
+three:
+  country: 'CA'
+  state: 'British Columbia'
+  city: 'Vancouver'
+  zip: 'V6C 2Y9'
+
+weights_one:
+  weights: '1, 2, 4.5, 7.31, 29.45'
