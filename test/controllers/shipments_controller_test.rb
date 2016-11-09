@@ -9,7 +9,9 @@ class ShipmentsControllerTest < ActionController::TestCase
 
   # REWRITE THIS TEST COPIED FROM MODEL TEST
   test "(index) #get_rates_from_shipper returns json and all rates for user" do
-    get :index, {weight: 15, length: 10, width: 10, height: 10}
+
+    get :index, params: { weight: 20, country: "US", zip: "98136" }
+
     assert_match 'application/json', response.header['Content-Type']
 
     body = JSON.parse(response.body)
