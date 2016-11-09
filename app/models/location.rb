@@ -1,4 +1,5 @@
 class Location < ActiveRecord::Base
+  belongs_to :shipment
 
   validates :country, :state, :city, :zip, presence: true
 

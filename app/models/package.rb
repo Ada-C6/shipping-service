@@ -1,4 +1,5 @@
 class Package < ActiveRecord::Base
+  belongs_to :shipment
 
   validates :weight, :length, :width, :height, presence: true
 
