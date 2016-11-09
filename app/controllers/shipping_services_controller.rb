@@ -13,6 +13,8 @@ class ShippingServicesController < ApplicationController
     # if there is an ArugmentError, we will have returned out of the action
     render json: options
 
+    # Logging
+    create_logs
   end
 
   def show
@@ -23,5 +25,17 @@ class ShippingServicesController < ApplicationController
     else
       render nothing: true, status: :not_found
     end
+
+    # Logging
+    create_logs
+  end
+
+  private
+
+  def create_logs
+    logger.info(">>>>request: #{params}")
+
+    logger.info(">>>>response: #{response.body}")
+    logger.info(">>>>response_code: #{response.response_code}")
   end
 end
