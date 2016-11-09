@@ -1,7 +1,7 @@
 class ShippingController < ApplicationController
 
   def index
-    shippings = Shipping.all
+    shippings = Shipping.new
     render json: shippings
   end
 

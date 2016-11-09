@@ -5,22 +5,21 @@
 # below each fixture, per the syntax in the comments below
 #
 one:
-  destination_hash:
-    country: US
-    state: OR
-    city: Portland
-    zip: 97201
+  country: 'US'
+  state: 'OR'
+  city: 'Portland'
+  zip: '97201'
 
-two:
-  destination_hash:
-        country: US
-        state: WA
-        city: Seattle
-        zip: 98126
-
-three:
-  destination_hash:
-        country: CA
-        state: British Columbia
-        city: Vancouver
-        zip: V6C 2Y9
+# two:
+#   destination_hash:
+#         country: US
+#         state: WA
+#         city: Seattle
+#         zip: 98126
+#
+# three:
+#   destination_hash:
+#     country: CA
+#     state: British Columbia
+#     city: Vancouver
+#     zip: V6C 2Y9

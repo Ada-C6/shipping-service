@@ -1,16 +1,16 @@
   require 'active_shipping'
 
 class Shipping < ActiveRecord::Base
-  attr_reader
+  # attr_reader :
 ORIGIN = ActiveShipping::Location.new(country: 'US', state: 'WA', city: 'Seattle', zip: '98122')
 
 
 # destination_hash comes from petsy ex: {country: '', state: '', city: '', zip: ''}
-
-def destination(destination_hash)
-  @local_dest = ActiveShipping::Location.new(destination_hash)
-  return @local_dest
+def self.destination(country, state, city, zip)
+  address = {country: "#{country}", state: "#{state}", city: "#{city}", zip: "#{zip}"}
+  ActiveShipping::Location.new(address)
 end
+
 
 
 # create_packages will create objects and take array of weights ex: [12, 35, 5]

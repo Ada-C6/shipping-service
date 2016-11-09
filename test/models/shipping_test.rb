@@ -7,9 +7,12 @@ class ShippingTest < ActiveSupport::TestCase
   # end
 
   test "should create a destination" do
-    destination_hash = shippings(:one).destination_hash
-    portland = Shipping.new
-    locale = portland.destination(destination_hash)
-    assert_not_nil locale
+    city = shippings(:one).city
+    state = shippings(:one).state
+    zip = shippings(:one).zip
+    country = shippings(:one).country
+    # address = country: '#{country}', state: '#{state}', city: '#{city}', zip: '#{zip}'"
+    location = Shipping.destination(country, state, city, zip)
+    assert_not_nil location
   end
 end
