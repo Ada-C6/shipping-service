@@ -42,7 +42,7 @@ class ShipmentTest < ActiveSupport::TestCase
     assert_kind_of Array, rates[0]
   end
 
-  test "#all_rates should return and array of arrays whose length is the sum of both carrier rates" do
+  test "#all_rates should return an array of arrays whose length is the sum of both carrier rates" do
     ship = Shipment.new(city: "Seattle", zip: "98108", weight: 10)
     usps_rates = ship.usps_rates
     ups_rates = ship.ups_rates
