@@ -25,17 +25,17 @@ end
 
 
 
-#def ups(destination, weight)
+def ups(destination, weight)
 
-  # ups = ActiveShipping::UPS.new(
-  #   login: ENV[ACTIVESHIPPING_UPS_LOGIN],
-  #   password: ENV[ACTIVESHIPPING_UPS_PASSWORD], key: ENV[ACTIVESHIPPING_UPS_KEY])
+  ups = ActiveShipping::UPS.new(
+    login: ENV[ACTIVESHIPPING_UPS_LOGIN],
+    password: ENV[ACTIVESHIPPING_UPS_PASSWORD], key: ENV[ACTIVESHIPPING_UPS_KEY])
 
-  # response = ups.find_rates(origin, destination, packages)
+  response = ups.find_rates(origin, destination, packages)
 
-  # ups_rates = response.rates.sort_by(&:price).collect {|rate| [rate.service_name, rate.price]}
+  ups_rates = response.rates.sort_by(&:price).collect {|rate| [rate.service_name, rate.price]}
 
-#end
+end
 
 # def usps
 #

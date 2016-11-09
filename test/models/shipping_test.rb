@@ -21,6 +21,12 @@ class ShippingTest < ActiveSupport::TestCase
 
 
 
+
+
+
+
+
+
   test "find the rates for a package using ups as the carrier" do
     city = shippings(:one).city
     state = shippings(:one).state
@@ -29,7 +35,7 @@ class ShippingTest < ActiveSupport::TestCase
 
     origin = ActiveShipping::Location.new(country: 'US', state: 'WA', city: 'Seattle', zip: '98122')
 
-    packages 
+    packages
     destination = Shipping.destination(country, state, city, zip)
   end
 end
