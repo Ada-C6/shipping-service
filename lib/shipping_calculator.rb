@@ -17,15 +17,18 @@ class ShippingCalculator
 	                                       state: 'WA',
 	                                       city: "Seattle",
 	                                       zip: '98122')
+
+	  	#change login stuff to environment variables
 	  	case service
 	  	when 'usps'
-	   		usps = ActiveShipping::USPS.new(login: '527118306406')
+	   		usps = ActiveShipping::USPS.new(login: ENV['USPS_LOGIN'])
 	   		response = usps.find_rates(origin, destination, package)
+	   		
 	   	when 'ups'
-	   		ups = ActiveShipping::UPS.new(login: 'shopifolk', password: 'Shopify_rocks', key: '7CE85DED4C9D07AB')
+	   		ups = ActiveShipping::UPS.new(login: ENV['UPS_LOGIN'], password: ENV['UPS_PASSWORD'], key: ENV['UPS_KEY'])
 	   		response = ups.find_rates(origin, destination, package)
 	   	end 
-	   return response
+	   return response.rates.sort_by(&:price).collect {|rate| [rate.service_name, rate.price]}
 
 	end
 end
