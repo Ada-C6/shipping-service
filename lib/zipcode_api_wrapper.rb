@@ -9,7 +9,7 @@ class Zipcode_Api_Wrapper
 
   def self.get_distance(from, to)
     # Adding CGI::escape to santize user search inputß
-    url = "https://www.zipcodeapi.com/rest/#{KEY}/distance.json/#{from.to_s}/#{to.to_s}/mile"
+    url = "https://www.zipcodeapi.com/rest/#{KEY}/distance.json/#{from}/#{to}/mile"
 
     response = HTTParty.get(url)
     distance = response["distance"]
