@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  get '/shipments', to: 'shipments#index', as: 'shipments'
-  post '/shipments', to: 'shipments#create', as: 'shipments_create'
+  get '/shipping_quotes', to: 'shipments#index', as: 'shipping_quotes'
+  get '/shipment', to: 'shipments#show', as: 'shipment'
 
 end
