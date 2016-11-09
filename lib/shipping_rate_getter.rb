@@ -8,6 +8,9 @@ class ShippingRateGetter
     sender = ActiveShipping::Location.new(country: 'US', zip: origin_zip)
     receiver = ActiveShipping::Location.new(country: 'US', zip: destination_zip)
 
+    request = Request.new(weight: weight, origin_zip: origin_zip, destination_zip: destination_zip, length: size[0], width: size[1], height: size[2])
+    request.save
+
     results_hash = {}
 
     ups = ActiveShipping::UPS.new(login: ENV['UPS_LOGIN'], password: ENV['UPS_PASSWORD'], key: ENV['UPS_KEY'])
