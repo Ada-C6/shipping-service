@@ -57,7 +57,7 @@ end
 
 group :test do
   gem 'minitest-reporters'
-  gem 'simplecov', :require => false
+  gem 'simplecov'
 end
 
 group :production do

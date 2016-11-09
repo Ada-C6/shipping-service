@@ -41,8 +41,26 @@ class ShipmentsController < ApplicationController
     origin = Shipment.origin
     destination = Shipment.destination(destination_hash)
 
-    ups_rates = Shipment.ups_rates(origin, destination, package)
-    usps_rates = Shipment.usps_rates(origin, destination, package)
+    ups = Shipment.ups_rates(origin, destination, package)
+    usps = Shipment.usps_rates(origin, destination, package)
+
+    ups_rates = []
+    ups.each do | option |
+      option_info = {}
+      option_info[:carrier] = option.carrier
+      option_info[:service_name] = option.service_name
+      option_info[:total_price] = option.total_price
+      ups_rates << option_info
+    end
+
+    usps_rates = []
+    usps.each do | option |
+      option_info = {}
+      option_info[:carrier] = option.carrier
+      option_info[:service_name] = option.service_name
+      option_info[:total_price] = option.total_price
+      usps_rates << option_info
+    end
 
     all_shipping_options = {ups_rates: ups_rates, usps_rates: usps_rates}
 

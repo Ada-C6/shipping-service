@@ -31,42 +31,6 @@ class ShipmentsControllerTest < ActionController::TestCase
     end
   end
 
-  # test "appropriate associated objects are created in the #index" do
-  #   VCR.use_cassette("shipments") do
-  #     get :index, TEST_PARAMS
-  #
-  #     package = assigns[:package]
-  #
-  #     assert_instance_of ActiveShipping::Package, package
-  #     assert_instance_of ActiveShipping::Location,assigns[:origin]
-  #     assert_instance_of ActiveShipping::Location,assigns[:destination]
-  #
-  #     assert_equal TEST_PARAMS[:weight], package.pounds
-  #     assert_equal package.inches, [4.5, 10.0, 15.0]
-  #
-  #     origin = assigns[:origin]
-  #     destination = assigns[:destination]
-  #     assert_equal TEST_PARAMS[:city], destination.city
-  #     assert_equal TEST_PARAMS[:state], destination.state
-  #     assert_equal origin.city, "Seattle"
-  #     assert_equal origin.state, "WA"
-  #
-  #     assert_response :success
-  #   end
-  # end
-
-  # test "ups_rates and usps_rates each returns an array of shipping options" do
-  #   VCR.use_cassette("shipments") do
-  #     get :index, TEST_PARAMS
-  #
-  #     ups = assigns[:ups_rates]
-  #     usps = assigns[:usps_rates]
-  #
-  #     assert_instance_of Array, ups
-  #     assert_instance_of Array, usps
-  #   end
-  # end
-
   test "#index returns json" do
     VCR.use_cassette("shipments") do
       get :index, TEST_PARAMS
@@ -75,14 +39,27 @@ class ShipmentsControllerTest < ActionController::TestCase
     end
   end
 
-  # test "#index returns an hash of objects" do
-  #   VCR.use_cassette("shipments") do
-  #     get :index, TEST_PARAMS
-  #     # Assign the result of the response from the controller action
-  #     all_shipping_options = assigns[:all_shipping_options]
-  #     assert_instance_of Hash, all_shipping_options
-  #     body = JSON.parse(response.body)
-  #     assert_instance_of Hash, body
-  #   end
-  # end
+  test "each shipment object contains the relevant keys" do
+    VCR.use_cassette("shipments") do
+      keys = %w(carrier service_name total_price)
+
+      get :index, TEST_PARAMS
+
+      body = JSON.parse(response.body)
+      body.each do |carrier|
+        carrier_keys = carrier[1][1].keys
+        assert_equal keys, carrier_keys.sort
+        assert_equal carrier_keys.length, 3
+      end
+    end
+  end
+
+  test "#index returns an hash of objects" do
+    VCR.use_cassette("shipments") do
+      get :index, TEST_PARAMS
+
+      body = JSON.parse(response.body)
+      assert_instance_of Hash, body
+    end
+  end
 end
