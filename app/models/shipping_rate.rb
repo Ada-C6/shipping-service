@@ -17,14 +17,20 @@ class ShippingRate < ActiveRecord::Base
     zip: shipment_hash[:destination_zip])
 
     usps = ActiveShipping::USPS.new(login: '677JADED7283')
+    response_usps = usps.find_rates(origin, destination, package)
+    usps_rates = response_usps.rates.sort_by(&:price).collect {|rate| [rate.service_name, rate.price]}
 
-    response = usps.find_rates(origin, destination, package)
-
-    usps_rates = response.rates.sort_by(&:price).collect {|rate| [rate.service_name, rate.price]}
+    ups = ActiveShipping::UPS.new(login: 'shopifolk', password: 'Shopify_rocks', key: '7CE85DED4C9D07AB')
+    response_ups = ups.find_rates(origin, destination, packages)
+    ups_rates = response_ups.rates.sort_by(&:price).collect {|rate| [rate.service_name, rate.price]}
 
     all_rates = []
 
     usps_rates.each do |rate|
+      all_rates << ShippingRate.create(name: rate[0], cost: rate[1])
+    end
+
+    ups_rates.each do |rate|
       all_rates << ShippingRate.create(name: rate[0], cost: rate[1])
     end
 
