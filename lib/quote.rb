@@ -10,6 +10,7 @@ class Quote
   def initialize(weight, origin = {}, destination = {}, dimensions = [15, 10, 4.5])
 
     @package = ActiveShipping::Package.new(weight*16, dimensions, units: :imperial)
+    
     #update the params when we create API wrapper in Petsy
     @origin = ActiveShipping::Location.new({country: 'US', state: 'WA', city: 'Seattle',zip: '98122'})
     @destination = ActiveShipping::Location.new(destination)
