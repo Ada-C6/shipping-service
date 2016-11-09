@@ -4,22 +4,26 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-one:
+destination_one:
   country: 'US'
   state: 'OR'
   city: 'Portland'
   zip: '97201'
 
-# two:
-#   destination_hash:
-#         country: US
-#         state: WA
-#         city: Seattle
-#         zip: 98126
-#
-# three:
-#   destination_hash:
-#     country: CA
-#     state: British Columbia
-#     city: Vancouver
-#     zip: V6C 2Y9
+destination_two:
+  country: 'US'
+  state: 'WA'
+  city: 'Seattle'
+  zip: '98126'
+
+destination_three:
+  country: 'CA'
+  state: 'British Columbia'
+  city: 'Vancouver'
+  zip: 'V6C 2Y9'
+
+weights_one:
+  weights: '1, 2, 4.5, 7.31, 29.45'
+
+weights_two:
+  weights: '3.5, 2.67, 12'
