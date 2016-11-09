@@ -1,14 +1,13 @@
 class ShippingServicesController < ApplicationController
   def show
-  	weight=params[:query]
-  	dest_zip=params[:dest_zip]
+  	weight=params[:weight].to_f
+  	dest_zip=params[:to]
+  	service=params[:service]
+  	
+   response = ShippingCalculator.calc_shipping(weight,dest_zip,service)
 
-
-  	#package=Package.save(weight: weight, destination_zip: dest_zip)
-    ActiveShipping::Package.new(weight * 16,          
-                             	[10, 10, 10],     
-                             	units: :imperial) 	
-
-    render :json => package.as_json, :status => :ok
+   #usps_rates = response.rates.sort_by(&:price).collect {|rate| [rate.service_name, rate.price]}
+   
+   render :json => response.as_json, :status => :ok
   end
 end
