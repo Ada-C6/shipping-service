@@ -71,3 +71,6 @@ bower.json
 
 # Ignore pow environment settings
 .powenv
+
+# Hide .env file
+.env
