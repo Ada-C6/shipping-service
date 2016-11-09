@@ -20,9 +20,13 @@ UPS_PASSWORD = ENV['ACTIVESHIPPING_UPS_PASSWORD']
       ups_credentials = ActiveShipping::UPS.new(login: UPS_LOGIN, password: UPS_PASSWORD, key: UPS_KEY)
       response = ups_credentials.find_rates(@origin, @destination, @package)
 
-      # UPS rates/quotes
-      return ups_rates = response.rates.sort_by(&:price).collect {|rate| [rate.service_name, rate.price]}
+      # UPS rates/quotes [ [],[],... ]
+      return response.rates.sort_by(&:price).collect {|rate| [rate.service_name, rate.price]}
     end
   end
+
+  # method putting quotes together parcel.carrier_quotes([ups,usps,canadapost] )
+
+
 
 end
