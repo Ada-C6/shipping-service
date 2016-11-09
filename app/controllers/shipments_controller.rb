@@ -1,8 +1,10 @@
 class ShipmentsController < ApplicationController
   def index
-    # a collection of Shipment objects, can be anything.
-    shipments = [] # just a placeholder
-    render json: shipments
+    s = Shipment.create(params)
+    s.ups_rates
+    s.usps_rates
+    results = s.rates
+    render json: results
   end
 
 end

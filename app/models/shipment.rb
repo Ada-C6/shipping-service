@@ -1,6 +1,6 @@
-# require 'active_shipping'
-
 class Shipment < ActiveRecord::Base
+  has_many :rates
+
   validates :weight, presence: true
   validates :height, presence: true
   validates :length, presence: true
@@ -46,12 +46,17 @@ class Shipment < ActiveRecord::Base
   def ups_rates
     ups = ActiveShipping::UPS.new(login: UPS_LOGIN, password: UPS_PASSWORD, key: UPS_KEY)
     response = ups.find_rates(origin, destination, package)
-    return response.rates
+    response.rates.each do |rate|
+      Rate.new(shipment_id: id, service_name: rate.service_name, total_price: rate.total_price)
+    end
   end
 
   def usps_rates
     usps = ActiveShipping::USPS.new(login: USPS_LOGIN)
     response = usps.find_rates(origin, destination, package)
-    return response.rates
+    response.rates
+    response.rates.each do |rate|
+      Rate.new(shipment_id: id, service_name: rate.service_name, total_price: rate.total_price)
+    end
   end
 end
