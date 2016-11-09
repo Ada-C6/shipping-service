@@ -58,4 +58,12 @@ class ShippingServicesControllerTest < ActionController::TestCase
      # make sure there are only the keys we want
      assert_equal keys, body.keys.sort
   end
+
+  test "given an id that doesn't exist, show returns not found" do
+    get :show, { id: ShippingOption.last.id + 1 }
+
+    assert_response :not_found
+
+    assert_empty response.body
+  end
 end
