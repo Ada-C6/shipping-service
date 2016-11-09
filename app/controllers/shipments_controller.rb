@@ -1,6 +1,7 @@
 class ShipmentsController < ApplicationController
   def index
-    shipments = []
+    # a collection of Shipment objects, can be anything.
+    shipments = [] # just a placeholder
     render json: shipments
   end
 

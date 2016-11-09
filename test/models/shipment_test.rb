@@ -193,4 +193,7 @@ class ShipmentTest < ActiveSupport::TestCase
     assert_equal shipment.country, destination.country.name
     assert_equal shipment.zipcode, destination.postal_code
   end
+
+  # test "#get_rates returns an array"
+
 end

@@ -23,4 +23,5 @@ class Shipment < ActiveRecord::Base
     return ActiveShipping::Location.new(country: country, state: state, city: city, postal_code: zipcode)
   end
 
+  # response = ups.find_rates(origin, destination, packages)
 end
