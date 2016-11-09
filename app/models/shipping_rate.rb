@@ -29,7 +29,7 @@ class ShippingRate < ActiveRecord::Base
     usps_rates.each do |rate|
       all_rates << ShippingRate.create(name: rate[0], cost: rate[1])
     end
-
+    
     ups_rates.each do |rate|
       all_rates << ShippingRate.create(name: rate[0], cost: rate[1])
     end
