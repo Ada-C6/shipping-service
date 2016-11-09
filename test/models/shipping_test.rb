@@ -43,6 +43,7 @@ class ShippingTest < ActiveSupport::TestCase
     assert_kind_of Array, rates
     assert_kind_of Array, rates[0]
     assert_equal rates.count, 6
+    puts rates
   end
 
 end
