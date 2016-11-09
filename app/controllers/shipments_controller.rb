@@ -13,10 +13,10 @@ class ShipmentsController < ApplicationController
     get_rates_from_shipper(ups)
   end
 
-  def fedex_rates
-    fedex = ActiveShipping::FedEx.new(login: ENV['FEDEX_METER_NO'], password: ENV['FEDEX_PW'], account: ENV['FEDEX_ACCT'], test: true)
-    get_rates_from_shipper(fedex)
-  end
+  # def fedex_rates
+  #   fedex = ActiveShipping::FedEx.new(login: ENV['FEDEX_METER_NO'], password: ENV['FEDEX_PW'], account: ENV['FEDEX_ACCT'], test: true)
+  #   get_rates_from_shipper(fedex)
+  # end
 
   def usps_rates
     usps = ActiveShipping::USPS.new(login: ENV['USPS_LOGIN'])
@@ -25,26 +25,33 @@ class ShipmentsController < ApplicationController
 
   def index
     carrier_estimates = []
-    carrier_estimates.push(ups_rates, fedex_rates, usps_rates)
+    carrier_estimates.push(ups_rates, usps_rates)
     render json: carrier_estimates
-
   end
 
   def show
     render :json => { ready_for_lunch: "yassss" }
   end
 
+  def create
+    logger.info("Request for shipment of box size 10x10x10 from facility at Seattle, WA 98161. Weight of package and final destination: #{ params }")
+    shipment = Shipment.new(shipment_params)
+    shipment.save
+
+  end
+
   private
 
-  # def shipment_params
-  # end
+  def shipment_params
+    params.require(:shipment).permit(params[:weight], params[:country], params[:state], params[:city], params[:zip])
+  end
 
   def origin
     ActiveShipping::Location.new(country: "US", state: "WA", city: "Seattle", zip: "98161")
   end
 
   def destination
-    ActiveShipping::Location.new(country: "US", state: "RI", city: "Providence", zip: "02905")
+    ActiveShipping::Location.new(params[:country], params[:state], params[:city], params[:zip])
   end
 
   def packages
