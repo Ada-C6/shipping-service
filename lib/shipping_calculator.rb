@@ -18,7 +18,6 @@ class ShippingCalculator
 	                                       city: "Seattle",
 	                                       zip: '98122')
 
-	  	#change login stuff to environment variables
 	  	case service
 	  	when 'usps'
 	   		usps = ActiveShipping::USPS.new(login: ENV['USPS_LOGIN'])
