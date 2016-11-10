@@ -9,19 +9,28 @@ class ShipmentsControllerTest < ActionController::TestCase
       assert_instance_of Hash, body
       assert_response :success
       assert_equal 3, body.length
-      # assert_equal response["message"]["text"], message
     end
   end
 
   test "correct quote for a shipment" do
     VCR.use_cassette("correct_quote") do
       get :index, {weight: 2, origin_zip: 98122, destination_zip: 98122}
-      assert_equal JSON.parse(response.body)["UPS"][0][0], "UPS Ground"
-      assert_equal JSON.parse(response.body)["UPS"][0][1], 1376
-      assert_equal JSON.parse(response.body)["USPS"][0][0], "USPS Library Mail Parcel"
-      assert_equal JSON.parse(response.body)["USPS"][0][1], 294
-      assert_equal JSON.parse(response.body)["Fedex"][6][0], "FedEx First Overnight"
-      assert_equal JSON.parse(response.body)["Fedex"][6][1], 7035
+
+      JSON.parse(response.body)["UPS"].each do |array|
+        assert array[0].include?("UPS")
+        assert array[1].is_a?(Integer)
+      end
+
+      JSON.parse(response.body)["USPS"].each do |array|
+        assert array[0].include?("USPS")
+        assert array[1].is_a?(Integer)
+      end
+
+      JSON.parse(response.body)["Fedex"].each do |array|
+        assert array[0].include?("FedEx")
+        assert array[1].is_a?(Integer)
+      end
+
     end
   end
 
@@ -29,13 +38,20 @@ class ShipmentsControllerTest < ActionController::TestCase
     VCR.use_cassette("too_heavy") do
       get :index, {weight: 151, origin_zip: 98122, destination_zip: 98122}
       assert_response :missing #could also be 404
-      assert_equal JSON.parse(response.body)["error"], "UH-OH. LOOKS LIKE SOMETHING'S NOT QUITE RIGHT. PERHAPS YOUR ZIP CODES ARE OFF BY ONE? PLEASE NOTE: PACKAGES HAVE A WEIGHT LIMIT OF 150 LBS."
+      assert_equal JSON.parse(response.body)["error"], "UH-OH. LOOKS LIKE SOMETHING'S NOT QUITE RIGHT. PERHAPS YOUR ZIP CODES ARE OFF BY ONE? PLEASE NOTE: PACKAGES HAVE A WEIGHT LIMIT OF 150 LBS AND SHIPMENTS ARE ONLY ALLOWED WITHIN THE UNITED STATES."
 
       get :index, {weight: 71, origin_zip: 98122, destination_zip: 98122}
       assert_response :ok
       assert_equal JSON.parse(response.body)["USPS"], "USPS CAN ONLY SHIP PACKAGES WEIGHING 70 LBS OR LESS."
-      assert_equal JSON.parse(response.body)["UPS"][0][1], 3523
-      assert_equal JSON.parse(response.body)["Fedex"][6][1], 19111
+
+      JSON.parse(response.body)["UPS"].each do |array|
+        assert array[1].is_a?(Integer)
+      end
+
+      JSON.parse(response.body)["Fedex"].each do |array|
+        assert array[1].is_a?(Integer)
+      end
+
     end
   end
 
@@ -43,15 +59,15 @@ class ShipmentsControllerTest < ActionController::TestCase
     VCR.use_cassette("invalid_zip") do
       get :index, {weight: 3, origin_zip: 1234, destination_zip: 98122}
       assert_response :missing #could also be 404
-      assert_equal JSON.parse(response.body)["error"], "UH-OH. LOOKS LIKE SOMETHING'S NOT QUITE RIGHT. PERHAPS YOUR ZIP CODES ARE OFF BY ONE? PLEASE NOTE: PACKAGES HAVE A WEIGHT LIMIT OF 150 LBS."
+      assert_equal JSON.parse(response.body)["error"], "UH-OH. LOOKS LIKE SOMETHING'S NOT QUITE RIGHT. PERHAPS YOUR ZIP CODES ARE OFF BY ONE? PLEASE NOTE: PACKAGES HAVE A WEIGHT LIMIT OF 150 LBS AND SHIPMENTS ARE ONLY ALLOWED WITHIN THE UNITED STATES."
 
       get :index, {weight: 71, origin_zip: 98122, destination_zip: 9812}
       assert_response :missing #could also be 404
-      assert_equal JSON.parse(response.body)["error"], "UH-OH. LOOKS LIKE SOMETHING'S NOT QUITE RIGHT. PERHAPS YOUR ZIP CODES ARE OFF BY ONE? PLEASE NOTE: PACKAGES HAVE A WEIGHT LIMIT OF 150 LBS."
+      assert_equal JSON.parse(response.body)["error"], "UH-OH. LOOKS LIKE SOMETHING'S NOT QUITE RIGHT. PERHAPS YOUR ZIP CODES ARE OFF BY ONE? PLEASE NOTE: PACKAGES HAVE A WEIGHT LIMIT OF 150 LBS AND SHIPMENTS ARE ONLY ALLOWED WITHIN THE UNITED STATES."
 
       get :index, {weight: 71, origin_zip: 98122}
       assert_response :missing #could also be 404
-      assert_equal JSON.parse(response.body)["error"], "UH-OH. LOOKS LIKE SOMETHING'S NOT QUITE RIGHT. PERHAPS YOUR ZIP CODES ARE OFF BY ONE? PLEASE NOTE: PACKAGES HAVE A WEIGHT LIMIT OF 150 LBS."
+      assert_equal JSON.parse(response.body)["error"], "UH-OH. LOOKS LIKE SOMETHING'S NOT QUITE RIGHT. PERHAPS YOUR ZIP CODES ARE OFF BY ONE? PLEASE NOTE: PACKAGES HAVE A WEIGHT LIMIT OF 150 LBS AND SHIPMENTS ARE ONLY ALLOWED WITHIN THE UNITED STATES."
     end
   end
 

@@ -629,4 +629,474 @@ http_interactions:
         <RateReply xmlns="http://fedex.com/ws/rate/v13" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"><HighestSeverity>WARNING</HighestSeverity><Notifications><Severity>WARNING</Severity><Source>crs</Source><Code>556</Code><Message>There are no valid services available. </Message><LocalizedMessage>There are no valid services available. </LocalizedMessage></Notifications><Notifications><Severity>NOTE</Severity><Source>crs</Source><Code>929</Code><Message>The service option type SATURDAY_DELIVERY was ignored because it was incompatible with the original request.</Message><LocalizedMessage>The service option type SATURDAY_DELIVERY was ignored because it was incompatible with the original request.</LocalizedMessage><MessageParameters><Id>SERVICE_OPTION_TYPE</Id><Value>SATURDAY_DELIVERY</Value></MessageParameters></Notifications><TransactionDetail><CustomerTransactionId>ActiveShipping</CustomerTransactionId></TransactionDetail><Version><ServiceId>crs</ServiceId><Major>13</Major><Intermediate>0</Intermediate><Minor>0</Minor></Version></RateReply>
     http_version: 
   recorded_at: Thu, 10 Nov 2016 00:30:38 GMT
+- request:
+    method: post
+    uri: https://gatewaybeta.fedex.com/xml
+    body:
+      encoding: UTF-8
+      string: <?xml version="1.0"?><RateRequest xmlns="http://fedex.com/ws/rate/v13">  <WebAuthenticationDetail>    <UserCredential>      <Key>FEDEX_KEY</Key>      <Password>FEDEX_PASSWORD</Password>    </UserCredential>  </WebAuthenticationDetail>  <ClientDetail>    <AccountNumber>FEDEX_ACCOUNT</AccountNumber>    <MeterNumber>FEDEX_LOGIN</MeterNumber>  </ClientDetail>  <TransactionDetail>    <CustomerTransactionId>ActiveShipping</CustomerTransactionId>  </TransactionDetail>  <Version>    <ServiceId>crs</ServiceId>    <Major>13</Major>    <Intermediate>0</Intermediate>    <Minor>0</Minor>  </Version>  <ReturnTransitAndCommit>true</ReturnTransitAndCommit>  <VariableOptions>SATURDAY_DELIVERY</VariableOptions>  <RequestedShipment>    <ShipTimestamp>2016-11-10T13:27:25-08:00</ShipTimestamp>    <DropoffType>REGULAR_PICKUP</DropoffType>    <PackagingType>YOUR_PACKAGING</PackagingType>    <Shipper>      <Address>        <PostalCode>98122</PostalCode>        <CountryCode>US</CountryCode>        <Residential>true</Residential>      </Address>    </Shipper>    <Recipient>      <Address>        <PostalCode>9812</PostalCode>        <CountryCode>US</CountryCode>        <Residential>true</Residential>      </Address>    </Recipient>    <SmartPostDetail>      <Indicia>PARCEL_SELECT</Indicia>      <HubId>5902</HubId>    </SmartPostDetail>    <RateRequestTypes>ACCOUNT</RateRequestTypes>    <PackageCount>1</PackageCount>    <RequestedPackageLineItems>      <GroupPackageCount>1</GroupPackageCount>      <Weight>        <Units>LB</Units>        <Value>71.0</Value>      </Weight>      <Dimensions>        <Length>12</Length>        <Width>12</Width>        <Height>12</Height>        <Units>IN</Units>      </Dimensions>    </RequestedPackageLineItems>  </RequestedShipment></RateRequest>
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Thu, 10 Nov 2016 21:27:25 GMT
+      Server:
+      - Apache
+      Set-Cookie:
+      - siteDC=edc; path=/; domain=.fedex.com; expires=Fri, 11-Nov-2016 21:27:25 GMT
+      X-Wily-Servlet:
+      - Encrypt1 GaMcoOotgOSMyoYj73M4djxB/BFdu6Bd7dK9l2vKcsLoBxuCEbM12kwUffT0WqzWwhNfXxOuv1xkOK5NUzCbP46u7vtBQL8InqrXYgHsCoR6RU11Zne5eRfVnPz2s4QojauFwoOS9Qx2QzeQWzi3WhNVkuw8MKnXDZBZNVC0OGtqGJYM9SKIFpXUmoE/QKOWTsg6Alr4H18ag1firakNUw==
+      X-Powered-By:
+      - Servlet/2.5 JSP/2.1
+      X-Wily-Info:
+      - Clear guid=50235F7CCC87128E0E0147CFDD3687BD
+      Vary:
+      - Accept-Encoding
+      Responsesslprotocol:
+      - TLSv1.2
+      Transfer-Encoding:
+      - chunked
+      Content-Type:
+      - text/xml; charset=utf-8
+    body:
+      encoding: ASCII-8BIT
+      string: |-
+        <?xml version="1.0" encoding="UTF-8"?>
+        <RateReply xmlns="http://fedex.com/ws/rate/v13" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"><HighestSeverity>WARNING</HighestSeverity><Notifications><Severity>WARNING</Severity><Source>crs</Source><Code>556</Code><Message>There are no valid services available. </Message><LocalizedMessage>There are no valid services available. </LocalizedMessage></Notifications><Notifications><Severity>NOTE</Severity><Source>crs</Source><Code>929</Code><Message>The service option type SATURDAY_DELIVERY was ignored because it was incompatible with the original request.</Message><LocalizedMessage>The service option type SATURDAY_DELIVERY was ignored because it was incompatible with the original request.</LocalizedMessage><MessageParameters><Id>SERVICE_OPTION_TYPE</Id><Value>SATURDAY_DELIVERY</Value></MessageParameters></Notifications><TransactionDetail><CustomerTransactionId>ActiveShipping</CustomerTransactionId></TransactionDetail><Version><ServiceId>crs</ServiceId><Major>13</Major><Intermediate>0</Intermediate><Minor>0</Minor></Version></RateReply>
+    http_version: 
+  recorded_at: Thu, 10 Nov 2016 21:27:25 GMT
+- request:
+    method: post
+    uri: https://gatewaybeta.fedex.com/xml
+    body:
+      encoding: UTF-8
+      string: <?xml version="1.0"?><RateRequest xmlns="http://fedex.com/ws/rate/v13">  <WebAuthenticationDetail>    <UserCredential>      <Key>FEDEX_KEY</Key>      <Password>FEDEX_PASSWORD</Password>    </UserCredential>  </WebAuthenticationDetail>  <ClientDetail>    <AccountNumber>FEDEX_ACCOUNT</AccountNumber>    <MeterNumber>FEDEX_LOGIN</MeterNumber>  </ClientDetail>  <TransactionDetail>    <CustomerTransactionId>ActiveShipping</CustomerTransactionId>  </TransactionDetail>  <Version>    <ServiceId>crs</ServiceId>    <Major>13</Major>    <Intermediate>0</Intermediate>    <Minor>0</Minor>  </Version>  <ReturnTransitAndCommit>true</ReturnTransitAndCommit>  <VariableOptions>SATURDAY_DELIVERY</VariableOptions>  <RequestedShipment>    <ShipTimestamp>2016-11-10T13:30:08-08:00</ShipTimestamp>    <DropoffType>REGULAR_PICKUP</DropoffType>    <PackagingType>YOUR_PACKAGING</PackagingType>    <Shipper>      <Address>        <PostalCode>98122</PostalCode>        <CountryCode>US</CountryCode>        <Residential>true</Residential>      </Address>    </Shipper>    <Recipient>      <Address>        <PostalCode>9812</PostalCode>        <CountryCode>US</CountryCode>        <Residential>true</Residential>      </Address>    </Recipient>    <SmartPostDetail>      <Indicia>PARCEL_SELECT</Indicia>      <HubId>5902</HubId>    </SmartPostDetail>    <RateRequestTypes>ACCOUNT</RateRequestTypes>    <PackageCount>1</PackageCount>    <RequestedPackageLineItems>      <GroupPackageCount>1</GroupPackageCount>      <Weight>        <Units>LB</Units>        <Value>71.0</Value>      </Weight>      <Dimensions>        <Length>12</Length>        <Width>12</Width>        <Height>12</Height>        <Units>IN</Units>      </Dimensions>    </RequestedPackageLineItems>  </RequestedShipment></RateRequest>
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Thu, 10 Nov 2016 21:30:09 GMT
+      Server:
+      - Apache
+      Set-Cookie:
+      - siteDC=edc; path=/; domain=.fedex.com; expires=Fri, 11-Nov-2016 21:30:09 GMT
+      X-Wily-Servlet:
+      - Encrypt1 GaMcoOotgOSMyoYj73M4djxB/BFdu6Bd7dK9l2vKcsLoBxuCEbM12kwUffT0WqzWwhNfXxOuv1xkOK5NUzCbP46u7vtBQL8InqrXYgHsCoR6RU11Zne5eRfVnPz2s4QojauFwoOS9Qx2QzeQWzi3WhNVkuw8MKnXDZBZNVC0OGtqGJYM9SKIFpXUmoE/QKOWTsg6Alr4H18ag1firakNUw==
+      X-Powered-By:
+      - Servlet/2.5 JSP/2.1
+      X-Wily-Info:
+      - Clear guid=5025E282CC87128E0E0147CFEAFE4421
+      Vary:
+      - Accept-Encoding
+      Responsesslprotocol:
+      - TLSv1.2
+      Transfer-Encoding:
+      - chunked
+      Content-Type:
+      - text/xml; charset=utf-8
+    body:
+      encoding: ASCII-8BIT
+      string: |-
+        <?xml version="1.0" encoding="UTF-8"?>
+        <RateReply xmlns="http://fedex.com/ws/rate/v13" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"><HighestSeverity>WARNING</HighestSeverity><Notifications><Severity>WARNING</Severity><Source>crs</Source><Code>556</Code><Message>There are no valid services available. </Message><LocalizedMessage>There are no valid services available. </LocalizedMessage></Notifications><Notifications><Severity>NOTE</Severity><Source>crs</Source><Code>929</Code><Message>The service option type SATURDAY_DELIVERY was ignored because it was incompatible with the original request.</Message><LocalizedMessage>The service option type SATURDAY_DELIVERY was ignored because it was incompatible with the original request.</LocalizedMessage><MessageParameters><Id>SERVICE_OPTION_TYPE</Id><Value>SATURDAY_DELIVERY</Value></MessageParameters></Notifications><TransactionDetail><CustomerTransactionId>ActiveShipping</CustomerTransactionId></TransactionDetail><Version><ServiceId>crs</ServiceId><Major>13</Major><Intermediate>0</Intermediate><Minor>0</Minor></Version></RateReply>
+    http_version: 
+  recorded_at: Thu, 10 Nov 2016 21:30:10 GMT
+- request:
+    method: post
+    uri: https://gatewaybeta.fedex.com/xml
+    body:
+      encoding: UTF-8
+      string: <?xml version="1.0"?><RateRequest xmlns="http://fedex.com/ws/rate/v13">  <WebAuthenticationDetail>    <UserCredential>      <Key>FEDEX_KEY</Key>      <Password>FEDEX_PASSWORD</Password>    </UserCredential>  </WebAuthenticationDetail>  <ClientDetail>    <AccountNumber>FEDEX_ACCOUNT</AccountNumber>    <MeterNumber>FEDEX_LOGIN</MeterNumber>  </ClientDetail>  <TransactionDetail>    <CustomerTransactionId>ActiveShipping</CustomerTransactionId>  </TransactionDetail>  <Version>    <ServiceId>crs</ServiceId>    <Major>13</Major>    <Intermediate>0</Intermediate>    <Minor>0</Minor>  </Version>  <ReturnTransitAndCommit>true</ReturnTransitAndCommit>  <VariableOptions>SATURDAY_DELIVERY</VariableOptions>  <RequestedShipment>    <ShipTimestamp>2016-11-10T13:31:30-08:00</ShipTimestamp>    <DropoffType>REGULAR_PICKUP</DropoffType>    <PackagingType>YOUR_PACKAGING</PackagingType>    <Shipper>      <Address>        <PostalCode>98122</PostalCode>        <CountryCode>US</CountryCode>        <Residential>true</Residential>      </Address>    </Shipper>    <Recipient>      <Address>        <PostalCode>9812</PostalCode>        <CountryCode>US</CountryCode>        <Residential>true</Residential>      </Address>    </Recipient>    <SmartPostDetail>      <Indicia>PARCEL_SELECT</Indicia>      <HubId>5902</HubId>    </SmartPostDetail>    <RateRequestTypes>ACCOUNT</RateRequestTypes>    <PackageCount>1</PackageCount>    <RequestedPackageLineItems>      <GroupPackageCount>1</GroupPackageCount>      <Weight>        <Units>LB</Units>        <Value>71.0</Value>      </Weight>      <Dimensions>        <Length>12</Length>        <Width>12</Width>        <Height>12</Height>        <Units>IN</Units>      </Dimensions>    </RequestedPackageLineItems>  </RequestedShipment></RateRequest>
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Thu, 10 Nov 2016 21:31:30 GMT
+      Server:
+      - Apache
+      Set-Cookie:
+      - siteDC=edc; path=/; domain=.fedex.com; expires=Fri, 11-Nov-2016 21:31:30 GMT
+      X-Wily-Servlet:
+      - Encrypt1 GaMcoOotgOSMyoYj73M4dsxJg8pg+egXqWxT0tlCBMozxB2FJoHW86iPptGsWeEMNrrhgg+c1uCrVTL453EE8LUyyZJ0ssHZDmgz/H0Xk331Sy1KEH2kUmXY7Mq3Tf+CfqilOfvoO24JUs7Z6duDQzBDbr7hudkRV1vidonsMbUUBeIoWx/fKXVWWqtcEvhXJp/v93hA5q3ggWAPtS8Bww==
+      X-Powered-By:
+      - Servlet/2.5 JSP/2.1
+      X-Wily-Info:
+      - Clear guid=50271EF8CC87128A0C4E7BFC066AE48F
+      Vary:
+      - Accept-Encoding
+      Responsesslprotocol:
+      - TLSv1.2
+      Transfer-Encoding:
+      - chunked
+      Content-Type:
+      - text/xml; charset=utf-8
+    body:
+      encoding: ASCII-8BIT
+      string: |-
+        <?xml version="1.0" encoding="UTF-8"?>
+        <RateReply xmlns="http://fedex.com/ws/rate/v13" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"><HighestSeverity>WARNING</HighestSeverity><Notifications><Severity>WARNING</Severity><Source>crs</Source><Code>556</Code><Message>There are no valid services available. </Message><LocalizedMessage>There are no valid services available. </LocalizedMessage></Notifications><Notifications><Severity>NOTE</Severity><Source>crs</Source><Code>929</Code><Message>The service option type SATURDAY_DELIVERY was ignored because it was incompatible with the original request.</Message><LocalizedMessage>The service option type SATURDAY_DELIVERY was ignored because it was incompatible with the original request.</LocalizedMessage><MessageParameters><Id>SERVICE_OPTION_TYPE</Id><Value>SATURDAY_DELIVERY</Value></MessageParameters></Notifications><TransactionDetail><CustomerTransactionId>ActiveShipping</CustomerTransactionId></TransactionDetail><Version><ServiceId>crs</ServiceId><Major>13</Major><Intermediate>0</Intermediate><Minor>0</Minor></Version></RateReply>
+    http_version: 
+  recorded_at: Thu, 10 Nov 2016 21:31:31 GMT
+- request:
+    method: post
+    uri: https://gatewaybeta.fedex.com/xml
+    body:
+      encoding: UTF-8
+      string: <?xml version="1.0"?><RateRequest xmlns="http://fedex.com/ws/rate/v13">  <WebAuthenticationDetail>    <UserCredential>      <Key>FEDEX_KEY</Key>      <Password>FEDEX_PASSWORD</Password>    </UserCredential>  </WebAuthenticationDetail>  <ClientDetail>    <AccountNumber>FEDEX_ACCOUNT</AccountNumber>    <MeterNumber>FEDEX_LOGIN</MeterNumber>  </ClientDetail>  <TransactionDetail>    <CustomerTransactionId>ActiveShipping</CustomerTransactionId>  </TransactionDetail>  <Version>    <ServiceId>crs</ServiceId>    <Major>13</Major>    <Intermediate>0</Intermediate>    <Minor>0</Minor>  </Version>  <ReturnTransitAndCommit>true</ReturnTransitAndCommit>  <VariableOptions>SATURDAY_DELIVERY</VariableOptions>  <RequestedShipment>    <ShipTimestamp>2016-11-10T13:31:57-08:00</ShipTimestamp>    <DropoffType>REGULAR_PICKUP</DropoffType>    <PackagingType>YOUR_PACKAGING</PackagingType>    <Shipper>      <Address>        <PostalCode>98122</PostalCode>        <CountryCode>US</CountryCode>        <Residential>true</Residential>      </Address>    </Shipper>    <Recipient>      <Address>        <PostalCode>9812</PostalCode>        <CountryCode>US</CountryCode>        <Residential>true</Residential>      </Address>    </Recipient>    <SmartPostDetail>      <Indicia>PARCEL_SELECT</Indicia>      <HubId>5902</HubId>    </SmartPostDetail>    <RateRequestTypes>ACCOUNT</RateRequestTypes>    <PackageCount>1</PackageCount>    <RequestedPackageLineItems>      <GroupPackageCount>1</GroupPackageCount>      <Weight>        <Units>LB</Units>        <Value>71.0</Value>      </Weight>      <Dimensions>        <Length>12</Length>        <Width>12</Width>        <Height>12</Height>        <Units>IN</Units>      </Dimensions>    </RequestedPackageLineItems>  </RequestedShipment></RateRequest>
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Thu, 10 Nov 2016 21:31:57 GMT
+      Server:
+      - Apache
+      Set-Cookie:
+      - siteDC=edc; path=/; domain=.fedex.com; expires=Fri, 11-Nov-2016 21:31:57 GMT
+      X-Wily-Servlet:
+      - Encrypt1 GaMcoOotgOSMyoYj73M4dsxJg8pg+egXqWxT0tlCBMozxB2FJoHW86iPptGsWeEMNrrhgg+c1uCrVTL453EE8LUyyZJ0ssHZDmgz/H0Xk331Sy1KEH2kUmXY7Mq3Tf+CfqilOfvoO24JUs7Z6duDQzBDbr7hudkRV1vidonsMbUUBeIoWx/fKXVWWqtcEvhXJp/v93hA5q3ggWAPtS8Bww==
+      X-Powered-By:
+      - Servlet/2.5 JSP/2.1
+      X-Wily-Info:
+      - Clear guid=502786EACC87128A0C4E7BFC2163F771
+      Vary:
+      - Accept-Encoding
+      Responsesslprotocol:
+      - TLSv1.2
+      Transfer-Encoding:
+      - chunked
+      Content-Type:
+      - text/xml; charset=utf-8
+    body:
+      encoding: ASCII-8BIT
+      string: |-
+        <?xml version="1.0" encoding="UTF-8"?>
+        <RateReply xmlns="http://fedex.com/ws/rate/v13" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"><HighestSeverity>WARNING</HighestSeverity><Notifications><Severity>WARNING</Severity><Source>crs</Source><Code>556</Code><Message>There are no valid services available. </Message><LocalizedMessage>There are no valid services available. </LocalizedMessage></Notifications><Notifications><Severity>NOTE</Severity><Source>crs</Source><Code>929</Code><Message>The service option type SATURDAY_DELIVERY was ignored because it was incompatible with the original request.</Message><LocalizedMessage>The service option type SATURDAY_DELIVERY was ignored because it was incompatible with the original request.</LocalizedMessage><MessageParameters><Id>SERVICE_OPTION_TYPE</Id><Value>SATURDAY_DELIVERY</Value></MessageParameters></Notifications><TransactionDetail><CustomerTransactionId>ActiveShipping</CustomerTransactionId></TransactionDetail><Version><ServiceId>crs</ServiceId><Major>13</Major><Intermediate>0</Intermediate><Minor>0</Minor></Version></RateReply>
+    http_version: 
+  recorded_at: Thu, 10 Nov 2016 21:31:58 GMT
+- request:
+    method: post
+    uri: https://gatewaybeta.fedex.com/xml
+    body:
+      encoding: UTF-8
+      string: <?xml version="1.0"?><RateRequest xmlns="http://fedex.com/ws/rate/v13">  <WebAuthenticationDetail>    <UserCredential>      <Key>FEDEX_KEY</Key>      <Password>FEDEX_PASSWORD</Password>    </UserCredential>  </WebAuthenticationDetail>  <ClientDetail>    <AccountNumber>FEDEX_ACCOUNT</AccountNumber>    <MeterNumber>FEDEX_LOGIN</MeterNumber>  </ClientDetail>  <TransactionDetail>    <CustomerTransactionId>ActiveShipping</CustomerTransactionId>  </TransactionDetail>  <Version>    <ServiceId>crs</ServiceId>    <Major>13</Major>    <Intermediate>0</Intermediate>    <Minor>0</Minor>  </Version>  <ReturnTransitAndCommit>true</ReturnTransitAndCommit>  <VariableOptions>SATURDAY_DELIVERY</VariableOptions>  <RequestedShipment>    <ShipTimestamp>2016-11-10T13:57:27-08:00</ShipTimestamp>    <DropoffType>REGULAR_PICKUP</DropoffType>    <PackagingType>YOUR_PACKAGING</PackagingType>    <Shipper>      <Address>        <PostalCode>98122</PostalCode>        <CountryCode>US</CountryCode>        <Residential>true</Residential>      </Address>    </Shipper>    <Recipient>      <Address>        <PostalCode>9812</PostalCode>        <CountryCode>US</CountryCode>        <Residential>true</Residential>      </Address>    </Recipient>    <SmartPostDetail>      <Indicia>PARCEL_SELECT</Indicia>      <HubId>5902</HubId>    </SmartPostDetail>    <RateRequestTypes>ACCOUNT</RateRequestTypes>    <PackageCount>1</PackageCount>    <RequestedPackageLineItems>      <GroupPackageCount>1</GroupPackageCount>      <Weight>        <Units>LB</Units>        <Value>71.0</Value>      </Weight>      <Dimensions>        <Length>12</Length>        <Width>12</Width>        <Height>12</Height>        <Units>IN</Units>      </Dimensions>    </RequestedPackageLineItems>  </RequestedShipment></RateRequest>
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Thu, 10 Nov 2016 21:57:26 GMT
+      Server:
+      - Apache
+      Set-Cookie:
+      - siteDC=edc; path=/; domain=.fedex.com; expires=Fri, 11-Nov-2016 21:57:26 GMT
+      X-Wily-Servlet:
+      - Encrypt1 GaMcoOotgOSMyoYj73M4dsxJg8pg+egXqWxT0tlCBMozxB2FJoHW86iPptGsWeEMNrrhgg+c1uCrVTL453EE8LUyyZJ0ssHZDmgz/H0Xk331Sy1KEH2kUmXY7Mq3Tf+CfqilOfvoO24JUs7Z6duDQzBDbr7hudkRV1vidonsMbUUBeIoWx/fKXVWWqtcEvhXJp/v93hA5q3ggWAPtS8Bww==
+      X-Powered-By:
+      - Servlet/2.5 JSP/2.1
+      X-Wily-Info:
+      - Clear guid=503EDB69CC87128A0C4E7BFC01BD3E9C
+      Vary:
+      - Accept-Encoding
+      Responsesslprotocol:
+      - TLSv1.2
+      Transfer-Encoding:
+      - chunked
+      Content-Type:
+      - text/xml; charset=utf-8
+    body:
+      encoding: ASCII-8BIT
+      string: |-
+        <?xml version="1.0" encoding="UTF-8"?>
+        <RateReply xmlns="http://fedex.com/ws/rate/v13" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"><HighestSeverity>WARNING</HighestSeverity><Notifications><Severity>WARNING</Severity><Source>crs</Source><Code>556</Code><Message>There are no valid services available. </Message><LocalizedMessage>There are no valid services available. </LocalizedMessage></Notifications><Notifications><Severity>NOTE</Severity><Source>crs</Source><Code>929</Code><Message>The service option type SATURDAY_DELIVERY was ignored because it was incompatible with the original request.</Message><LocalizedMessage>The service option type SATURDAY_DELIVERY was ignored because it was incompatible with the original request.</LocalizedMessage><MessageParameters><Id>SERVICE_OPTION_TYPE</Id><Value>SATURDAY_DELIVERY</Value></MessageParameters></Notifications><TransactionDetail><CustomerTransactionId>ActiveShipping</CustomerTransactionId></TransactionDetail><Version><ServiceId>crs</ServiceId><Major>13</Major><Intermediate>0</Intermediate><Minor>0</Minor></Version></RateReply>
+    http_version: 
+  recorded_at: Thu, 10 Nov 2016 21:57:27 GMT
+- request:
+    method: post
+    uri: https://gatewaybeta.fedex.com/xml
+    body:
+      encoding: UTF-8
+      string: <?xml version="1.0"?><RateRequest xmlns="http://fedex.com/ws/rate/v13">  <WebAuthenticationDetail>    <UserCredential>      <Key>FEDEX_KEY</Key>      <Password>FEDEX_PASSWORD</Password>    </UserCredential>  </WebAuthenticationDetail>  <ClientDetail>    <AccountNumber>FEDEX_ACCOUNT</AccountNumber>    <MeterNumber>FEDEX_LOGIN</MeterNumber>  </ClientDetail>  <TransactionDetail>    <CustomerTransactionId>ActiveShipping</CustomerTransactionId>  </TransactionDetail>  <Version>    <ServiceId>crs</ServiceId>    <Major>13</Major>    <Intermediate>0</Intermediate>    <Minor>0</Minor>  </Version>  <ReturnTransitAndCommit>true</ReturnTransitAndCommit>  <VariableOptions>SATURDAY_DELIVERY</VariableOptions>  <RequestedShipment>    <ShipTimestamp>2016-11-10T13:57:46-08:00</ShipTimestamp>    <DropoffType>REGULAR_PICKUP</DropoffType>    <PackagingType>YOUR_PACKAGING</PackagingType>    <Shipper>      <Address>        <PostalCode>98122</PostalCode>        <CountryCode>US</CountryCode>        <Residential>true</Residential>      </Address>    </Shipper>    <Recipient>      <Address>        <PostalCode>9812</PostalCode>        <CountryCode>US</CountryCode>        <Residential>true</Residential>      </Address>    </Recipient>    <SmartPostDetail>      <Indicia>PARCEL_SELECT</Indicia>      <HubId>5902</HubId>    </SmartPostDetail>    <RateRequestTypes>ACCOUNT</RateRequestTypes>    <PackageCount>1</PackageCount>    <RequestedPackageLineItems>      <GroupPackageCount>1</GroupPackageCount>      <Weight>        <Units>LB</Units>        <Value>71.0</Value>      </Weight>      <Dimensions>        <Length>12</Length>        <Width>12</Width>        <Height>12</Height>        <Units>IN</Units>      </Dimensions>    </RequestedPackageLineItems>  </RequestedShipment></RateRequest>
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Thu, 10 Nov 2016 21:57:45 GMT
+      Server:
+      - Apache
+      Set-Cookie:
+      - siteDC=edc; path=/; domain=.fedex.com; expires=Fri, 11-Nov-2016 21:57:45 GMT
+      X-Wily-Servlet:
+      - Encrypt1 GaMcoOotgOSMyoYj73M4dsxJg8pg+egXqWxT0tlCBMozxB2FJoHW86iPptGsWeEMNrrhgg+c1uCrVTL453EE8LUyyZJ0ssHZDmgz/H0Xk331Sy1KEH2kUmXY7Mq3Tf+CfqilOfvoO24JUs7Z6duDQzBDbr7hudkRV1vidonsMbUUBeIoWx/fKXVWWqtcEvhXJp/v93hA5q3ggWAPtS8Bww==
+      X-Powered-By:
+      - Servlet/2.5 JSP/2.1
+      X-Wily-Info:
+      - Clear guid=503F26E0CC87128A0C4E7BFC37FF062B
+      Vary:
+      - Accept-Encoding
+      Responsesslprotocol:
+      - TLSv1.2
+      Transfer-Encoding:
+      - chunked
+      Content-Type:
+      - text/xml; charset=utf-8
+    body:
+      encoding: ASCII-8BIT
+      string: |-
+        <?xml version="1.0" encoding="UTF-8"?>
+        <RateReply xmlns="http://fedex.com/ws/rate/v13" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"><HighestSeverity>WARNING</HighestSeverity><Notifications><Severity>WARNING</Severity><Source>crs</Source><Code>556</Code><Message>There are no valid services available. </Message><LocalizedMessage>There are no valid services available. </LocalizedMessage></Notifications><Notifications><Severity>NOTE</Severity><Source>crs</Source><Code>929</Code><Message>The service option type SATURDAY_DELIVERY was ignored because it was incompatible with the original request.</Message><LocalizedMessage>The service option type SATURDAY_DELIVERY was ignored because it was incompatible with the original request.</LocalizedMessage><MessageParameters><Id>SERVICE_OPTION_TYPE</Id><Value>SATURDAY_DELIVERY</Value></MessageParameters></Notifications><TransactionDetail><CustomerTransactionId>ActiveShipping</CustomerTransactionId></TransactionDetail><Version><ServiceId>crs</ServiceId><Major>13</Major><Intermediate>0</Intermediate><Minor>0</Minor></Version></RateReply>
+    http_version: 
+  recorded_at: Thu, 10 Nov 2016 21:57:46 GMT
+- request:
+    method: post
+    uri: https://gatewaybeta.fedex.com/xml
+    body:
+      encoding: UTF-8
+      string: <?xml version="1.0"?><RateRequest xmlns="http://fedex.com/ws/rate/v13">  <WebAuthenticationDetail>    <UserCredential>      <Key>FEDEX_KEY</Key>      <Password>FEDEX_PASSWORD</Password>    </UserCredential>  </WebAuthenticationDetail>  <ClientDetail>    <AccountNumber>FEDEX_ACCOUNT</AccountNumber>    <MeterNumber>FEDEX_LOGIN</MeterNumber>  </ClientDetail>  <TransactionDetail>    <CustomerTransactionId>ActiveShipping</CustomerTransactionId>  </TransactionDetail>  <Version>    <ServiceId>crs</ServiceId>    <Major>13</Major>    <Intermediate>0</Intermediate>    <Minor>0</Minor>  </Version>  <ReturnTransitAndCommit>true</ReturnTransitAndCommit>  <VariableOptions>SATURDAY_DELIVERY</VariableOptions>  <RequestedShipment>    <ShipTimestamp>2016-11-10T13:58:38-08:00</ShipTimestamp>    <DropoffType>REGULAR_PICKUP</DropoffType>    <PackagingType>YOUR_PACKAGING</PackagingType>    <Shipper>      <Address>        <PostalCode>98122</PostalCode>        <CountryCode>US</CountryCode>        <Residential>true</Residential>      </Address>    </Shipper>    <Recipient>      <Address>        <PostalCode>9812</PostalCode>        <CountryCode>US</CountryCode>        <Residential>true</Residential>      </Address>    </Recipient>    <SmartPostDetail>      <Indicia>PARCEL_SELECT</Indicia>      <HubId>5902</HubId>    </SmartPostDetail>    <RateRequestTypes>ACCOUNT</RateRequestTypes>    <PackageCount>1</PackageCount>    <RequestedPackageLineItems>      <GroupPackageCount>1</GroupPackageCount>      <Weight>        <Units>LB</Units>        <Value>71.0</Value>      </Weight>      <Dimensions>        <Length>12</Length>        <Width>12</Width>        <Height>12</Height>        <Units>IN</Units>      </Dimensions>    </RequestedPackageLineItems>  </RequestedShipment></RateRequest>
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Thu, 10 Nov 2016 21:58:38 GMT
+      Server:
+      - Apache
+      Set-Cookie:
+      - siteDC=edc; path=/; domain=.fedex.com; expires=Fri, 11-Nov-2016 21:58:38 GMT
+      X-Wily-Servlet:
+      - Encrypt1 GaMcoOotgOSMyoYj73M4dsxJg8pg+egXqWxT0tlCBMozxB2FJoHW86iPptGsWeEMNrrhgg+c1uCrVTL453EE8LUyyZJ0ssHZDmgz/H0Xk331Sy1KEH2kUmXY7Mq3Tf+C/0ZmDqzT17sa2zf2lhhmF8m3pOUFni4AIvGFnyLu7FIE9sbcsL3YWtKCVru6+qk3vpJd/GfGIu0mBEoAdCGaXw==
+      X-Powered-By:
+      - Servlet/2.5 JSP/2.1
+      X-Wily-Info:
+      - Clear guid=503FF3F5CC87128A0C4E7BFCCB09D748
+      Vary:
+      - Accept-Encoding
+      Responsesslprotocol:
+      - TLSv1.2
+      Transfer-Encoding:
+      - chunked
+      Content-Type:
+      - text/xml; charset=utf-8
+    body:
+      encoding: ASCII-8BIT
+      string: |-
+        <?xml version="1.0" encoding="UTF-8"?>
+        <RateReply xmlns="http://fedex.com/ws/rate/v13" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"><HighestSeverity>WARNING</HighestSeverity><Notifications><Severity>WARNING</Severity><Source>crs</Source><Code>556</Code><Message>There are no valid services available. </Message><LocalizedMessage>There are no valid services available. </LocalizedMessage></Notifications><Notifications><Severity>NOTE</Severity><Source>crs</Source><Code>929</Code><Message>The service option type SATURDAY_DELIVERY was ignored because it was incompatible with the original request.</Message><LocalizedMessage>The service option type SATURDAY_DELIVERY was ignored because it was incompatible with the original request.</LocalizedMessage><MessageParameters><Id>SERVICE_OPTION_TYPE</Id><Value>SATURDAY_DELIVERY</Value></MessageParameters></Notifications><TransactionDetail><CustomerTransactionId>ActiveShipping</CustomerTransactionId></TransactionDetail><Version><ServiceId>crs</ServiceId><Major>13</Major><Intermediate>0</Intermediate><Minor>0</Minor></Version></RateReply>
+    http_version: 
+  recorded_at: Thu, 10 Nov 2016 21:58:39 GMT
+- request:
+    method: post
+    uri: https://gatewaybeta.fedex.com/xml
+    body:
+      encoding: UTF-8
+      string: <?xml version="1.0"?><RateRequest xmlns="http://fedex.com/ws/rate/v13">  <WebAuthenticationDetail>    <UserCredential>      <Key>FEDEX_KEY</Key>      <Password>FEDEX_PASSWORD</Password>    </UserCredential>  </WebAuthenticationDetail>  <ClientDetail>    <AccountNumber>FEDEX_ACCOUNT</AccountNumber>    <MeterNumber>FEDEX_LOGIN</MeterNumber>  </ClientDetail>  <TransactionDetail>    <CustomerTransactionId>ActiveShipping</CustomerTransactionId>  </TransactionDetail>  <Version>    <ServiceId>crs</ServiceId>    <Major>13</Major>    <Intermediate>0</Intermediate>    <Minor>0</Minor>  </Version>  <ReturnTransitAndCommit>true</ReturnTransitAndCommit>  <VariableOptions>SATURDAY_DELIVERY</VariableOptions>  <RequestedShipment>    <ShipTimestamp>2016-11-10T14:02:13-08:00</ShipTimestamp>    <DropoffType>REGULAR_PICKUP</DropoffType>    <PackagingType>YOUR_PACKAGING</PackagingType>    <Shipper>      <Address>        <PostalCode>98122</PostalCode>        <CountryCode>US</CountryCode>        <Residential>true</Residential>      </Address>    </Shipper>    <Recipient>      <Address>        <PostalCode>9812</PostalCode>        <CountryCode>US</CountryCode>        <Residential>true</Residential>      </Address>    </Recipient>    <SmartPostDetail>      <Indicia>PARCEL_SELECT</Indicia>      <HubId>5902</HubId>    </SmartPostDetail>    <RateRequestTypes>ACCOUNT</RateRequestTypes>    <PackageCount>1</PackageCount>    <RequestedPackageLineItems>      <GroupPackageCount>1</GroupPackageCount>      <Weight>        <Units>LB</Units>        <Value>71.0</Value>      </Weight>      <Dimensions>        <Length>12</Length>        <Width>12</Width>        <Height>12</Height>        <Units>IN</Units>      </Dimensions>    </RequestedPackageLineItems>  </RequestedShipment></RateRequest>
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Thu, 10 Nov 2016 22:02:12 GMT
+      Server:
+      - Apache
+      Set-Cookie:
+      - siteDC=edc; path=/; domain=.fedex.com; expires=Fri, 11-Nov-2016 22:02:12 GMT
+      X-Wily-Servlet:
+      - Encrypt1 GaMcoOotgOSMyoYj73M4dsxJg8pg+egXqWxT0tlCBMozxB2FJoHW86iPptGsWeEMNrrhgg+c1uCrVTL453EE8LUyyZJ0ssHZDmgz/H0Xk331Sy1KEH2kUmXY7Mq3Tf+CfqilOfvoO24JUs7Z6duDQzBDbr7hudkRV1vidonsMbUUBeIoWx/fKXVWWqtcEvhXJp/v93hA5q3ggWAPtS8Bww==
+      X-Powered-By:
+      - Servlet/2.5 JSP/2.1
+      X-Wily-Info:
+      - Clear guid=504339A6CC87128A0C4E7BFCE86D111A
+      Vary:
+      - Accept-Encoding
+      Responsesslprotocol:
+      - TLSv1.2
+      Transfer-Encoding:
+      - chunked
+      Content-Type:
+      - text/xml; charset=utf-8
+    body:
+      encoding: ASCII-8BIT
+      string: |-
+        <?xml version="1.0" encoding="UTF-8"?>
+        <RateReply xmlns="http://fedex.com/ws/rate/v13" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"><HighestSeverity>WARNING</HighestSeverity><Notifications><Severity>WARNING</Severity><Source>crs</Source><Code>556</Code><Message>There are no valid services available. </Message><LocalizedMessage>There are no valid services available. </LocalizedMessage></Notifications><Notifications><Severity>NOTE</Severity><Source>crs</Source><Code>929</Code><Message>The service option type SATURDAY_DELIVERY was ignored because it was incompatible with the original request.</Message><LocalizedMessage>The service option type SATURDAY_DELIVERY was ignored because it was incompatible with the original request.</LocalizedMessage><MessageParameters><Id>SERVICE_OPTION_TYPE</Id><Value>SATURDAY_DELIVERY</Value></MessageParameters></Notifications><TransactionDetail><CustomerTransactionId>ActiveShipping</CustomerTransactionId></TransactionDetail><Version><ServiceId>crs</ServiceId><Major>13</Major><Intermediate>0</Intermediate><Minor>0</Minor></Version></RateReply>
+    http_version: 
+  recorded_at: Thu, 10 Nov 2016 22:02:13 GMT
+- request:
+    method: post
+    uri: https://gatewaybeta.fedex.com/xml
+    body:
+      encoding: UTF-8
+      string: <?xml version="1.0"?><RateRequest xmlns="http://fedex.com/ws/rate/v13">  <WebAuthenticationDetail>    <UserCredential>      <Key>FEDEX_KEY</Key>      <Password>FEDEX_PASSWORD</Password>    </UserCredential>  </WebAuthenticationDetail>  <ClientDetail>    <AccountNumber>FEDEX_ACCOUNT</AccountNumber>    <MeterNumber>FEDEX_LOGIN</MeterNumber>  </ClientDetail>  <TransactionDetail>    <CustomerTransactionId>ActiveShipping</CustomerTransactionId>  </TransactionDetail>  <Version>    <ServiceId>crs</ServiceId>    <Major>13</Major>    <Intermediate>0</Intermediate>    <Minor>0</Minor>  </Version>  <ReturnTransitAndCommit>true</ReturnTransitAndCommit>  <VariableOptions>SATURDAY_DELIVERY</VariableOptions>  <RequestedShipment>    <ShipTimestamp>2016-11-10T14:03:23-08:00</ShipTimestamp>    <DropoffType>REGULAR_PICKUP</DropoffType>    <PackagingType>YOUR_PACKAGING</PackagingType>    <Shipper>      <Address>        <PostalCode>98122</PostalCode>        <CountryCode>US</CountryCode>        <Residential>true</Residential>      </Address>    </Shipper>    <Recipient>      <Address>        <PostalCode>9812</PostalCode>        <CountryCode>US</CountryCode>        <Residential>true</Residential>      </Address>    </Recipient>    <SmartPostDetail>      <Indicia>PARCEL_SELECT</Indicia>      <HubId>5902</HubId>    </SmartPostDetail>    <RateRequestTypes>ACCOUNT</RateRequestTypes>    <PackageCount>1</PackageCount>    <RequestedPackageLineItems>      <GroupPackageCount>1</GroupPackageCount>      <Weight>        <Units>LB</Units>        <Value>71.0</Value>      </Weight>      <Dimensions>        <Length>12</Length>        <Width>12</Width>        <Height>12</Height>        <Units>IN</Units>      </Dimensions>    </RequestedPackageLineItems>  </RequestedShipment></RateRequest>
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Thu, 10 Nov 2016 22:03:23 GMT
+      Server:
+      - Apache
+      Set-Cookie:
+      - siteDC=edc; path=/; domain=.fedex.com; expires=Fri, 11-Nov-2016 22:03:23 GMT
+      X-Wily-Servlet:
+      - Encrypt1 GaMcoOotgOSMyoYj73M4dsxJg8pg+egXqWxT0tlCBMozxB2FJoHW86iPptGsWeEMNrrhgg+c1uCrVTL453EE8LUyyZJ0ssHZDmgz/H0Xk331Sy1KEH2kUmXY7Mq3Tf+CfqilOfvoO24JUs7Z6duDQzBDbr7hudkRV1vidonsMbUUBeIoWx/fKXVWWqtcEvhXJp/v93hA5q3ggWAPtS8Bww==
+      X-Powered-By:
+      - Servlet/2.5 JSP/2.1
+      X-Wily-Info:
+      - Clear guid=50444CF0CC87128A0C4E7BFCF203F883
+      Vary:
+      - Accept-Encoding
+      Responsesslprotocol:
+      - TLSv1.2
+      Transfer-Encoding:
+      - chunked
+      Content-Type:
+      - text/xml; charset=utf-8
+    body:
+      encoding: ASCII-8BIT
+      string: |-
+        <?xml version="1.0" encoding="UTF-8"?>
+        <RateReply xmlns="http://fedex.com/ws/rate/v13" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"><HighestSeverity>WARNING</HighestSeverity><Notifications><Severity>WARNING</Severity><Source>crs</Source><Code>556</Code><Message>There are no valid services available. </Message><LocalizedMessage>There are no valid services available. </LocalizedMessage></Notifications><Notifications><Severity>NOTE</Severity><Source>crs</Source><Code>929</Code><Message>The service option type SATURDAY_DELIVERY was ignored because it was incompatible with the original request.</Message><LocalizedMessage>The service option type SATURDAY_DELIVERY was ignored because it was incompatible with the original request.</LocalizedMessage><MessageParameters><Id>SERVICE_OPTION_TYPE</Id><Value>SATURDAY_DELIVERY</Value></MessageParameters></Notifications><TransactionDetail><CustomerTransactionId>ActiveShipping</CustomerTransactionId></TransactionDetail><Version><ServiceId>crs</ServiceId><Major>13</Major><Intermediate>0</Intermediate><Minor>0</Minor></Version></RateReply>
+    http_version: 
+  recorded_at: Thu, 10 Nov 2016 22:03:24 GMT
+- request:
+    method: post
+    uri: https://gatewaybeta.fedex.com/xml
+    body:
+      encoding: UTF-8
+      string: <?xml version="1.0"?><RateRequest xmlns="http://fedex.com/ws/rate/v13">  <WebAuthenticationDetail>    <UserCredential>      <Key>FEDEX_KEY</Key>      <Password>FEDEX_PASSWORD</Password>    </UserCredential>  </WebAuthenticationDetail>  <ClientDetail>    <AccountNumber>FEDEX_ACCOUNT</AccountNumber>    <MeterNumber>FEDEX_LOGIN</MeterNumber>  </ClientDetail>  <TransactionDetail>    <CustomerTransactionId>ActiveShipping</CustomerTransactionId>  </TransactionDetail>  <Version>    <ServiceId>crs</ServiceId>    <Major>13</Major>    <Intermediate>0</Intermediate>    <Minor>0</Minor>  </Version>  <ReturnTransitAndCommit>true</ReturnTransitAndCommit>  <VariableOptions>SATURDAY_DELIVERY</VariableOptions>  <RequestedShipment>    <ShipTimestamp>2016-11-10T14:22:16-08:00</ShipTimestamp>    <DropoffType>REGULAR_PICKUP</DropoffType>    <PackagingType>YOUR_PACKAGING</PackagingType>    <Shipper>      <Address>        <PostalCode>98122</PostalCode>        <CountryCode>US</CountryCode>        <Residential>true</Residential>      </Address>    </Shipper>    <Recipient>      <Address>        <PostalCode>9812</PostalCode>        <CountryCode>US</CountryCode>        <Residential>true</Residential>      </Address>    </Recipient>    <SmartPostDetail>      <Indicia>PARCEL_SELECT</Indicia>      <HubId>5902</HubId>    </SmartPostDetail>    <RateRequestTypes>ACCOUNT</RateRequestTypes>    <PackageCount>1</PackageCount>    <RequestedPackageLineItems>      <GroupPackageCount>1</GroupPackageCount>      <Weight>        <Units>LB</Units>        <Value>71.0</Value>      </Weight>      <Dimensions>        <Length>12</Length>        <Width>12</Width>        <Height>12</Height>        <Units>IN</Units>      </Dimensions>    </RequestedPackageLineItems>  </RequestedShipment></RateRequest>
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Thu, 10 Nov 2016 22:22:16 GMT
+      Server:
+      - Apache
+      Set-Cookie:
+      - siteDC=edc; path=/; domain=.fedex.com; expires=Fri, 11-Nov-2016 22:22:16 GMT
+      X-Wily-Servlet:
+      - Encrypt1 GaMcoOotgOSMyoYj73M4dsxJg8pg+egXqWxT0tlCBMozxB2FJoHW86iPptGsWeEMNrrhgg+c1uCrVTL453EE8LUyyZJ0ssHZDmgz/H0Xk331Sy1KEH2kUmXY7Mq3Tf+CfqilOfvoO24JUs7Z6duDQzBDbr7hudkRV1vidonsMbUUBeIoWx/fKXVWWqtcEvhXJp/v93hA5q3ggWAPtS8Bww==
+      X-Powered-By:
+      - Servlet/2.5 JSP/2.1
+      X-Wily-Info:
+      - Clear guid=5055980DCC87128A0C4E7BFCE44122AB
+      Vary:
+      - Accept-Encoding
+      Responsesslprotocol:
+      - TLSv1.2
+      Transfer-Encoding:
+      - chunked
+      Content-Type:
+      - text/xml; charset=utf-8
+    body:
+      encoding: ASCII-8BIT
+      string: |-
+        <?xml version="1.0" encoding="UTF-8"?>
+        <RateReply xmlns="http://fedex.com/ws/rate/v13" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"><HighestSeverity>WARNING</HighestSeverity><Notifications><Severity>WARNING</Severity><Source>crs</Source><Code>556</Code><Message>There are no valid services available. </Message><LocalizedMessage>There are no valid services available. </LocalizedMessage></Notifications><Notifications><Severity>NOTE</Severity><Source>crs</Source><Code>929</Code><Message>The service option type SATURDAY_DELIVERY was ignored because it was incompatible with the original request.</Message><LocalizedMessage>The service option type SATURDAY_DELIVERY was ignored because it was incompatible with the original request.</LocalizedMessage><MessageParameters><Id>SERVICE_OPTION_TYPE</Id><Value>SATURDAY_DELIVERY</Value></MessageParameters></Notifications><TransactionDetail><CustomerTransactionId>ActiveShipping</CustomerTransactionId></TransactionDetail><Version><ServiceId>crs</ServiceId><Major>13</Major><Intermediate>0</Intermediate><Minor>0</Minor></Version></RateReply>
+    http_version: 
+  recorded_at: Thu, 10 Nov 2016 22:22:17 GMT
 recorded_with: VCR 3.0.3
