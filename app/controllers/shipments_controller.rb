@@ -2,10 +2,13 @@ class ShipmentsController < ApplicationController
 
   def index
     logger.info(">>>>>>>TEAM_OF_AWESOME: #{params}")
-    ship = Shipment.new(city: params[:city], zip: params[:zip], weight: params[:weight])
-    ship.save
-    return_data = ship.generate_quotes
-    render json: return_data
+    ship = Shipment.new(shipment_params)
+    if ship.save
+      return_data = ship.generate_quotes
+      render json: return_data
+    else
+      render :status => 400, json: {}
+    end
   end
 
 
@@ -17,5 +20,11 @@ class ShipmentsController < ApplicationController
     else
       render :status => :no_content, json: {}
     end
+  end
+
+  private
+
+  def shipment_params
+    params.permit(:city, :zip, :weight)
   end
 end

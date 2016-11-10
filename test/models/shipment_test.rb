@@ -58,4 +58,20 @@ class ShipmentTest < ActiveSupport::TestCase
       assert_kind_of Quote, quote
     end
   end
+
+  test "must have zip, weight, and city" do
+    ship1 = Shipment.new(city: "Seattle", zip: "98108", weight: 10)
+    ship2 = Shipment.new
+    ship3 = Shipment.new(city: "Seattle", zip: "98108")
+    ship4 = Shipment.new(city: "Seattle", zip: "981u08", weight: 10)
+    ship5 = Shipment.new(city: "Seattle", zip: "981", weight: 10)
+    ship6 = Shipment.new(city: "Seattle", zip: "98145", weight: "adfe")
+
+    assert ship1.valid?
+    assert_not ship2.valid?
+    assert_not ship3.valid?
+    assert_not ship4.valid?
+    assert_not ship5.valid?
+    assert_not ship6.valid?
+  end
 end

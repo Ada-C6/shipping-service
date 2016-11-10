@@ -1,7 +1,9 @@
 class Shipment < ActiveRecord::Base
   has_many :quotes
-  #add validation
-  
+  validates :city, presence: true
+  validates :weight, presence: true, numericality: true
+  validates :zip, presence: true, numericality: { only_integer: true }, length: {is: 5}
+
   def get_destination
     return ActiveShipping::Location.new(country: self.country, city: self.city, zip: self.zip)
   end

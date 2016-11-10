@@ -52,5 +52,9 @@ class ShipmentsControllerTest < ActionController::TestCase
     assert_equal response.body, "{}"
   end
 
+  test "should respond appropriatly if params are invalid" do
+      get :index, {city: shipments(:one).city, weight: shipments(:one).weight}
+      assert_response 400
+  end
 
 end
