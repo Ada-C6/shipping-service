@@ -8,16 +8,14 @@ class ShippingServicesController < ApplicationController
       options = ShippingOption.search(params[:origin], params[:destination], params[:package])
     rescue ArgumentError, Timeout::Error
       if ArgumentError
-        status: :bad_request
+        render_argument_error
       elsif Timeout::Error
-        status: :request_timeout
+        render_timeout_error
       end
-        render nothing: true
-        create_logs
         return
     end
-    # if there is no ArgumentError we render the options.
-    # if there is an ArugmentError, we will have returned out of the action
+    # if there is no ArgumentError/Timeout::Error we render the options.
+    # if there is an ArugmentError/Timeout::Error, we will have returned out of the action
     render json: options
 
     # Logging
@@ -38,6 +36,16 @@ class ShippingServicesController < ApplicationController
   end
 
   private
+
+  def render_argument_error
+    render nothing: true, status: :bad_request
+    create_logs
+  end
+
+  def render_timeout_error
+    render nothing: true, status: :request_timeout
+    create_logs
+  end
 
   def create_logs
     logger.info(">>>>request: #{params}")
