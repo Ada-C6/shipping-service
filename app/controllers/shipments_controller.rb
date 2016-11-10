@@ -26,18 +26,20 @@ class ShipmentsController < ApplicationController
   def index
     carrier_estimates = []
     carrier_estimates.push(ups_rates, usps_rates)
-    render json: carrier_estimates
+
+    render json: carrier_estimates, status: :created
   end
 
-  def show
-    render :json => { ready_for_lunch: "yassss" }
-  end
+  # def show
+  #   render :json => { ready_for_lunch: "yassss" }
+  # end
 
   def create
     logger.info("Request for shipment of box size 10x10x10 from facility at Seattle, WA 98161. Weight of package and final destination: #{ params }")
     shipment = Shipment.new(shipment_params)
     shipment.save
 
+    render json: { "weight" => shipment.weight, "country" => shipment.country, "state" => shipment.state, "zip" => shipment.zip} , status: :created
   end
 
   private
@@ -51,7 +53,8 @@ class ShipmentsController < ApplicationController
   end
 
   def destination
-    ActiveShipping::Location.new(params[:country], params[:state], params[:city], params[:zip])
+    # ActiveShipping::Location.new(country: "US", state: "RI", city: "Providence", zip: "02905")
+    ActiveShipping::Location.new(country: params[:country], state: params[:state], city: params[:city], zip: params[:zip])
   end
 
   def packages
