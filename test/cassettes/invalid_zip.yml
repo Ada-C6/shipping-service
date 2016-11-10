@@ -296,4 +296,149 @@ http_interactions:
         <RateReply xmlns="http://fedex.com/ws/rate/v13" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"><HighestSeverity>WARNING</HighestSeverity><Notifications><Severity>WARNING</Severity><Source>crs</Source><Code>556</Code><Message>There are no valid services available. </Message><LocalizedMessage>There are no valid services available. </LocalizedMessage></Notifications><Notifications><Severity>NOTE</Severity><Source>crs</Source><Code>929</Code><Message>The service option type SATURDAY_DELIVERY was ignored because it was incompatible with the original request.</Message><LocalizedMessage>The service option type SATURDAY_DELIVERY was ignored because it was incompatible with the original request.</LocalizedMessage><MessageParameters><Id>SERVICE_OPTION_TYPE</Id><Value>SATURDAY_DELIVERY</Value></MessageParameters></Notifications><TransactionDetail><CustomerTransactionId>ActiveShipping</CustomerTransactionId></TransactionDetail><Version><ServiceId>crs</ServiceId><Major>13</Major><Intermediate>0</Intermediate><Minor>0</Minor></Version></RateReply>
     http_version: 
   recorded_at: Thu, 10 Nov 2016 00:14:35 GMT
+- request:
+    method: post
+    uri: https://gatewaybeta.fedex.com/xml
+    body:
+      encoding: UTF-8
+      string: <?xml version="1.0"?><RateRequest xmlns="http://fedex.com/ws/rate/v13">  <WebAuthenticationDetail>    <UserCredential>      <Key>FEDEX_KEY</Key>      <Password>FEDEX_PASSWORD</Password>    </UserCredential>  </WebAuthenticationDetail>  <ClientDetail>    <AccountNumber>FEDEX_ACCOUNT</AccountNumber>    <MeterNumber>FEDEX_LOGIN</MeterNumber>  </ClientDetail>  <TransactionDetail>    <CustomerTransactionId>ActiveShipping</CustomerTransactionId>  </TransactionDetail>  <Version>    <ServiceId>crs</ServiceId>    <Major>13</Major>    <Intermediate>0</Intermediate>    <Minor>0</Minor>  </Version>  <ReturnTransitAndCommit>true</ReturnTransitAndCommit>  <VariableOptions>SATURDAY_DELIVERY</VariableOptions>  <RequestedShipment>    <ShipTimestamp>2016-11-09T16:23:55-08:00</ShipTimestamp>    <DropoffType>REGULAR_PICKUP</DropoffType>    <PackagingType>YOUR_PACKAGING</PackagingType>    <Shipper>      <Address>        <PostalCode>98122</PostalCode>        <CountryCode>US</CountryCode>        <Residential>true</Residential>      </Address>    </Shipper>    <Recipient>      <Address>        <PostalCode>9812</PostalCode>        <CountryCode>US</CountryCode>        <Residential>true</Residential>      </Address>    </Recipient>    <SmartPostDetail>      <Indicia>PARCEL_SELECT</Indicia>      <HubId>5902</HubId>    </SmartPostDetail>    <RateRequestTypes>ACCOUNT</RateRequestTypes>    <PackageCount>1</PackageCount>    <RequestedPackageLineItems>      <GroupPackageCount>1</GroupPackageCount>      <Weight>        <Units>LB</Units>        <Value>71.0</Value>      </Weight>      <Dimensions>        <Length>12</Length>        <Width>12</Width>        <Height>12</Height>        <Units>IN</Units>      </Dimensions>    </RequestedPackageLineItems>  </RequestedShipment></RateRequest>
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Thu, 10 Nov 2016 00:23:57 GMT
+      Server:
+      - Apache
+      Set-Cookie:
+      - siteDC=edc; path=/; domain=.fedex.com; expires=Fri, 11-Nov-2016 00:23:57 GMT
+      X-Wily-Servlet:
+      - Encrypt1 GaMcoOotgOSMyoYj73M4djxB/BFdu6Bd7dK9l2vKcsLoBxuCEbM12kwUffT0WqzWwhNfXxOuv1xkOK5NUzCbP46u7vtBQL8InqrXYgHsCoR6RU11Zne5eRfVnPz2s4QorsTJGp6CmyYymgSUI+wxBxsf5OU5gsdEA72cMkRv/fgqELt9eafqj4Lrwr4CAfmKraE28AJvbqJTb+A/db2E4A==
+      X-Powered-By:
+      - Servlet/2.5 JSP/2.1
+      X-Wily-Info:
+      - Clear guid=4B9EA18ACC87128E0E0147CFEEE7BF9E
+      Vary:
+      - Accept-Encoding
+      Responsesslprotocol:
+      - TLSv1.2
+      Transfer-Encoding:
+      - chunked
+      Content-Type:
+      - text/xml; charset=utf-8
+    body:
+      encoding: ASCII-8BIT
+      string: |-
+        <?xml version="1.0" encoding="UTF-8"?>
+        <RateReply xmlns="http://fedex.com/ws/rate/v13" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"><HighestSeverity>WARNING</HighestSeverity><Notifications><Severity>WARNING</Severity><Source>crs</Source><Code>556</Code><Message>There are no valid services available. </Message><LocalizedMessage>There are no valid services available. </LocalizedMessage></Notifications><Notifications><Severity>NOTE</Severity><Source>crs</Source><Code>929</Code><Message>The service option type SATURDAY_DELIVERY was ignored because it was incompatible with the original request.</Message><LocalizedMessage>The service option type SATURDAY_DELIVERY was ignored because it was incompatible with the original request.</LocalizedMessage><MessageParameters><Id>SERVICE_OPTION_TYPE</Id><Value>SATURDAY_DELIVERY</Value></MessageParameters></Notifications><TransactionDetail><CustomerTransactionId>ActiveShipping</CustomerTransactionId></TransactionDetail><Version><ServiceId>crs</ServiceId><Major>13</Major><Intermediate>0</Intermediate><Minor>0</Minor></Version></RateReply>
+    http_version: 
+  recorded_at: Thu, 10 Nov 2016 00:23:56 GMT
+- request:
+    method: post
+    uri: https://onlinetools.ups.com/ups.app/xml/Rate
+    body:
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0"?>
+        <AccessRequest>
+          <AccessLicenseNumber>UPS_KEY</AccessLicenseNumber>
+          <UserId>UPS_LOGIN</UserId>
+          <Password>UPS_PASSWORD</Password>
+        </AccessRequest>
+        <?xml version="1.0"?>
+        <RatingServiceSelectionRequest>
+          <Request>
+            <RequestAction>Rate</RequestAction>
+            <RequestOption>Shop</RequestOption>
+          </Request>
+          <PickupType>
+            <Code>01</Code>
+          </PickupType>
+          <CustomerClassification>
+            <Code>01</Code>
+          </CustomerClassification>
+          <Shipment>
+            <Shipper>
+              <Address>
+                <PostalCode>98122</PostalCode>
+                <CountryCode>US</CountryCode>
+                <ResidentialAddressIndicator>true</ResidentialAddressIndicator>
+              </Address>
+            </Shipper>
+            <ShipTo>
+              <Address>
+                <PostalCode>0</PostalCode>
+                <CountryCode>US</CountryCode>
+                <ResidentialAddressIndicator>true</ResidentialAddressIndicator>
+              </Address>
+            </ShipTo>
+            <Package>
+              <PackagingType>
+                <Code>02</Code>
+              </PackagingType>
+              <Dimensions>
+                <UnitOfMeasurement>
+                  <Code>IN</Code>
+                </UnitOfMeasurement>
+                <Length>12.0</Length>
+                <Width>12.0</Width>
+                <Height>12.0</Height>
+              </Dimensions>
+              <PackageWeight>
+                <UnitOfMeasurement>
+                  <Code>LBS</Code>
+                </UnitOfMeasurement>
+                <Weight>71.0</Weight>
+              </PackageWeight>
+              <PackageServiceOptions/>
+            </Package>
+          </Shipment>
+        </RatingServiceSelectionRequest>
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Thu, 10 Nov 2016 00:23:57 GMT
+      Server:
+      - Apache
+      X-Frame-Options:
+      - SAMEORIGIN
+      Strict-Transport-Security:
+      - max-age=15768000; includeSubDomains
+      Pragma:
+      - no-cache
+      Content-Length:
+      - '577'
+      X-Content-Type-Options:
+      - nosniff
+      Content-Type:
+      - application/xml
+    body:
+      encoding: UTF-8
+      string: |-
+        <?xml version="1.0"?>
+        <RatingServiceSelectionResponse><Response><ResponseStatusCode>0</ResponseStatusCode><ResponseStatusDescription>Failure</ResponseStatusDescription><Error><ErrorSeverity>Hard</ErrorSeverity><ErrorCode>111210</ErrorCode><ErrorDescription>The requested service is unavailable between the selected locations.</ErrorDescription></Error><Error><ErrorSeverity>Hard</ErrorSeverity><ErrorCode>111215</ErrorCode><ErrorDescription>The requested service is unavailable to residential destinations.</ErrorDescription></Error></Response></RatingServiceSelectionResponse>
+    http_version: 
+  recorded_at: Thu, 10 Nov 2016 00:23:57 GMT
 recorded_with: VCR 3.0.3

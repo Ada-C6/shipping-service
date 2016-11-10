@@ -45,6 +45,10 @@ class ShipmentsControllerTest < ActionController::TestCase
       get :index, {weight: 71, origin_zip: 98122, destination_zip: 9812}
       assert_response :missing #could also be 404
       assert_equal JSON.parse(response.body)["error"], "UH-OH. LOOKS LIKE SOMETHING'S NOT QUITE RIGHT. PERHAPS YOUR ZIP CODES ARE OFF BY ONE? PLEASE NOTE: PACKAGES HAVE A WEIGHT LIMIT OF 150 LBS."
+
+      get :index, {weight: 71, origin_zip: 98122}
+      assert_response :missing #could also be 404
+      assert_equal JSON.parse(response.body)["error"], "UH-OH. LOOKS LIKE SOMETHING'S NOT QUITE RIGHT. PERHAPS YOUR ZIP CODES ARE OFF BY ONE? PLEASE NOTE: PACKAGES HAVE A WEIGHT LIMIT OF 150 LBS."
     end
   end
 
