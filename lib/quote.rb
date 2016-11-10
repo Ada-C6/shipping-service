@@ -1,3 +1,4 @@
+require 'timeout'
 class Quote
 
   UPS_LOGIN = ENV["ACTIVESHIPPING_UPS_LOGIN"]
@@ -20,7 +21,8 @@ class Quote
   def ups
     ups = ActiveShipping::UPS.new(login: UPS_LOGIN, password: UPS_PASSWORD, key: UPS_KEY)
 
-    ups_response = ups.find_rates(@origin, @destination, @package)
+
+    ups_response = Timeout::timeout(5) { ups.find_rates(@origin, @destination, @package) }
     # return ups_response.rates
     ups_rates = {}
     ups_response.rates.sort_by(&:price).each do |rate|

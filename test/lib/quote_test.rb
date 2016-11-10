@@ -50,11 +50,7 @@ class QuoteTest < ActiveSupport::TestCase
 
   test "calling #usps will return a hash of rates from USPS with different service names" do
     VCR.use_cassette("quote") do
-    # keys = ["USPS Library Mail Parcel", "USPS Media Mail Parcel", "USPS Retail Ground", "USPS Priority Mail 1-Day", "USPS Priority Mail Express 2-Day", "USPS Priority Mail Express 2-Day Sunday/Holiday Delivery"]
-
       assert_instance_of Hash, @quote.usps
-    # assert_equal 6, @quote.usps.length
-    # assert_equal keys, @quote.usps.keys
     end
   end
 
