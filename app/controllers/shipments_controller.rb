@@ -28,7 +28,7 @@ class ShipmentsController < ApplicationController
     begin
       usps = Shipment.usps_rates(origin, destination, package)
     rescue ActiveShipping::ResponseError
-      render json: {}, status: :not_found
+      render json: {}, status: :not_found and return
     end
     #
     # ups = Shipment.ups_rates(origin, destination, package)
