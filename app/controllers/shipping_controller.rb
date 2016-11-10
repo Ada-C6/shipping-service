@@ -15,8 +15,10 @@ class ShippingController < ApplicationController
     shipping_destination = shipping.destination(shipping.country, shipping.state, shipping.city, shipping.zip)
 
     shipping_packages = shipping.create_packages(shipping.weights)
+    shipping_rates = []
+    shipping_rates << shipping.ups(origin, shipping_destination, shipping_packages)
 
-    shipping_rates = shipping.ups(origin, shipping_destination, shipping_packages)
+    shipping_rates << shipping.usps(origin, shipping_destination, shipping_packages)
 
     render json: { "id": shipping.id, "shipping_rates": shipping_rates }, status: :created
   end
