@@ -23,17 +23,6 @@ class ShipmentsController < ApplicationController
     get_rates_from_shipper(usps)
   end
 
-  def index
-    carrier_estimates = []
-    carrier_estimates.push(ups_rates, usps_rates)
-
-    render json: carrier_estimates, status: :created
-  end
-
-  # def show
-  #   render :json => { ready_for_lunch: "yassss" }
-  # end
-
   def create
     logger.info("Request for shipment of box size 10x10x10 from facility at Seattle, WA 98161. Weight of package and final destination: #{ params }")
     shipment = Shipment.new(shipment_params)
