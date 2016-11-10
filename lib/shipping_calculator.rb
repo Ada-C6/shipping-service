@@ -36,7 +36,26 @@ class ShippingCalculator
 	   		ups = ActiveShipping::UPS.new(login: ENV["UPS_LOGIN"], password: ENV["UPS_PASSWORD"], key: ENV["UPS_KEY"])
 	   		response = ups.find_rates(origin, destination, package)
 	   	end 
-	   return response.rates.sort_by(&:price).collect {|rate| [rate.service_name, rate.price]}
+	   	
+	   	arr=response.rates.sort_by(&:price).collect {|rate| [rate.service_name, rate.price]}
+	   	hashy={}
+	   	outside=[]
+	   	arr.each_with_index do |a, index|
+	   		hashy[:id]= index+1
+	   		hashy[:name]= a.first
+	   		hashy[:cost]= a.last/100.0 
+	   		outside<<hashy
+	   		hashy={}
+	   	end
+	   	
 
+	   
+	   	# arr.each do |line, i|
+	   		
+	   	# 	hashy[:name]=line[0]
+	   	# 	hashy[i+1][:price]=line[1]
+	   	# end
+
+	   	return outside
 	end
 end
