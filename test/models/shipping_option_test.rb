@@ -15,18 +15,23 @@ class ShippingOptionTest < ActiveSupport::TestCase
     assert_not negative_case.valid?
   end
 
-  test "Self.search should return an array of ShippingOption objects" do
-    VCR.use_cassette("shipments") do
+  test "Self.search should return an array of ShippingOption objects and save them to the database" do
+    # we know this because we counted them
+    provider_options = 12
+    assert_difference('ShippingOption.count', provider_options) do
+      VCR.use_cassette("shipments") do
+
         package = 10
         destination = '98107'
         origin = '98101'
 
-      options = ShippingOption.search(origin, destination, package)
+        options = ShippingOption.search(origin, destination, package)
 
-      assert_kind_of Array, options
+        assert_kind_of Array, options
 
-      options.each do |item|
-        assert_kind_of ShippingOption, item
+        options.each do |item|
+          assert_kind_of ShippingOption, item
+        end
       end
     end
 
