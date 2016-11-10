@@ -1,3 +1,32 @@
+Mini-Documentation, for the teachers to grade us! 
+===============================================
+
+Our API takes post requests with JSONs attached. Below please find a sample JSON that can you can use to test. Our API also supports Fedex so you can change the carrier if you want, as well as the details of the 2 packages or the address. Basically everything is required, so please do not forget any attributes or you will get an error. ¯\_(ツ)_/¯
+
+`{
+    "packages": [
+        {
+            "weight": 12,
+            "length": 12,
+            "width": 30,
+            "height": 30
+        },
+        {
+            "weight": 30,
+            "length": 30,
+            "width": 30,
+            "height": 30
+        }
+    ],
+    "country": "USA",
+    "state": "WA",
+    "city": "Seattle",
+    "zip": "98001",
+    "carrier": "usps"
+}`
+
+
+
 # Shipping Service API
 Build a stand-alone shipping service API that calculates estimated shipping costs. Then, implement your shipping service API into the provided bEtsy application, Petsy.
 
