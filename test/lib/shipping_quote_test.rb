@@ -3,6 +3,7 @@ require 'test_helper'
 class ShippingQuoteTest < ActiveSupport::TestCase
   PETSY = {country: 'US',state: 'CA', city: 'Beverly Hills', zip: '90210'}
   ADA = {country: 'US',state: 'WA', city: 'Seattle', zip: '98101'}
+  TOTAL_QUOTES_FROM_BOTH_UPS_USPS = 12
 
 
   ### Tests for initializing ###
@@ -22,12 +23,12 @@ class ShippingQuoteTest < ActiveSupport::TestCase
   end
 
 
-  #test to handle bad data in arguments
+  #test to handle bad data in arguments @todo
 
   ### Parcel wrapping ###
 
   # carriers supported: UPS, USPS
-  test "#requesting_quote(carrier) should return an instance of ShippingQuote from the different carriers" do
+  test "#requesting_quote(carrier) should return a JSON of quotes" do
 
     VCR.use_cassette("active_shipping") do
       carrier = "ups"
@@ -39,9 +40,10 @@ class ShippingQuoteTest < ActiveSupport::TestCase
       parcel = ShippingQuote.new(package, origin, destination)
       quotes = parcel.requesting_quote(carrier) # array of arrays
 
+
       assert Array, quotes
       quotes.each do |quote|
-        assert Array, quote
+        assert Hash, quote
       end
     end
   end
@@ -101,62 +103,43 @@ class ShippingQuoteTest < ActiveSupport::TestCase
       parcel = ShippingQuote.new(package, origin, destination)
 
 
-      quotes = parcel.requesting_quote(carrier) # array of arrays
-
+      quotes = parcel.requesting_quote(carrier) # array of hash
       assert_not_nil quotes
       assert Array, quotes
 
       quotes.each do |quote|
-        assert Array, quote
-        assert String, quote[0]
-        assert Integer, quote[1]
+        assert_instance_of Hash, quote
+        assert_equal 2, quote.length #
+        assert String, quote[:name]
+        assert Integer, quote[:cost]
       end
     end
   end
 
-  # test "#carrier_quotes should return supported carriers quotes as an array of length = 2 arrays" do
-  #   VCR.use_cassette("active_shipping") do
-  #     petsy_carriers = ["ups", "usps"] #the carriers approved by our customer (petsy)
-  #     package = ActiveShipping::Package.new(7.5 * 16,           # weight
-  #                                           [12,12,12],         # dimensions
-  #                                           units: :imperial)   # options
-  #     origin = ActiveShipping::Location.new(PETSY)
-  #     destination = ActiveShipping::Location.new(ADA)
-  #
-  #     parcel = ShippingQuote.new(package, origin, destination)
-  #
-  #     quotes = parcel.carrier_quotes(petsy_carriers) # array of arrays
-  #
-  #     quotes.each do |quote|
-  #       assert_instance_of Array, quote
-  #       assert_equal 2, quote.length # not valid because we are also testing two carriers
-  #
-  #     end
-  #   end
-  # end
+  test "#carrier_quotes should return supported carriers quotes as an array of quotes" do
+    VCR.use_cassette("active_shipping") do
+      petsy_carriers = ["ups", "usps"] # the carriers approved by our customer (petsy)
+      package = ActiveShipping::Package.new(7.5 * 16,           # weight
+                                            [12,12,12],         # dimensions
+                                            units: :imperial)   # options
+      origin = ActiveShipping::Location.new(PETSY)
+      destination = ActiveShipping::Location.new(ADA)
 
-  #first implement a second carrier then @todo : ->
+      parcel = ShippingQuote.new(package, origin, destination)
 
-  # test "#carrier_quotes should return all the quotes from each carrier as an array of arrays" do
-  #   VCR.use_cassette("active_shipping") do
-  #     petsy_carriers = ["ups"] #the carriers approved by our customer (petsy)
-  #     package = ActiveShipping::Package.new(7.5 * 16,           # weight
-  #                                           [12,12,12],         # dimensions
-  #                                           units: :imperial)   # options
-  #
-  #     origin = ActiveShipping::Location.new(PETSY)
-  #     destination = ActiveShipping::Location.new(ADA)
-  #
-  #     parcel = ShippingQuote.new(package, origin, destination)
-  #     quotes = parcel.carrier_quotes(petsy_carriers) # array of arrays
-  #
-  #     assert_equal 6, quotes.length
-  #     #must implement a second carrier for this to work/fail
-  #     quotes.each do |quote|
-  #       assert Array, quote
-  #     end
-  #   end
-  # end
+      quotes = parcel.carrier_quotes(petsy_carriers) # array of arrays
+
+      assert Array, quotes
+      assert_equal TOTAL_QUOTES_FROM_BOTH_UPS_USPS, quotes.length
+
+      quotes.each do |quote| # to ensure the array is put together correctly
+        assert_instance_of Hash, quote
+        assert_equal 2, quote.length
+        assert String, quote[:name]
+        assert Integer, quote[:cost]
+      end
+    end
+  end
 
 
 

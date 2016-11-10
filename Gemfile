@@ -45,6 +45,7 @@ end
 group :test do
   gem 'minitest-reporters'
   gem 'simplecov'
+  gem 'pry-rails'
 end
 
 group :development do
