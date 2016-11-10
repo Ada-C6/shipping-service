@@ -15,7 +15,7 @@ class ShippingController < ApplicationController
       destination_city: params[:destination_city],
       destination_zip: params[:destination_zip]
     }
-
+    
     Timeout::timeout(5) do
       begin
         results = ShippingRate.get_rates(shipment_hash)

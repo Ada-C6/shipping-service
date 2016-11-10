@@ -2,6 +2,7 @@ require 'test_helper'
 
 class ShippingRateTest < ActiveSupport::TestCase
   test "should be able to create a new ShippingRate with name and cost" do
+    WebMock.allow_net_connect!
     quote = ShippingRate.new(name: "Heather's Great Shipping", cost: 12345)
 
     assert quote.save
@@ -10,6 +11,7 @@ class ShippingRateTest < ActiveSupport::TestCase
   end
 
   test "should not be able to add random attributes to a new ShippingRate object" do
+    WebMock.allow_net_connect!
     assert_raises ActiveRecord::UnknownAttributeError do
       quote = ShippingRate.new(hat: "Fedora")
       assert_not quote.valid?
@@ -19,6 +21,7 @@ class ShippingRateTest < ActiveSupport::TestCase
   # @todo - validate model?
 
   test "get_rates should return an array of ShippingRate objects when passed a hash with correct parameters" do
+    WebMock.allow_net_connect!
     shipment = { weight: 10,
       origin_country: "US",
       origin_state: "WA",
@@ -41,6 +44,7 @@ class ShippingRateTest < ActiveSupport::TestCase
   end
 
   test "get_rates should return an appropriate response when zip code and state don't match" do
+    WebMock.allow_net_connect!
     shipment = { weight: 10,
       origin_country: "US",
       origin_state: "WA",

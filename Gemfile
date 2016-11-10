@@ -54,7 +54,7 @@ group :development, :test do
   gem 'dotenv-rails'
   gem 'sqlite3'
   # gem 'minitest-vcr'
-  # gem 'webmock'
+  gem 'webmock'
 end
 
 group :development do
