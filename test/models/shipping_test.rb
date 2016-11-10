@@ -17,16 +17,29 @@ class ShippingTest < ActiveSupport::TestCase
     assert_kind_of ActiveShipping::Location, location
   end
 
-  test "find the rates for a package using ups as the carrier" do
-    city = shippings(:one).city
-    state = shippings(:one).state
-    zip = shippings(:one).zip
-    country = shippings(:one).country
+  test "self.ups: find the rates for a package using ups as the carrier" do
+    city = shippings(:destination_one).city
+    state = shippings(:destination_one).state
+    zip = shippings(:destination_one).zip
+    country = shippings(:destination_one).country
 
     origin = ActiveShipping::Location.new(country: 'US', state: 'WA', city: 'Seattle', zip: '98122')
 
-    packages
     destination = Shipping.destination(country, state, city, zip)
+    #
+     weights_string = shippings(:weights_two).weights
+    #
+    packages = Shipping.create_packages(weights_string)
+    #
+
+    #shipment is the item
+    shipment = Shipping.ups(origin, destination, packages)
+    assert_not_nil shipment
+    assert_kind_of Array, shipment
+    assert_kind_of Array, shipment[0]
+    assert_equal shipment.count, 6
+
+
   end
 
   test "should return array of packages" do

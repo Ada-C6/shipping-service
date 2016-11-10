@@ -22,31 +22,17 @@ class Shipping < ActiveRecord::Base
   end
 
 
-
-
-def ups(destination, weight)
-
+  def self.ups(origin, destination, packages)
+  
   ups = ActiveShipping::UPS.new(
-    login: ENV[ACTIVESHIPPING_UPS_LOGIN],
-    password: ENV[ACTIVESHIPPING_UPS_PASSWORD], key: ENV[ACTIVESHIPPING_UPS_KEY])
+       login: "shopifolk",
+       password: "Shopify_rocks", key: "7CE85DED4C9D07AB")
 
-  response = ups.find_rates(origin, destination, packages)
+   response = ups.find_rates(origin, destination, packages)
 
-  ups_rates = response.rates.sort_by(&:price).collect {|rate| [rate.service_name, rate.price]}
-
-end
-
-  #def ups(destination, weight)
-
-    # ups = ActiveShipping::UPS.new(
-    #   login: ENV["ACTIVESHIPPING_UPS_LOGIN"],
-    #   password: ENV[ACTIVESHIPPING_UPS_PASSWORD], key: ENV[ACTIVESHIPPING_UPS_KEY])
-
-    # response = ups.find_rates(origin, destination, packages)
-
-    # ups_rates = response.rates.sort_by(&:price).collect {|rate| [rate.service_name, rate.price]}
-
-  #end
+     ups_rates = response.rates.sort_by(&:price).collect {|rate| [rate.service_name, rate.price]}
+    return ups_rates
+  end
 
 
   def self.usps(origin, destination, packages)
