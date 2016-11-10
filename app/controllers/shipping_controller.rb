@@ -6,6 +6,7 @@ class ShippingController < ApplicationController
   end
 
   def create
+    origin = ActiveShipping::Location.new(country: 'US', state: 'WA', city: 'Seattle', zip: '98122')
     logger.info(">>>>>>>>> MEM: #{request.body.read}")
     logger.info(">>>>>>>>> MEM: #{params}")
     shipping = Shipping.new(shipment_params)
@@ -15,7 +16,7 @@ class ShippingController < ApplicationController
 
     shipping_packages = shipping.create_packages(shipping.weights)
 
-    shipping_rates = shipping.ups
+    shipping_rates = shipping.ups(origin, shipping_destination, shipping_packages)
 
     render json: { "id": shipping.id, "shipping_rates": shipping_rates }, status: :created
   end

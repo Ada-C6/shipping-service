@@ -1,8 +1,7 @@
-require 'active_shipping'
+  require 'active_shipping'
 
 class Shipping < ActiveRecord::Base
-  attr_reader :package, :origin, :destination
-
+    # attr_reader :
   ORIGIN = ActiveShipping::Location.new(country: 'US', state: 'WA', city: 'Seattle', zip: '98122')
 
 
@@ -22,38 +21,38 @@ class Shipping < ActiveRecord::Base
   end
 
 
-  def ups
+  def ups(origin, destination, packages)
 
-    ups = ActiveShipping::UPS.new(
-    login: "shopifolk",
-    password: "Shopify_rocks", key: "7CE85DED4C9D07AB")
+  ups = ActiveShipping::UPS.new(
+       login: "shopifolk",
+       password: "Shopify_rocks", key: "7CE85DED4C9D07AB")
 
-    response = ups.find_rates(origin, destination, packages)
+   response = ups.find_rates(origin, destination, packages)
 
-    ups_rates = response.rates.sort_by(&:price).collect {|rate| [rate.service_name, rate.price]}
+     ups_rates = response.rates.sort_by(&:price).collect {|rate| [rate.service_name, rate.price]}
     return ups_rates
   end
 
 
-  def usps
+  def usps(origin, destination, packages)
     developer_key = "677JADED7283"
     usps = ActiveShipping::USPS.new(login: developer_key)
     response = usps.find_rates(origin, destination, packages)
     usps_rates = response.rates.sort_by(&:price).collect {|rate|
-      [rate.service_name, rate.price]}
-      return usps_rates
-    end
+       [rate.service_name, rate.price]}
+    return usps_rates
+  end
 
-  # def shipping_options
-  # trying to write a method that would run all these methods above
-  #   package_destination = self.destination(self.country, self.state, self.city, self.zip)
+  # def shipping_options(shipping)
   #
-  #   collected_packages = self.create_packages(self.weights)
+  #   package_destination = a.destination(a.country, a.state, a.city, a.zip)
   #
-  #   usps_rates = self.usps(origin, package_destination, collected_packages)
+  #   collected_packages = a.create_packages(a.weights)
+  #
+  #   usps_rates = a.usps(origin, package_destination, collected_packages)
   #   # => will return an array of arrays
   #
-  #   ups_rates = self.ups.(origin, package_destination, collected_packages)
+  #   ups_rates = a.ups.(origin, package_destination, collected_packages)
   #   # => returns
   #   returns ">>>>>>>>>>>#{usps_rates} + #{ups_rates}"
   # end
