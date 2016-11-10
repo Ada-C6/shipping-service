@@ -8,11 +8,18 @@ class ShipmentTest < ActiveSupport::TestCase
     height: 4.5
   }
 
-  LOCATION_PARAMS = {
+  DESTINATION_PARAMS = {
     country: "US",
     state: "CA",
     city: "Los Angeles",
     postal_code: "90078"
+  }
+
+  ORIGIN_PARAMS = {
+    country: "US",
+    state: "WA",
+    city: "Seattle",
+    postal_code: "98125"
   }
 
   test "the truth" do
@@ -36,12 +43,12 @@ class ShipmentTest < ActiveSupport::TestCase
   end
 
   test "self.destination creates a location object" do
-    test_destination = Shipment.destination(LOCATION_PARAMS)
+    test_destination = Shipment.destination(DESTINATION_PARAMS)
     assert_instance_of ActiveShipping::Location, test_destination
 
-    assert_equal LOCATION_PARAMS[:city], test_destination.city
-    assert_equal LOCATION_PARAMS[:state], test_destination.state
-    assert_equal LOCATION_PARAMS[:postal_code], test_destination.postal_code
-    assert_equal LOCATION_PARAMS[:country], test_destination.country_code
+    assert_equal DESTINATION_PARAMS[:city], test_destination.city
+    assert_equal DESTINATION_PARAMS[:state], test_destination.state
+    assert_equal DESTINATION_PARAMS[:postal_code], test_destination.postal_code
+    assert_equal DESTINATION_PARAMS[:country], test_destination.country_code
   end
 end
