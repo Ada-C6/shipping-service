@@ -10,4 +10,13 @@ class QuoteTest < ActiveSupport::TestCase
     assert quote.valid?
   end
 
+  test "will not create a quote with invalid data" do
+    quote1 = Quote.new(name: "Best Quote Test Quote", shipment_id: "2222")
+    quote2 = Quote.new(name: "Best Quote Test Quote", shipment_id: "2222", price: "Five hundred")
+
+    assert_not quote1.valid?
+    assert_not quote2.valid?
+
+  end
+
 end
