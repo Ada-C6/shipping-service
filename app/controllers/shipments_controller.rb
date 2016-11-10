@@ -1,30 +1,5 @@
 class ShipmentsController < ApplicationController
   def index
-    # test_params = {
-    #   weight: 3.5,
-    #   # dimensions: [15, 10, 4.5],
-    #   length: 15,
-    #   width: 10,
-    #   height: 4.5,
-    #
-    #   country: "US",
-    #   state: "CA",
-    #   city: "Los Angeles",
-    #   postal_code: "90078"
-    # }
-    #
-    # package_weight = test_params[:weight].to_f
-    # length = test_params[:length].to_f
-    # width = test_params[:width].to_f
-    # height =test_params[:height].to_f
-    #
-    # destination_hash = {
-    #   country: test_params[:country],
-    #   state: test_params[:state],
-    #   city: test_params[:city],
-    #   postal_code: test_params[:postal_code],
-    # }
-
     logger.info("#{request.body.read}")
     logger.info("#{params}")
 
@@ -44,8 +19,21 @@ class ShipmentsController < ApplicationController
     origin = Shipment.origin
     destination = Shipment.destination(destination_hash)
 
-    ups = Shipment.ups_rates(origin, destination, package)
-    usps = Shipment.usps_rates(origin, destination, package)
+    begin
+      ups = Shipment.ups_rates(origin, destination, package)
+    rescue ActiveShipping::ResponseError
+      render json: {}, status: :not_found and return
+    end
+
+    begin
+      usps = Shipment.usps_rates(origin, destination, package)
+    rescue ActiveShipping::ResponseError
+      render json: {}, status: :not_found
+    end
+    #
+    # ups = Shipment.ups_rates(origin, destination, package)
+    #
+    # usps = Shipment.usps_rates(origin, destination, package)
 
     ups_rates = []
     ups.each do | option |
@@ -67,9 +55,7 @@ class ShipmentsController < ApplicationController
 
     all_shipping_options = {ups_rates: ups_rates, usps_rates: usps_rates}
 
-
-    render json: all_shipping_options
-
+    render json: all_shipping_options#, only: [:carrier, :service_name, :total_price], status: :ok
   end
 
   # def show

@@ -1,21 +1,21 @@
 require 'test_helper'
 
 class ShipmentTest < ActiveSupport::TestCase
-  PACKAGE_PARAMS = {
+  PACKAGE_INFO = {
     weight: 3.5,
     length: 15,
     width: 10,
     height: 4.5
   }
 
-  DESTINATION_PARAMS = {
+  DESTINATION_HASH = {
     country: "US",
     state: "CA",
     city: "Los Angeles",
-    billing_zip: "90078"
+    postal_code: "90078"
   }
 
-  ORIGIN_PARAMS = {
+  ORIGIN_HASH = {
     country: "US",
     state: "WA",
     city: "Seattle",
@@ -30,7 +30,7 @@ class ShipmentTest < ActiveSupport::TestCase
     test_package = Shipment.package(3.5, 15, 10, 4.5)
     assert_instance_of ActiveShipping::Package, test_package
 
-    assert_equal PACKAGE_PARAMS[:weight], test_package.pounds
+    assert_equal PACKAGE_INFO[:weight], test_package.pounds
     assert_equal [4.5,10,15], test_package.inches
   end
 
@@ -43,13 +43,12 @@ class ShipmentTest < ActiveSupport::TestCase
   end
 
   test "self.destination creates a location object" do
-    test_destination = Shipment.destination(DESTINATION_PARAMS)
+    test_destination = Shipment.destination(DESTINATION_HASH)
     assert_instance_of ActiveShipping::Location, test_destination
 
-    puts "#{test_destination}"
-    assert_equal LOCATION_PARAMS[:city], test_destination.city
-    assert_equal LOCATION_PARAMS[:state], test_destination.state
-    assert_equal LOCATION_PARAMS[:billing_zip], test_destination.postal_code
-    assert_equal LOCATION_PARAMS[:country], test_destination.country_code
+    assert_equal DESTINATION_HASH[:city], test_destination.city
+    assert_equal DESTINATION_HASH[:state], test_destination.state
+    assert_equal DESTINATION_HASH[:postal_code], test_destination.postal_code
+    assert_equal DESTINATION_HASH[:country], test_destination.country_code
   end
 end
