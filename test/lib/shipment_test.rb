@@ -12,7 +12,7 @@ class ShipmentTest < ActiveSupport::TestCase
     country: "US",
     state: "CA",
     city: "Los Angeles",
-    postal_code: "90078"
+    billing_zip: "90078"
   }
 
   test "the truth" do
@@ -39,9 +39,10 @@ class ShipmentTest < ActiveSupport::TestCase
     test_destination = Shipment.destination(LOCATION_PARAMS)
     assert_instance_of ActiveShipping::Location, test_destination
 
+    puts "#{test_destination}"
     assert_equal LOCATION_PARAMS[:city], test_destination.city
     assert_equal LOCATION_PARAMS[:state], test_destination.state
-    assert_equal LOCATION_PARAMS[:postal_code], test_destination.postal_code
+    assert_equal LOCATION_PARAMS[:billing_zip], test_destination.postal_code
     assert_equal LOCATION_PARAMS[:country], test_destination.country_code
   end
 end

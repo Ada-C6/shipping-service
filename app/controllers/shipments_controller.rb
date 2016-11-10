@@ -64,31 +64,12 @@ class ShipmentsController < ApplicationController
 
     all_shipping_options = {ups_rates: ups_rates, usps_rates: usps_rates}
 
+
     render json: all_shipping_options
+
   end
 
   # def show
-  #   package_weight = params[:weight].to_f
-  #   length = params[:length].to_f
-  #   width = params[:width].to_f
-  #   height = params[:height].to_f
-  #   carrier = params[:carrier]
-  #   service_name = params[:service_name]
-  #
-  #   destination_hash = {
-  #     country: params[:country],
-  #     state: params[:state],
-  #     city: params[:city],
-  #     postal_code: params[:postal_code],
-  #   }
-  #
-  #   @package = Shipment.package(package_weight, length, width, height)
-  #   @origin = Shipment.origin
-  #   @destination = Shipment.destination(destination_hash)
-  #
-  #   #MUST PASS ALL PARAMS AND BE SENT ONE RETURN WITH ESTIMATE DATE
-  #   ##LOOK FOR ANOTHER METHOD
-  #   @ups_rates = Shipment.ups_rates(@origin, @destination, @package)
-  #   @usps_rates = Shipment.usps_rates(@origin, @destination, @package)
+  #do search for a particular order for a particular request. ie, when a customer selects one shipping option that they want
   # end
 end

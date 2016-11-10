@@ -1,20 +1,8 @@
 require 'active_shipping'
 
 class Shipment
-#do we use validations for lib classes????
-  # validates :name, presence: true
-  # validates :country, presence: true
-  # validates :city, presence: true
-  # validates :state, presence: true
-  # validates :postal_code, presence: true
-  # validates :length, presence: true
-  # validates :width, presence: true
-  # validates :height, presence: true
-  # validates :weight, presence: true
-
-
   def self.origin
-    ActiveShipping::Location.new(country: "US", state: "WA", city: "Seattle", postal_code: 98161)
+    ActiveShipping::Location.new(country: "US", state: "WA", city: "Seattle", postal_code: "98161")
   end
 
   # destination_hash = {country: "US", state :"XX", city: "Zxxxx", zip: "00000"}

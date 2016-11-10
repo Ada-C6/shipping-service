@@ -16,7 +16,7 @@ class ShipmentsControllerTest < ActionController::TestCase
      country: "US",
      state: "CA",
      city: "Los Angeles",
-     postal_code: "90078"
+     billing_zip: "90078"
    }
 
   test "the truth" do
