@@ -48,6 +48,16 @@ class ShippingServicesControllerTest < ActionController::TestCase
     end
   end
 
+  # Kari says we don't know how to test this yet.
+  # Something about webmocking.
+  # test "if call to Active Shipping through model takes more than 10 seconds,  we have a Timeout::Error and search returns a request_timeout status" do
+  #   VCR.use_cassette("shipments") do
+  #     get :search, { origin: '98101', destination: '98107', package: 10 }
+  #
+  #     assert_response :request_timeout
+  #   end
+  # end
+
   test "given an id, show returns a json hash for that shipping option" do
 
     keys = %w( cost id name )

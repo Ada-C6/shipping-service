@@ -5,11 +5,11 @@ class ShippingServicesController < ApplicationController
     # TODO: After the in-class discussion, we realize that instead of passing in the specific params, we should make a query hash and strong params. Will fix if we have time.
 
     begin
-      options = ShippingOption.search(params[:origin], params[:destination], params[:package])
-    rescue ArgumentError, Timeout::Error
-      if ArgumentError
+      options = Timeout::timeout(10) { ShippingOption.search(params[:origin], params[:destination], params[:package]) }
+    rescue ArgumentError, Timeout::Error => e
+      if e.class == ArgumentError
         render_argument_error
-      elsif Timeout::Error
+      elsif e.class == Timeout::Error
         render_timeout_error
       end
         return

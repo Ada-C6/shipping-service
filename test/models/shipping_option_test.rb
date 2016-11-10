@@ -106,7 +106,6 @@ class ShippingOptionTest < ActiveSupport::TestCase
     end
   end
 
-
   test "Self.ups successfully makes an ActiveShipping::UPS" do
     VCR.use_cassette("shipments") do
       ups = ShippingOption.ups
