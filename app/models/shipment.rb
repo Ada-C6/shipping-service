@@ -17,7 +17,7 @@ class Shipment < ActiveRecord::Base
   UPS_PASSWORD = "Shopify_rocks"
   UPS_KEY = "7CE85DED4C9D07AB"
 
-  # package information
+  # Package information
   def weight_conversion(weight)
     if units == "metric"
       weight
@@ -30,14 +30,13 @@ class Shipment < ActiveRecord::Base
     return ActiveShipping::Package.new(weight_conversion(weight), [length, width, height], units: :units)
   end
 
+  # Location information
   def origin
     # Normally this wouldn't be hardcoded, but the limitations of the
     # project necessitate it.
     return ActiveShipping::Location.new(country: "United States", state: "WA", city: "Seattle", postal_code: "98161")
   end
 
-
-  #This method works for both origin and destination
   def destination
     return ActiveShipping::Location.new(country: country, state: state, city: city, postal_code: zipcode)
   end
