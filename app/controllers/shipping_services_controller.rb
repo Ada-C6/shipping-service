@@ -1,17 +1,17 @@
 class ShippingServicesController < ApplicationController
   def show
   	weight=params[:weight]
-  	weight.to_f if weight and weight != 0 and weight != nil
+  	weight=weight.to_f if weight and weight != ''
   	dest_zip=params[:to]
   	service=params[:service]
   
    response = ShippingCalculator.calc_shipping(weight,dest_zip,service)
-   puts response.as_json
+   #puts response.as_json
 
-   if response[:error] 
+   unless response.class == Array
     	status = :not_found 
    else
-    status = :ok
+    	status = :ok
    end
 
    render :json => response, :status => status

@@ -9,12 +9,11 @@ class ShippingCalculator
 		missing_ones = params_exist_status.select { |key, value| value==nil or value==''}
 	
 		unless missing_ones.empty?
-			return {error: "The following parameters are missing #{missing_ones.keys} "}
-		end
+			return {"error"=> "The following parameters are missing #{missing_ones.keys} "}
+		end 
 	
 		zip_info=ZipCodes.identify(dest_zip)
 
-	  	#package=Package.save(weight: weight, destination_zip: dest_zip)
 	    package=ActiveShipping::Package.new(weight * 16,          
 	                             	[10, 10, 10],     
 	                             	units: :imperial) 	
@@ -30,11 +29,11 @@ class ShippingCalculator
 	                                       zip: '98122')
 	  	case service
 	  	when 'usps'
-	   		usps = ActiveShipping::USPS.new(login: 527118306406)
+	   		usps = ActiveShipping::USPS.new(login: ENV["USPS_LOGIN"])
 	   		response = usps.find_rates(origin, destination, package)
 	   		
 	   	when 'ups'
-	   		ups = ActiveShipping::UPS.new(login: ENV['UPS_LOGIN'], password: ENV['UPS_PASSWORD'], key: ENV['UPS_KEY'])
+	   		ups = ActiveShipping::UPS.new(login: ENV["UPS_LOGIN"], password: ENV["UPS_PASSWORD"], key: ENV["UPS_KEY"])
 	   		response = ups.find_rates(origin, destination, package)
 	   	end 
 	   return response.rates.sort_by(&:price).collect {|rate| [rate.service_name, rate.price]}
