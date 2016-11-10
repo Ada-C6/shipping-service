@@ -10,6 +10,7 @@ class ShipWrapper
   FEDEX_KEY = ENV["FEDEX_KEY"]
   FEDEX_ACCT = ENV["FEDEX_ACCT"]
 
+
   raise "cannot find USPS login" unless USPS_LOGIN
 
   def self.valid_carriers
