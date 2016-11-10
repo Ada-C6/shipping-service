@@ -25,6 +25,7 @@ class Shipment
     response = usps.find_rates(@origin, @destination, @package)
     rates = response.rates.sort_by(&:price).collect {|rate| [rate.service_name, rate.price]}
     return rates
+    # this comes back as an array of arrays with all USPS shipping option quotes
   end
 
   def ups_options
@@ -32,6 +33,7 @@ class Shipment
       response = ups.find_rates(@origin, @destination, @package)
       rates = response.rates.sort_by(&:price).collect {|rate| [rate.service_name, rate.price]}
       return rates
+      # this comes back as an array of arrays with all UPS shipping option quotes
   end
 
 
@@ -59,7 +61,7 @@ a = Shipment.new(shipment_info_hash)
 puts a.origin
 puts a.destination
 puts a.package.to_s
-# ups = a.ups_options
-# puts ups
+ups = a.ups_options
+puts ups
 usps = a.usps_options
 puts usps
