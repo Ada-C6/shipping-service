@@ -38,16 +38,16 @@ class ShipmentsController < ApplicationController
     logger.info("Request for shipment of box size 10x10x10 from facility at Seattle, WA 98161. Weight of package and final destination: #{ params }")
     shipment = Shipment.new(shipment_params)
     shipment.save
-    ups_rates = shipment.get_rates_from_shipper("UPS")
-    usps_rates = shipment.get_rates_from_shipper("USPS")
+    ups_rates
+    usps_rates
 
-    render json: { ups => ups_rates, usps => usps_rates } , status: :created
+    render json: { "ups" => ups_rates }, status: :created
   end
 
   private
 
   def shipment_params
-    params.require(:shipment).permit(params[:weight], params[:country], params[:state], params[:city], params[:zip])
+    params.permit([params[:shipment], params[:weight], params[:country], params[:state], params[:city], params[:zip]])
   end
 
   def origin
