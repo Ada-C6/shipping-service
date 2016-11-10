@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+gem "rack-timeout"
+
 gem 'active_model_serializers'
 
 gem 'active_shipping'
