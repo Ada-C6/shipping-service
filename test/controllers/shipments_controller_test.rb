@@ -82,6 +82,4 @@ class ShipmentsControllerTest < ActionController::TestCase
       assert_response :not_found
     end
   end
-
->>>>>>> nicole/shipping
 end
