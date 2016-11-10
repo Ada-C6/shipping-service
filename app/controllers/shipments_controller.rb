@@ -1,12 +1,13 @@
 class ShipmentsController < ApplicationController
-  # def index
-  #   s = Shipment.create(params)
-  #   s.ups_rates
-  #   s.usps_rates
-  #   results = s.rates
-  #   render json: results
-  # end
+  def index
+    shipment = Shipment.find(params[:id])
+    results = shipment.rates
+    render json: results
+  end
 
+  def show
+  end
+  
   def create
     logger.info(">>>>>>>> #{request.body.read}")
     logger.info(">>>>>>>> #{params}")

@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   get '/shipments', to: "shipments#index", as: "shipments"
   post '/shipments', to: "shipments#create"
+
+  get '/shipments/:id', to: "shipments#show", as: "rate"
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
