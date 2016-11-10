@@ -1,7 +1,7 @@
 require 'active_shipping'
 
 class ShippingQuote
-
+attr_reader :origin, :destination, :package
   UPS_LOGIN = ENV['ACTIVESHIPPING_UPS_LOGIN']
   UPS_KEY = ENV['ACTIVESHIPPING_UPS_KEY']
   UPS_PASSWORD = ENV['ACTIVESHIPPING_UPS_PASSWORD']
@@ -13,8 +13,7 @@ class ShippingQuote
     package = ActiveShipping::Package.new(weight, [12, 12, 12 ], cylinder: true)
     origin = ActiveShipping::Location.new(origin_hash)
     destination =   ActiveShipping::Location.new(destination_hash)
-    ShippingQuote.new(package, origin, destination)
-
+    ShippingQuote.new(package, origin , destination)
   end
 
   def initialize(package, origin = {}, destination = {})
@@ -29,7 +28,6 @@ class ShippingQuote
     if carrier == "ups"
       ups_credentials = ActiveShipping::UPS.new(login: UPS_LOGIN, password: UPS_PASSWORD, key: UPS_KEY)
       response = ups_credentials.find_rates(@origin, @destination, @package)
-
       # UPS rates/quotes [ [],[],... ]
       return response.rates.sort_by(&:price).collect {|rate| [rate.service_name, rate.price]}
     elsif carrier == "usps"
