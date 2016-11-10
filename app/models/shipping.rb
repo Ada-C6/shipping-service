@@ -23,7 +23,7 @@ class Shipping < ActiveRecord::Base
 
 
   def self.ups(origin, destination, packages)
-  
+
   ups = ActiveShipping::UPS.new(
        login: "shopifolk",
        password: "Shopify_rocks", key: "7CE85DED4C9D07AB")
@@ -41,7 +41,6 @@ class Shipping < ActiveRecord::Base
     response = usps.find_rates(origin, destination, packages)
     usps_rates = response.rates.sort_by(&:price).collect {|rate|
        [rate.service_name, rate.price]}
-    puts usps_rates
     return usps_rates
   end
 
