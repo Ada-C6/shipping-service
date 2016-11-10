@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161108212052) do
+ActiveRecord::Schema.define(version: 20161110211107) do
 
   create_table "packages", force: :cascade do |t|
     t.float    "weight"
@@ -22,9 +22,9 @@ ActiveRecord::Schema.define(version: 20161108212052) do
 
   create_table "requests", force: :cascade do |t|
     t.string   "verb"
-    t.string   "response"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "body"
   end
 
   create_table "responses", force: :cascade do |t|

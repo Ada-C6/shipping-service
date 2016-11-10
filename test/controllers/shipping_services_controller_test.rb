@@ -45,4 +45,10 @@ class ShippingServicesControllerTest < ActionController::TestCase
     assert_response :not_found
     assert body["error"]
   end
+
+  test "ups works too" do 
+  	show_params={weight: '34', to:'23454', service: 'ups'}
+  	get :show, show_params
+    assert_response :success
+  end
 end

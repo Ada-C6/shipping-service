@@ -2,8 +2,8 @@
 
 one:
   verb: MyString
-  response: MyString
+  body: MyString
 
 two:
   verb: MyString
-  response: MyString
+  body: MyString
