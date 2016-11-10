@@ -11,13 +11,13 @@ class QuotesController < ApplicationController
     end
 
     begin
-      quotes = {ups: quote.ups, usps: quote.usps}
+      rates = {ups: quote.ups, usps: quote.usps}
     rescue ActiveShipping::ResponseError => err
       logger.info(">>>>>>>>>>>RESPONSE: { 'error': #{err.response.message} }")
       render json: { error: err.response.message }, status: 400 and return
     end
-    logger.info(">>>>>>>>>>>RESPONSE: { 'quotes': #{quotes} }")
-    render json: { quotes: quotes }, status: :ok
+    logger.info(">>>>>>>>>>>RESPONSE: { 'rates': #{rates} }")
+    render json: rates, status: :ok
   end
 end
 
