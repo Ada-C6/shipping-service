@@ -1,15 +1,16 @@
 class Shipment < ActiveRecord::Base
   has_many :rates
 
-  validates :weight, presence: true
-  validates :height, presence: true
-  validates :length, presence: true
-  validates :width, presence: true
+  validates :weight, presence: true, numericality: {greater_than: 0, only_integer: false}
+  validates :height, presence: true, numericality: {greater_than: 0, only_integer: false}
+  validates :length, presence: true, numericality: {greater_than: 0, only_integer: false}
+  validates :width, presence: true, numericality: {greater_than: 0, only_integer: false}
   validates :city, presence: true
   validates :state, presence: true
   validates :country, presence: true
   validates :zipcode, presence: true
-  validates :units, presence: true
+  validates :units, presence: true, inclusion: { in: %w(metric imperial),
+    message: "%{value} is not a valid unit" }
 
   USPS_LOGIN = "677JADED7283"
   UPS_LOGIN = "shopifolk"

@@ -32,10 +32,28 @@ class ShipmentTest < ActiveSupport::TestCase
       units: "imperial"
     }
 
-
       shipment = Shipment.new(ship_hash)
       assert_not shipment.valid?
       assert_includes shipment.errors, :weight
+  end
+
+  test "weight must be greater than 0" do
+    ship_hash = {
+      weight: 0,
+      height: 12.0,
+      length: 12.0,
+      width: 12.0,
+      city: "Las Vegas",
+      state: "NV",
+      country: "US",
+      zipcode: "89121",
+      units: "imperial"
+    }
+
+    shipment = Shipment.new(ship_hash)
+    assert_not shipment.valid?
+    assert_not shipment.save
+    assert_equal ["must be greater than 0"], shipment.errors.messages[:weight]
   end
 
   test "can't create a Shipment without a height" do
@@ -55,6 +73,25 @@ class ShipmentTest < ActiveSupport::TestCase
     assert_includes shipment.errors, :height
   end
 
+  test "height must be greater than 0" do
+    ship_hash = {
+      weight: 100.0,
+      height: 0,
+      length: 12.0,
+      width: 12.0,
+      city: "Las Vegas",
+      state: "NV",
+      country: "US",
+      zipcode: "89121",
+      units: "imperial"
+    }
+
+    shipment = Shipment.new(ship_hash)
+    assert_not shipment.valid?
+    assert_not shipment.save
+    assert_equal ["must be greater than 0"], shipment.errors.messages[:height]
+  end
+
   test "can't create a Shipment without a length" do
     ship_hash = {
       weight: 100.0,
@@ -70,8 +107,25 @@ class ShipmentTest < ActiveSupport::TestCase
     shipment = Shipment.new(ship_hash)
     assert_not shipment.valid?
     assert_includes shipment.errors, :length
+  end
 
+  test "length must be greater than 0" do
+    ship_hash = {
+      weight: 100.0,
+      height: 12.0,
+      length: 0,
+      width: 12.0,
+      city: "Las Vegas",
+      state: "NV",
+      country: "US",
+      zipcode: "89121",
+      units: "imperial"
+    }
 
+    shipment = Shipment.new(ship_hash)
+    assert_not shipment.valid?
+    assert_not shipment.save
+    assert_equal ["must be greater than 0"], shipment.errors.messages[:length]
   end
 
   test "can't create a Shipment without a width" do
@@ -89,6 +143,25 @@ class ShipmentTest < ActiveSupport::TestCase
     shipment = Shipment.new(ship_hash)
     assert_not shipment.valid?
     assert_includes shipment.errors, :width
+  end
+
+  test "width must be greater than 0" do
+    ship_hash = {
+      weight: 100.0,
+      height: 12.0,
+      length: 12.0,
+      width: 0,
+      city: "Las Vegas",
+      state: "NV",
+      country: "US",
+      zipcode: "89121",
+      units: "imperial"
+    }
+
+    shipment = Shipment.new(ship_hash)
+    assert_not shipment.valid?
+    assert_not shipment.save
+    assert_equal ["must be greater than 0"], shipment.errors.messages[:width]
   end
 
   test "can't create a Shipment without a city" do
@@ -175,6 +248,25 @@ class ShipmentTest < ActiveSupport::TestCase
     shipment = Shipment.new(ship_hash)
     assert_not shipment.valid?
     assert_includes shipment.errors, :units
+  end
+
+  test "can't create a shipment unless the unit is metric or imperial" do
+    ship_hash = {
+      weight: 100.0,
+      height: 12.0,
+      length: 12.0,
+      width: 12.0,
+      city: "Las Vegas",
+      state: "NV",
+      country: "US",
+      zipcode: "89121",
+      units: "foo"
+    }
+
+    shipment = Shipment.new(ship_hash)
+    assert_not shipment.valid?
+    assert_not shipment.save
+    assert_equal ["#{shipment[:units]} is not a valid unit"], shipment.errors.messages[:units]
   end
 
   test "#package will return a Package object" do
