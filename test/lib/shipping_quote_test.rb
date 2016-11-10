@@ -5,7 +5,7 @@ class ShippingQuoteTest < ActiveSupport::TestCase
   ADA = {country: 'US',state: 'WA', city: 'Seattle', zip: '98101'}
 
 
-### Tests for initializing ###
+  ### Tests for initializing ###
   test "should initialize a quote with the required arguments" do
 
     VCR.use_cassette("active_shipping") do
@@ -24,9 +24,9 @@ class ShippingQuoteTest < ActiveSupport::TestCase
 
   #test to handle bad data in arguments
 
-### Parcel wrapping ###
+  ### Parcel wrapping ###
 
-# carriers supported: UPS, USPS
+  # carriers supported: UPS, USPS
   test "#requesting_quote(carrier) should return an instance of ShippingQuote from the different carriers" do
 
     VCR.use_cassette("active_shipping") do
@@ -54,8 +54,8 @@ class ShippingQuoteTest < ActiveSupport::TestCase
     VCR.use_cassette("active_shipping") do
       carrier = "ups"
       package = ActiveShipping::Package.new(7.5 * 16,           # weight
-                                            [12,12,12],         # dimensions
-                                            units: :imperial)   # options
+      [12,12,12],         # dimensions
+      units: :imperial)   # options
       origin = ActiveShipping::Location.new(PETSY)
       destination = ActiveShipping::Location.new(ADA)
       parcel = ShippingQuote.new(package, origin, destination)
@@ -72,19 +72,19 @@ class ShippingQuoteTest < ActiveSupport::TestCase
   end
 
   test "requesting_quote from unknown carrier will return nil" do
-      VCR.use_cassette("active_shipping") do
-        carrier = "Lucy's cargo"
-        package = ActiveShipping::Package.new(7.5 * 16,           # weight
-                                              [12,12,12],         # dimensions
-                                              units: :imperial)   # options
-        origin = ActiveShipping::Location.new(PETSY)
-        destination = ActiveShipping::Location.new(ADA)
-        parcel = ShippingQuote.new(package, origin, destination)
+    VCR.use_cassette("active_shipping") do
+      carrier = "Lucy's cargo"
+      package = ActiveShipping::Package.new(7.5 * 16,           # weight
+      [12,12,12],         # dimensions
+      units: :imperial)   # options
+      origin = ActiveShipping::Location.new(PETSY)
+      destination = ActiveShipping::Location.new(ADA)
+      parcel = ShippingQuote.new(package, origin, destination)
 
-        nil_quotes = parcel.requesting_quote(carrier)
+      nil_quotes = parcel.requesting_quote(carrier)
 
-        assert_nil nil_quotes
-      end
+      assert_nil nil_quotes
+    end
   end
 
   # for each of the carriers, except ups above, only one test
@@ -92,8 +92,8 @@ class ShippingQuoteTest < ActiveSupport::TestCase
     VCR.use_cassette("active_shipping") do
       carrier = "usps"
       package = ActiveShipping::Package.new(7.5 * 16,           # weight
-                                            [12,12,12],         # dimensions
-                                            units: :imperial)   # options
+      [12,12,12],         # dimensions
+      units: :imperial)   # options
 
       origin = ActiveShipping::Location.new(PETSY)
       destination = ActiveShipping::Location.new(ADA)
@@ -105,8 +105,6 @@ class ShippingQuoteTest < ActiveSupport::TestCase
 
       assert_not_nil quotes
       assert Array, quotes
-
-
 
       quotes.each do |quote|
         assert Array, quote

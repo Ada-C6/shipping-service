@@ -2,12 +2,22 @@ require 'active_shipping'
 
 class ShippingQuote
 
-UPS_LOGIN = ENV['ACTIVESHIPPING_UPS_LOGIN']
-UPS_KEY = ENV['ACTIVESHIPPING_UPS_KEY']
-UPS_PASSWORD = ENV['ACTIVESHIPPING_UPS_PASSWORD']
-USPS_LOGIN = ENV['ACTIVESHIPPING_USPS_LOGIN']
+  UPS_LOGIN = ENV['ACTIVESHIPPING_UPS_LOGIN']
+  UPS_KEY = ENV['ACTIVESHIPPING_UPS_KEY']
+  UPS_PASSWORD = ENV['ACTIVESHIPPING_UPS_PASSWORD']
+  USPS_LOGIN = ENV['ACTIVESHIPPING_USPS_LOGIN']
 
-  def initialize(package, origin, destination, service_quotes = [])
+
+
+  def self.setup(weight, origin_hash, destination_hash )
+    package = ActiveShipping::Package.new(weight, [12, 12, 12 ], cylinder: true)
+    origin = ActiveShipping::Location.new(origin_hash)
+    destination =   ActiveShipping::Location.new(destination_hash)
+    ShippingQuote.new(package, origin, destination)
+
+  end
+
+  def initialize(package, origin = {}, destination = {})
     @package = package
     @origin = origin
     @destination = destination
@@ -28,8 +38,19 @@ USPS_LOGIN = ENV['ACTIVESHIPPING_USPS_LOGIN']
       return response.rates.sort_by(&:price).collect {|rate| [rate.service_name, rate.price]}
     end
   end
-
-  # method putting quotes together parcel.carrier_quotes([ups,usps,canadapost] )
+  #
+  # def self.origin(origin_hash)
+  #   ActiveShipping::Location.new(origin_hash)
+  # end
+  #
+  # def self.destination(destination_hash)
+  #   ActiveShipping::Location.new(destination_hash)
+  # end
+  #
+  # def self.package(weight)
+  #   ActiveShipping::Package.new(weight, [12, 12, 12 ], cylinder: true)
+  # end
+  # # method putting quotes together parcel.carrier_quotes([ups,usps,canadapost] )
   def carrier_quotes(carriers)
     quotes = []
     carriers.each do |carrier|
