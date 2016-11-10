@@ -5,6 +5,8 @@ class ShipmentsController < ApplicationController
     logger.info(">>>>>>>> #{params}")
     shipment = Shipment.new(shipment_params)
     if shipment.save
+      shipment.ups_rates
+      shipment.usps_rates
       render json: { "id": shipment.id }, status: :created
     else
       # status 400: bad request

@@ -1,6 +1,6 @@
 class RatesController < ApplicationController
   def index
-    shipment = Shipment.find(params[:id])
+    shipment = Shipment.find(params[:shipment_id])
     results = shipment.rates
     render json: results
   end
