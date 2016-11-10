@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-    get 'quotes', to: 'quotes#index', as: 'quotes'
+    get 'quotes', to: 'quotes#create', as: 'quotes'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
