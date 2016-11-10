@@ -45,11 +45,8 @@ end
 group :test do
   gem 'minitest-reporters'
   gem 'simplecov'
-<<<<<<< HEAD
   gem 'pry-rails'
-=======
-  gem "pry-rails"
->>>>>>> sharshar
+
 end
 
 group :development do
