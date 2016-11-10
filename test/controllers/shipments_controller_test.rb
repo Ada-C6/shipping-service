@@ -29,7 +29,7 @@ class ShipmentsControllerTest < ActionController::TestCase
       shipment_from_database = Shipment.find(body["id"])
 
       assert_equal shipment_data["weight"], shipment_from_database.weight
-    end    
+    end
   end
 
   # will return 400 error message if missing params
