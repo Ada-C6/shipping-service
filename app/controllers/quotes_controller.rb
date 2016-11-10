@@ -2,6 +2,7 @@ class QuotesController < ApplicationController
   def create
     weight = params["weight"]
     destination = params["destination"]
+    logger.info(">>>>>>>>>>>REQUEST: #{params}")
     begin
       quote = Quote.new(weight, nil, destination)
     rescue ArgumentError => err
@@ -13,8 +14,7 @@ class QuotesController < ApplicationController
     rescue ActiveShipping::ResponseError => err
       render json: { "error": err.response.message }, status: 400 and return
     end
-    render json: { quotes: quotes }
-
+    logger.info(render json: { quotes: quotes }
   end
 end
 
