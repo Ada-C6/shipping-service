@@ -16,9 +16,12 @@ class QuotesController < ApplicationController
   def create
     # This is what a valid query from Petsy should look like:
     # http://localhost:3000/quotes/create?weight=8&from=92675&to=98034
+    quotes = []
     distance = Zipcode_Api_Wrapper.get_distance(params["from"], params["to"])
     cost = (params[:weight].to_f * SHIPPING_PER_MILE) * distance.to_i
-    quotes = {cost: cost, name: NAME, id: 1}
+    quotes.push(Quote.new(distance, cost, "UPS"))
+    cost = (params[:weight].to_f * SHIPPING_PER_MILE) * distance.to_i
+    quotes.push(Quote.new(distance, cost, "USPS"))
     render :json => quotes, :status => :ok
   end
 
