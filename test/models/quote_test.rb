@@ -9,4 +9,5 @@ class QuoteTest < ActiveSupport::TestCase
     quote = quotes(:one)
     assert quote.valid?
   end
+
 end
