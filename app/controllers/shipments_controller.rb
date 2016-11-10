@@ -38,10 +38,9 @@ class ShipmentsController < ApplicationController
     logger.info("Request for shipment of box size 10x10x10 from facility at Seattle, WA 98161. Weight of package and final destination: #{ params }")
     shipment = Shipment.new(shipment_params)
     shipment.save
-    ups_rates
-    usps_rates
+    logger.info("Response returned: ups => #{ ups_rates }, usps => #{ usps_rates }")
 
-    render json: { "ups" => ups_rates }, status: :created
+    render json: { "ups" => ups_rates, "usps" => usps_rates }, status: :created
   end
 
   private
