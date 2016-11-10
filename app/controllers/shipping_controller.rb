@@ -7,29 +7,29 @@ class ShippingController < ApplicationController
 
     unless packages_param
       # return HTTP 400 Bad Request error, with message: missing 'packages' field
-      render :json => {:error => "missing packages field"}.to_json, status: :bad_request
+      return render :json => {:error => "missing packages field"}.to_json, status: :bad_request
     end
 
     unless packages_param.is_a?(Array)
       # return HTTP 400 Bad Request error, with message: 'packages' field must be an array of package hash
-      render :json => {:error => "packages field must be an array of package hash"}.to_json, status: :bad_request
+      return render :json => {:error => "packages field must be an array of package hash"}.to_json, status: :bad_request
     end
 
     unless packages_param.length > 0
       # return HTTP 400 Bad Request error, with message: 'packages' field must not be empty
-      render :json => {:error => "packages field must not be empty"}.to_json, status: :bad_request
+      return render :json => {:error => "packages field must not be empty"}.to_json, status: :bad_request
     end
 
     packages = []
     packages_param.each do |package_param|
       unless package_param.is_a?(Hash)
         # return HTTP 400 Bad Request error, with message: 'packages' field must be an array of package hash
-        render :json => {:error => "packages field must be an array of package hash"}.to_json, status: :bad_request
+        return render :json => {:error => "packages field must be an array of package hash"}.to_json, status: :bad_request
       end
 
       if [:weight, :height, :length, :width].any? {|field| !package_param[field] }
         #  return HTTP 400 Bad Request error, with message: package hash must have 'weight', 'height', 'length', 'width'
-        render :json => {:error => "package hash must have 'weight', 'height', 'length', 'width'"}.to_json, status: :bad_request
+        return render :json => {:error => "package hash must have 'weight', 'height', 'length', 'width'"}.to_json, status: :bad_request
       end
 
       packages << ActiveShipping::Package.new(
@@ -44,22 +44,22 @@ class ShippingController < ApplicationController
 
     unless buyer_country = params[:country]
       # return HTTP 400 Bad Request error, with message: missing 'country' field
-      render :json => {:error => "missing 'country' field"}.to_json, status: :bad_request
+      return render :json => {:error => "missing 'country' field"}.to_json, status: :bad_request
     end
 
     unless buyer_state = params[:state]
       # return HTTP 400 Bad Request error, with message: missing 'state' field
-      render :json => {:error => "missing 'state' field"}.to_json, status: :bad_request
+      return render :json => {:error => "missing 'state' field"}.to_json, status: :bad_request
     end
 
     unless buyer_city = params[:city]
       # return HTTP 400 Bad Request error, with message: missing 'city' field
-      render :json => {:error => "missing 'city' field"}.to_json, status: :bad_request
+      return render :json => {:error => "missing 'city' field"}.to_json, status: :bad_request
     end
 
     unless buyer_zip = params[:zip]
       # TODO return HTTP 400 Bad Request error, with message: missing 'zip' field
-      render :json => {:error => "missing 'zip' field"}.to_json, status: :bad_request
+      return render :json => {:error => "missing 'zip' field"}.to_json, status: :bad_request
     end
 
     # TODO add packages field to Request
@@ -87,7 +87,11 @@ class ShippingController < ApplicationController
       zip: buyer_zip
     )
 
-    rates =  ShipWrapper.get_rates("usps", packages, destination)
+    begin
+      rates = ShipWrapper.get_rates("usps", packages, destination)
+    rescue Timeout::Error
+      return render :json => {:error => "active shipper timed out"}.to_json, status: :internal_server_error
+    end
 
     responses = []
     rates.each do |rate|
@@ -112,6 +116,6 @@ class ShippingController < ApplicationController
       }
     end
 
-    render :json => responses.as_json
+    return render :json => responses.as_json
   end
 end

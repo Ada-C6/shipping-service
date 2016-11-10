@@ -1,5 +1,5 @@
 require 'active_shipping'
-
+require 'timeout'
 class ShipWrapper
 
   SELLER_ADDRESS = ActiveShipping::Location.new(country: 'US', state: 'WA', city: 'Seattle', zip: '98119')
@@ -11,7 +11,10 @@ class ShipWrapper
     case carrier.downcase
     when 'usps'
       usps = ActiveShipping::USPS.new(login: USPS_LOGIN)
-      response = usps.find_rates(SELLER_ADDRESS, buyer_address, packages)
+
+      response = Timeout::timeout(5) do
+        usps.find_rates(SELLER_ADDRESS, buyer_address, packages)
+      end
       rates = response.rates.sort_by(&:price).to_a
     when 'fedex'
       # this will be populated later. right now we are just trying with one single carrier.
