@@ -27,16 +27,21 @@ class ShipmentsController < ApplicationController
   def create
     begin
       Timeout::timeout(10) {
-        logger.info("Request for shipment of box size 10x10x10 from facility at Seattle, WA 98161. Weight of package and final destination: #{ params }")
+        logger.info("Request for shipment of box size 10x10x10 from facility at Seattle, WA 98161. Weight ofpackage  and final destination: #{ params }")
         shipment = Shipment.new(shipment_params)
         shipment.save
         logger.info("Response returned: ups => #{ ups_rates }, usps => #{ usps_rates }")
 
-        render json: { "ups" => ups_rates, "usps" => usps_rates }, status: :created
+        return render json: { "ups" => ups_rates, "usps" => usps_rates }, status: :created
       }
+
+    rescue ActiveShipping::ResponseError
+      render json: { error: "Looks like some information isn't correct. Please try again."}
+
     rescue Timeout::Error
-      render json: { error: "This is taking too long. Try refreshing your page." }
+      return render json: { error: "This is taking too long. Try refreshing your page." }
     end
+
   end
 
   private
