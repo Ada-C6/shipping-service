@@ -63,4 +63,25 @@ class ShipmentsControllerTest < ActionController::TestCase
       assert_response :success
     end
   end
+
+  test "#index sends 404 status for bad address" do
+    VCR.use_cassette("shipments") do
+      bad_data = {
+        weight: 3.5,
+        length: 15,
+        width: 10,
+        height: 4.5,
+
+        country: "US",
+        state: "CA",
+        city: "Los Angeles",
+        billing_zip: nil
+      }
+
+      get :index, bad_data
+      assert_response :not_found
+    end
+  end
+
+>>>>>>> nicole/shipping
 end
