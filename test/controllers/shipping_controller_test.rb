@@ -28,7 +28,7 @@ class ShippingControllerTest < ActionController::TestCase
 
     body.each do |rate|
       assert_instance_of Hash, rate
-      # # @todo - this segment could be useful once fixtures
+      # # @todo - this segment could be useful once/if fixtures
       # RATE_KEYS.each do |key|
       #   value_from_server = rate[key]
       #   value_from_fixture = rate(:three)[key]
@@ -59,25 +59,4 @@ class ShippingControllerTest < ActionController::TestCase
 
     assert_match /Failure/, body["error"]
   end
-
-  # test "search_rates will " do
-  #
-  # end
-  #
-  # test "" do
-  #
-  # end
-  #
-  # test "" do
-  #
-  # end
-  #
-  # test "" do
-  #
-  # end
-  #
-  # test "" do
-  #
-  # end
-
 end

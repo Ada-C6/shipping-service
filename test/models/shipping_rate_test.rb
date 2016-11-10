@@ -9,11 +9,16 @@ class ShippingRateTest < ActiveSupport::TestCase
     assert_equal quote.cost, 12345
   end
 
-  # @todo - test the negative on create
+  test "should not be able to add random attributes to a new ShippingRate object" do
+    assert_raises ActiveRecord::UnknownAttributeError do
+      quote = ShippingRate.new(hat: "Fedora")
+      assert_not quote.valid?
+    end
+  end
+
   # @todo - validate model?
 
-  test "get_rates should return an array of ShippingRate objects when passed an array of hashes with correct parameters" do
-    # @todo - state that shipment is coming from a single package always
+  test "get_rates should return an array of ShippingRate objects when passed a hash with correct parameters" do
     shipment = { weight: 10,
       origin_country: "US",
       origin_state: "WA",
@@ -35,8 +40,6 @@ class ShippingRateTest < ActiveSupport::TestCase
     end
   end
 
-
-
   test "get_rates should return an appropriate response when zip code and state don't match" do
     shipment = { weight: 10,
       origin_country: "US",
@@ -53,25 +56,4 @@ class ShippingRateTest < ActiveSupport::TestCase
       assert_match /Failure/, ActiveShipping::ResponseError.response
     end
   end
-
-
-
-
-  # test "" do
-  #
-  # end
-  #
-  # test "" do
-  #
-  # end
-  #
-  # test "" do
-  #
-  # end
-  #
-  # test "" do
-  #
-  # end
-  #
-
 end
