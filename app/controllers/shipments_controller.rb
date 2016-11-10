@@ -1,4 +1,5 @@
 require 'active_shipping'
+require 'timeout'
 
 class ShipmentsController < ApplicationController
   before_action :origin, :destination, :packages
@@ -24,12 +25,18 @@ class ShipmentsController < ApplicationController
   end
 
   def create
-    logger.info("Request for shipment of box size 10x10x10 from facility at Seattle, WA 98161. Weight of package and final destination: #{ params }")
-    shipment = Shipment.new(shipment_params)
-    shipment.save
-    logger.info("Response returned: ups => #{ ups_rates }, usps => #{ usps_rates }")
+    begin
+      Timeout::timeout(10) {
+        logger.info("Request for shipment of box size 10x10x10 from facility at Seattle, WA 98161. Weight of package and final destination: #{ params }")
+        shipment = Shipment.new(shipment_params)
+        shipment.save
+        logger.info("Response returned: ups => #{ ups_rates }, usps => #{ usps_rates }")
 
-    render json: { "ups" => ups_rates, "usps" => usps_rates }, status: :created
+        render json: { "ups" => ups_rates, "usps" => usps_rates }, status: :created
+      }
+    rescue Timeout::Error
+      render json: { error: "This is taking too long. Try refreshing your page." }
+    end
   end
 
   private
