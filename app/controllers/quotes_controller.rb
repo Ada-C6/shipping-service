@@ -17,7 +17,7 @@ class QuotesController < ApplicationController
       render json: { error: err.response.message }, status: 400 and return
     end
     logger.info(">>>>>>>>>>>RESPONSE: { 'quotes': #{quotes} }")
-    logger.info(render json: { quotes: quotes })
+    render json: { quotes: quotes }, status: :ok
   end
 end
 

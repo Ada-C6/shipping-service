@@ -45,7 +45,6 @@ class QuoteTest < ActiveSupport::TestCase
       assert_raises (ActiveShipping::ResponseError) do
         bad_quote.ups
       end
-      puts ActiveShipping::ResponseError
     end
   end
 
