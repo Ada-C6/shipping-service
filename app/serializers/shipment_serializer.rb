@@ -1,3 +1,3 @@
 class ShipmentSerializer < ActiveModel::Serializer
-  attributes :id
+  # attributes :id
 end

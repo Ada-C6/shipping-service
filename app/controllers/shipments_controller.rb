@@ -1,19 +1,14 @@
 class ShipmentsController < ApplicationController
-  def index
-    shipment = Shipment.find(params[:id])
-    results = shipment.rates
-    render json: results
-  end
 
-  def show
-  end
-  
   def create
     logger.info(">>>>>>>> #{request.body.read}")
     logger.info(">>>>>>>> #{params}")
     shipment = Shipment.new(shipment_params)
-    shipment.save
-    render json: { "id": shipment.id }, status: :created
+    if shipment.save
+      render json: { "id": shipment.id }, status: :created
+    else
+      render status: 400
+    end
   end
 
   private
