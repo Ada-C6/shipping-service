@@ -6,25 +6,30 @@ class ShippingController < ApplicationController
     packages_param = params[:packages]
 
     unless packages_param
-      # TODO return HTTP 400 Bad Request error, with message: missing 'packages' field
+      # return HTTP 400 Bad Request error, with message: missing 'packages' field
+      render :json => {:error => "missing packages field"}.to_json, status: :bad_request
     end
 
     unless packages_param.is_a?(Array)
-      # TODO return HTTP 400 Bad Request error, with message: 'packages' field must be an array of package hash
+      # return HTTP 400 Bad Request error, with message: 'packages' field must be an array of package hash
+      render :json => {:error => "packages field must be an array of package hash"}.to_json, status: :bad_request
     end
 
     unless packages_param.length > 0
-      # TODO return HTTP 400 Bad Request error, with message: 'packages' field must not be empty
+      # return HTTP 400 Bad Request error, with message: 'packages' field must not be empty
+      render :json => {:error => "packages field must not be empty"}.to_json, status: :bad_request
     end
 
     packages = []
     packages_param.each do |package_param|
       unless package_param.is_a?(Hash)
-        # TODO return HTTP 400 Bad Request error, with message: 'packages' field must be an array of package hash
+        # return HTTP 400 Bad Request error, with message: 'packages' field must be an array of package hash
+        render :json => {:error => "packages field must be an array of package hash"}.to_json, status: :bad_request
       end
 
       if [:weight, :height, :length, :width].any? {|field| !package_param[field] }
-        # TODO return HTTP 400 Bad Request error, with message: package hash must have 'weight', 'height', 'length', 'width'
+        #  return HTTP 400 Bad Request error, with message: package hash must have 'weight', 'height', 'length', 'width'
+        render :json => {:error => "package hash must have 'weight', 'height', 'length', 'width'"}.to_json, status: :bad_request
       end
 
       packages << ActiveShipping::Package.new(
@@ -38,21 +43,27 @@ class ShippingController < ApplicationController
     end
 
     unless buyer_country = params[:country]
-      # TODO return HTTP 400 Bad Request error, with message: missing 'country' field
+      # return HTTP 400 Bad Request error, with message: missing 'country' field
+      render :json => {:error => "missing 'country' field"}.to_json, status: :bad_request
     end
 
     unless buyer_state = params[:state]
-      # TODO return HTTP 400 Bad Request error, with message: missing 'state' field
+      # return HTTP 400 Bad Request error, with message: missing 'state' field
+      render :json => {:error => "missing 'state' field"}.to_json, status: :bad_request
     end
 
     unless buyer_city = params[:city]
-      # TODO return HTTP 400 Bad Request error, with message: missing 'city' field
+      # return HTTP 400 Bad Request error, with message: missing 'city' field
+      render :json => {:error => "missing 'city' field"}.to_json, status: :bad_request
     end
 
     unless buyer_zip = params[:zip]
       # TODO return HTTP 400 Bad Request error, with message: missing 'zip' field
+      render :json => {:error => "missing 'zip' field"}.to_json, status: :bad_request
     end
 
+    # TODO add packages field to Request
+    # TODO add error handling for request does not process in a timely manner
 
 =begin
     request = Request.new(
@@ -68,13 +79,13 @@ class ShippingController < ApplicationController
 
     request.save
 =end
-    # Need to be a CONSTANT. Where to put the constant?
 
     destination = ActiveShipping::Location.new(
       country: buyer_country,
       state: buyer_state,
       city: buyer_city,
-      zip: buyer_zip)
+      zip: buyer_zip
+    )
 
     rates =  ShipWrapper.get_rates("usps", packages, destination)
 
