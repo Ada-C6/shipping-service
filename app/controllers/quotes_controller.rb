@@ -1,4 +1,5 @@
 require 'shipment'
+require 'timeout'
 
 class QuotesController < ApplicationController
 
@@ -7,8 +8,10 @@ class QuotesController < ApplicationController
       logger.info(">>>>>>> AHSK: #{ response }")
       logger.info(">>>>>>> AHSK: #{ shipment_params }")
       begin
-        quote = Shipment.new(shipment_params)
-        render json: { "quotes": quote.all_quotes }, status: :created
+        status = Timeout::timeout(10) {
+          quote = Shipment.new(shipment_params)
+          render json: { "quotes": quote.all_quotes }, status: :created
+        }
       rescue ActiveShipping::ResponseError
         render json: {}, status: :not_found
       end
