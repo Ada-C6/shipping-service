@@ -5,7 +5,7 @@ class ShippingCalculator
 							 "destination zip"=>dest_zip,
 							  "service" => service}
 
-		puts "weight: #{params_exist_status["weight"]}"
+		# puts "weight: #{params_exist_status["weight"]}"
 		missing_ones = params_exist_status.select { |key, value| value==nil or value==''}
 	
 		unless missing_ones.empty?

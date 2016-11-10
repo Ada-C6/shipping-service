@@ -6,7 +6,6 @@ class ShippingServicesController < ApplicationController
   	service=params[:service]
   
    response = ShippingCalculator.calc_shipping(weight,dest_zip,service)
-   #puts response.as_json
 
    unless response.class == Array
     	status = :not_found 
