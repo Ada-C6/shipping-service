@@ -1,7 +1,7 @@
 require 'active_shipping'
 
 class ShippingQuote
-
+attr_reader :origin, :destination, :package
   UPS_LOGIN = ENV['ACTIVESHIPPING_UPS_LOGIN']
   UPS_KEY = ENV['ACTIVESHIPPING_UPS_KEY']
   UPS_PASSWORD = ENV['ACTIVESHIPPING_UPS_PASSWORD']

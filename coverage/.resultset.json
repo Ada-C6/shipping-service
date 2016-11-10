@@ -17,17 +17,53 @@
         null,
         null
       ],
-      "/Users/aymaiz/ada/shipping/shipping-service/lib/shipping_quote.rb": [
         1,
         null,
         1,
+        2,
+        2,
+        null,
+        2,
+        null,
+        2,
+        null,
+        2,
+        null,
+        null,
+        null,
+        2,
+        null,
+        null,
+        null
+      ],
+      "/Users/ShariMeggs/Documents/ada/Partner-Projects/shipping-service/app/controllers/application_controller.rb": [
+        1,
+        null,
+        null,
+        null,
+        null
+      ],
+      "/Users/ShariMeggs/Documents/ada/Partner-Projects/shipping-service/lib/shipping_quote.rb": [
+        1,
         null,
         1,
         1,
         1,
         1,
+        1,
+        1,
+        null,
+        null,
         null,
         1,
+        3,
+        3,
+        3,
+        3,
+        null,
+        null,
+        1,
+<<<<<<< HEAD
         0,
         0,
         0,
@@ -38,6 +74,11 @@
         6,
         6,
         6,
+=======
+        8,
+        8,
+        8,
+>>>>>>> sharshar
         null,
         null,
         null,
@@ -52,6 +93,7 @@
         2,
         2,
         null,
+<<<<<<< HEAD
         null,
         6,
         6,
@@ -71,6 +113,10 @@
         null,
         null,
         null,
+=======
+        14,
+        2,
+>>>>>>> sharshar
         1,
         1,
         1,
@@ -82,22 +128,42 @@
         null,
         null,
         null,
+<<<<<<< HEAD
         1,
+        0,
+=======
+>>>>>>> sharshar
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+<<<<<<< HEAD
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+=======
+        null,
+        null,
+        null,
+        1,
+        0,
+        0,
+        0,
+        0,
+        null,
+        null,
         0,
         null,
         null,
         null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
+>>>>>>> sharshar
         null,
         null,
         null,
@@ -140,6 +206,10 @@
         0
       ]
     },
+<<<<<<< HEAD
     "timestamp": 1478821836
+=======
+    "timestamp": 1478821505
+>>>>>>> sharshar
   }
 }

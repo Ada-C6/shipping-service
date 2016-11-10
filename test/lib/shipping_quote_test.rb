@@ -22,9 +22,6 @@ class ShippingQuoteTest < ActiveSupport::TestCase
     end
   end
 
-
-  #test to handle bad data in arguments @todo
-
   ### Parcel wrapping ###
 
   # carriers supported: UPS, USPS
@@ -141,6 +138,26 @@ class ShippingQuoteTest < ActiveSupport::TestCase
     end
   end
 
-
+  test "should use #setup to initialize the package and origin" do
+    VCR.use_cassette("active_shipping") do
+      weight = 8
+      origin = {city: 'Chicago', state: 'IL'}
+      destination = {city: 'Seattle', state: 'Wa'}
+      shipment = ShippingQuote.setup(weight, origin, destination)
+      assert_equal shipment.origin.to_s, "Chicago, IL"
+      assert_equal shipment.destination.to_s, "Seattle, Wa"
+      assert_equal shipment.package.weight.to_s, "8 grams"
+      assert_instance_of ShippingQuote, shipment
+    end
+  end
+  test "#setup cannot initialize without the appropriate number of arguments" do
+    VCR.use_cassette("active_shipping") do
+      weight = 8
+      origin = {city: 'Chicago', state: 'IL'}
+      assert_raise do
+        shipment = ShippingQuote.setup(weight, origin)
+      end
+    end
+  end
 
 end
