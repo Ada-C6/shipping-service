@@ -3,8 +3,13 @@ require 'active_shipping'
 class Shipment
   attr_reader :package, :origin, :destination
 
+  USPS_LOGIN = '677JADED7283'
+  UPS_LOGIN = 'shopifolk'
+  UPS_KEY = '7CE85DED4C9D07AB'
+  UPS_PASSWORD = 'Shopify_rocks'
+
   def initialize(shipment_info_hash)
-    weight = shipment_info_hash[:weight] * 16 #we are assuming petsy will add all package weights for us
+    weight = shipment_info_hash[:weight] * 16 #we are assuming petsy will add all package weights for us, in lbs that we're converting to ounces
     dest_country = shipment_info_hash[:country]
     dest_state = shipment_info_hash[:state]
     dest_city = shipment_info_hash[:city]
@@ -16,15 +21,15 @@ class Shipment
   end
 
   def usps_options
-    usps = ActiveShipping::USPS.new(login: ENV['USPS_LOGIN'])
-    response = usps.find_rates(self.origin, self.destination, self.package)
+    usps = ActiveShipping::USPS.new(login: USPS_LOGIN)
+    response = usps.find_rates(@origin, @destination, @package)
     rates = response.rates.sort_by(&:price).collect {|rate| [rate.service_name, rate.price]}
     return rates
   end
 
   def ups_options
-      ups = ActiveShipping::UPS.new(login: ENV['UPS_LOGIN'], password: ENV['UPS_PASSWORD'], key: ENV['UPS_KEY'])
-      response = ups.find_rates(self.origin, self.destination, self.package)
+      ups = ActiveShipping::UPS.new(login: UPS_LOGIN, password: UPS_PASSWORD, key: UPS_KEY)
+      response = ups.find_rates(@origin, @destination, @package)
       rates = response.rates.sort_by(&:price).collect {|rate| [rate.service_name, rate.price]}
       return rates
   end
@@ -50,10 +55,11 @@ end
 
 shipment_info_hash = {weight: 15, country: 'US', state: 'OH', city: 'Akron', zip: '44333' }
 a = Shipment.new(shipment_info_hash)
+
 puts a.origin
 puts a.destination
 puts a.package.to_s
-ups = a.ups_options
-puts ups
+# ups = a.ups_options
+# puts ups
 usps = a.usps_options
 puts usps
