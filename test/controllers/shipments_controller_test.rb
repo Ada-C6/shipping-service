@@ -18,6 +18,7 @@ class ShipmentsControllerTest < ActionController::TestCase
 
   test "#index returns an Array" do
     get :index, {city: shipments(:one).city, weight: shipments(:one).weight, zip: shipments(:one).zip}
+
     # Assign the result of the response from the controller action
     body = JSON.parse(response.body)
     assert_kind_of Array, body
@@ -30,8 +31,6 @@ class ShipmentsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  #TODO: WTF is going on here? What is the test that is failing?
-
   test "show returns json " do
     get :show, {id: quotes(:one).id }
     assert_match 'application/json', response.header['Content-Type']
@@ -39,7 +38,6 @@ class ShipmentsControllerTest < ActionController::TestCase
     assert_instance_of Hash, body
 
     # data set should match what we requested
-
     keys = %w(id name price)
     keys.each do |key|
       assert_equal body[key], quotes(:one)[key]
