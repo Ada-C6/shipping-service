@@ -20,37 +20,15 @@ class ShipmentsController < ApplicationController
     destination = Shipment.destination(destination_hash)
 
     begin
-      ups = Shipment.ups_rates(origin, destination, package)
+      ups_rates = Shipment.ups_rates(origin, destination, package)
     rescue ActiveShipping::ResponseError
       render json: {}, status: :not_found and return
     end
 
     begin
-      usps = Shipment.usps_rates(origin, destination, package)
+      usps_rates = Shipment.usps_rates(origin, destination, package)
     rescue ActiveShipping::ResponseError
       render json: {}, status: :not_found
-    end
-    #
-    # ups = Shipment.ups_rates(origin, destination, package)
-    #
-    # usps = Shipment.usps_rates(origin, destination, package)
-
-    ups_rates = []
-    ups.each do | option |
-      option_info = {}
-      option_info[:carrier] = option.carrier
-      option_info[:service_name] = option.service_name
-      option_info[:total_price] = option.total_price
-      ups_rates << option_info
-    end
-
-    usps_rates = []
-    usps.each do | option |
-      option_info = {}
-      option_info[:carrier] = option.carrier
-      option_info[:service_name] = option.service_name
-      option_info[:total_price] = option.total_price
-      usps_rates << option_info
     end
 
     all_shipping_options = {ups_rates: ups_rates, usps_rates: usps_rates}
@@ -60,5 +38,12 @@ class ShipmentsController < ApplicationController
 
   # def show
   #do search for a particular order for a particular request. ie, when a customer selects one shipping option that they want
+  # end
+
+  # private
+  ### we wanted an initialize method for shipment which would have used this
+  # def shipment_params
+  #   params.require(:shipment).permit(:weight, :length, :width, :height, :country, :state, :city,
+  #   :billing_zip)
   # end
 end

@@ -14,16 +14,34 @@ class Shipment
     ActiveShipping::Package.new(weight * 16, [length, width, height], units: :imperial)
   end
 
+  def self.condense_list (carrier, options)
+    carrier_rates = []
+    options.each do | option |
+      option_info = {}
+      option_info[:carrier] = option.carrier
+      option_info[:service_name] = option.service_name
+      option_info[:total_price] = option.total_price
+      carrier_rates << option_info
+    end
+    return carrier_rates
+  end
+
   def self.ups_rates(origin, destination, package)
     ups = ActiveShipping::UPS.new(login: ENV['ACTIVESHIPPING_UPS_LOGIN'], password: ENV['ACTIVESHIPPING_UPS_PASSWORD'], key: ENV['ACTIVESHIPPING_UPS_KEY'])
     response = ups.find_rates(origin, destination, package)
-    response.rates.sort_by(&:price)
+    options = response.rates.sort_by(&:price)
+    ups_rates = condense_list(ups, options)
+
+    return ups_rates
   end
 
   def self.usps_rates(origin, destination, package)
     usps = ActiveShipping::USPS.new(login: ENV['ACTIVESHIPPING_USPS_LOGIN'])
     response = usps.find_rates(origin, destination, package)
-    response.rates.sort_by(&:price)
+    options = response.rates.sort_by(&:price)
+    usps_rates = condense_list(usps, options)
+
+    return usps_rates
   end
 
   # def fedex_rates

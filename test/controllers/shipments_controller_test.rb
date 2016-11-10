@@ -63,25 +63,4 @@ class ShipmentsControllerTest < ActionController::TestCase
       assert_response :success
     end
   end
-
-  test "#index raises an error if no shipping options are available" do
-    VCR.use_cassette("shipments") do
-      assert_raise ActiveShipping::ResponseError do
-        get :index
-      end
-    end
-  end
-
-  # test "#index renders an empty hash and not_found status if no shipping options are available" do
-  #   PARAMS = {
-  #     length: 15,
-  #     width: 10,
-  #     height: 4.5,
-  #   }
-  #   VCR.use_cassette("shipments") do
-  #     assert_raise ActiveShipping::ResponseError do
-  #       get :index, PARAMS
-  #     end
-  #   end
-  # end
 end
