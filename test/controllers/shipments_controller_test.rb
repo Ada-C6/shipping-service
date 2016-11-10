@@ -18,6 +18,7 @@ class ShipmentsControllerTest < ActionController::TestCase
       get :index, {weight: 2, origin_zip: 98122, destination_zip: 98122}
       assert_equal JSON.parse(response.body)["UPS"][0][0], "UPS Ground"
       assert_equal JSON.parse(response.body)["UPS"][0][1], 1376
+      #assert for USPS
       assert_equal JSON.parse(response.body)["Fedex"][6][0], "FedEx First Overnight"
       assert_equal JSON.parse(response.body)["Fedex"][6][1], 7035
     end
@@ -31,8 +32,10 @@ class ShipmentsControllerTest < ActionController::TestCase
 
       get :index, {weight: 71, origin_zip: 98122, destination_zip: 98122}
       assert_response :ok
-      # puts ">>>>>>>>>>>>> #{JSON.parse(response.body)}"
       assert_equal JSON.parse(response.body)["USPS"], "USPS CAN ONLY SHIP PACKAGES WEIGHING 70 LBS OR LESS."
+      # puts ">>>>>>>>>>>>> #{JSON.parse(response.body)}"
+      assert_equal JSON.parse(response.body)["UPS"][0][1], 3523
+      assert_equal JSON.parse(response.body)["Fedex"][6][1], 19111
     end
   end
 
