@@ -5,6 +5,11 @@ class ShipWrapper
   SELLER_ADDRESS = ActiveShipping::Location.new(country: 'US', state: 'WA', city: 'Seattle', zip: '98119')
   USPS_LOGIN = ENV["USPS_USERNAME"]
 
+  FEDEX_LOGIN = ENV["FEDEX_LOGIN"]
+  FEDEX_PWD = ENV["FEDEX_PWD"]
+  FEDEX_KEY = ENV["FEDEX_KEY"]
+  FEDEX_ACCT = ENV["FEDEX_ACCT"]
+
   raise "cannot find USPS login" unless USPS_LOGIN
 
   def self.valid_carriers
@@ -25,11 +30,16 @@ class ShipWrapper
       end
       rates = response.rates.sort_by(&:price).to_a
     when 'fedex'
-      # this will be populated later. right now we are just trying with one single carrier.
-    when 'ups'
-      # same as above
-    else
-      rates = []
+      fedex = ActiveShipping::FedEx.new(login: FEDEX_LOGIN, password: FEDEX_PWD, key: FEDEX_KEY, account: FEDEX_ACCT, test: true)
+
+      response = Timeout::timeout(10) do
+        fedex.find_rates(SELLER_ADDRESS, buyer_address, packages)
+      end
+      rates = response.rates.sort_by(&:price).to_a
+    # when 'ups'
+    #   # same as above
+    #
+    # end
     end
     return rates #=> [["usps blah blah", 3404], ["usps overnight", 49383]]
   end
