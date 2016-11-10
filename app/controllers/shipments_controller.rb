@@ -14,8 +14,6 @@ class ShipmentsController < ApplicationController
     end
   end
 
-  def show
-  end
 
 end
 
