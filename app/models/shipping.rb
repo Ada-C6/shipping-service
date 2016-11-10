@@ -6,7 +6,7 @@ class Shipping < ActiveRecord::Base
 
 
   # destination_hash comes from petsy ex: {country: '', state: '', city: '', zip: ''}
-  def self.destination(country, state, city, zip)
+  def destination(country, state, city, zip)
     address = {country: "#{country}", state: "#{state}", city: "#{city}", zip: "#{zip}"}
     ActiveShipping::Location.new(address)
   end
@@ -22,7 +22,7 @@ class Shipping < ActiveRecord::Base
   end
 
 
-  def self.ups(origin, destination, packages)
+  def ups(origin, destination, packages)
 
   ups = ActiveShipping::UPS.new(
        login: "shopifolk",
