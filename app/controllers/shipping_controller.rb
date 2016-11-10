@@ -103,4 +103,9 @@ class ShippingController < ApplicationController
 
     render :json => responses.as_json
   end
+
+  private
+  def shipping_params
+    params.require(:request).permit(:weight, :length, :width, :height, :country, :state, :city, :zip)
+  end
 end
