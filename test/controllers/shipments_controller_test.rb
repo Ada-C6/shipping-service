@@ -1,4 +1,5 @@
 require 'test_helper'
+require 'active_shipping'
 
 class ShipmentsControllerTest < ActionController::TestCase
 
@@ -17,8 +18,10 @@ class ShipmentsControllerTest < ActionController::TestCase
     body = JSON.parse(response.body)
     assert_instance_of Array, body
 
-    body.each do |obj|
-      assert_kind_of RateEstimate, obj
+    body.each do |array_item|
+      array_item.each do |hash|
+        assert_kind_of Hash, hash
+      end
     end
   end
 
