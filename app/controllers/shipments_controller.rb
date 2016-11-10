@@ -25,6 +25,9 @@ class ShipmentsController < ApplicationController
     #   postal_code: test_params[:postal_code],
     # }
 
+    logger.info("#{request.body.read}")
+    logger.info("#{params}")
+
     package_weight = params[:weight].to_f
     length = params[:length].to_f
     width = params[:width].to_f
