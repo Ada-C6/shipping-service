@@ -12,7 +12,7 @@ class Shipping < ActiveRecord::Base
   end
 
   # create_packages will create objects and take string of weights ex: [12, 35, 5]
-  def self.create_packages(weights_string)
+  def create_packages(weights_string)
     packages = []
     weights_array = weights_string.split(",").map(&:to_i)
     weights_array.each do |item|
@@ -35,7 +35,7 @@ class Shipping < ActiveRecord::Base
   end
 
 
-  def self.usps(origin, destination, packages)
+  def usps(origin, destination, packages)
     developer_key = "677JADED7283"
     usps = ActiveShipping::USPS.new(login: developer_key)
     response = usps.find_rates(origin, destination, packages)
@@ -44,4 +44,17 @@ class Shipping < ActiveRecord::Base
     return usps_rates
   end
 
+  def shipping_options
+
+    package_destination = a.destination(a.country, a.state, a.city, a.zip)
+
+    collected_packages = a.create_packages(a.weights)
+
+    usps_rates = a.usps(origin, package_destination, collected_packages)
+    # => will return an array of arrays
+
+    ups_rates = a.ups.(origin, package_destination, collected_packages)
+    # => returns
+    returns ">>>>>>>>>>>#{usps_rates} + #{ups_rates}"
+  end
 end
