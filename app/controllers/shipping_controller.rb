@@ -1,3 +1,5 @@
+require 'timeout'
+
 class ShippingController < ApplicationController
   def search
     logger.info(">>>>>>>>>>> REQUEST PARAMS: #{ params }")
@@ -14,14 +16,16 @@ class ShippingController < ApplicationController
       destination_zip: params[:destination_zip]
     }
 
-    begin
-      results = ShippingRate.get_rates(shipment_hash)
-    rescue ActiveShipping::ResponseError => err
-      render json: { "error": err.response.message } and return
+    Timeout::timeout(5) do
+      begin
+        results = ShippingRate.get_rates(shipment_hash)
+      rescue ActiveShipping::ResponseError => err
+        render json: { "error": err.response.message } and return
+      end
+
+      render json: results, except: [:created_at, :updated_at]
+
+      logger.info(">>>>>>>>>>> RENDERED: #{ results.to_json }")
     end
-
-    render json: results, except: [:created_at, :updated_at]
-
-    logger.info(">>>>>>>>>>> RENDERED: #{ results.to_json }")
   end
 end

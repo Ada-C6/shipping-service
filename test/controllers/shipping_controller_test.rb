@@ -39,7 +39,7 @@ class ShippingControllerTest < ActionController::TestCase
 
   end
 
-  test "API passes back ResponseErrors in json" do
+  test "API passes back ActiveShipping ResponseErrors in json" do
     get :search, { weight: 10,
       origin_country: "US",
       origin_state: "WA",
@@ -59,4 +59,25 @@ class ShippingControllerTest < ActionController::TestCase
 
     assert_match /Failure/, body["error"]
   end
+
+  test "API should return an error when request does not process in a timely manner" do
+    stub_get("http://localhost:3000/search?destination_city=Springfield&destination_country=US&destination_state=OH&destination_zip=45502&origin_city=Seattle&origin_country=US&origin_state=WA&origin_zip=98122&weight=105.6").to_timeout
+
+      assert_raises TimeoutError do
+        get :search, { weight: 105.6,
+          origin_country: "US",
+          origin_state: "WA",
+          origin_city: "Seattle",
+          origin_zip: "98122",
+          destination_country: "US",
+          destination_state: "OH",
+          destination_city: "Springfield",
+          destination_zip: "45502" }
+      end
+  end
+  #
+  # test "" do
+  #
+  # end
+
 end
