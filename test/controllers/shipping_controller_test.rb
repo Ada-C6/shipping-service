@@ -18,7 +18,7 @@ class ShippingControllerTest < ActionController::TestCase
   end
 
   test "when #create is invoked, a shipment is made" do
-    shipment_data = { "country" => "#{shippings(:destination_three).country}", "state" => "#{shippings(:destination_three).state}", "city" => "#{shippings(:destination_three).city}", "zip" => "#{shippings(:destination_three).zip}", "weights" => "#{shippings(:weights_two).weights}" }
+    shipment_data = { "country" => "#{shippings(:destination_two).country}", "state" => "#{shippings(:destination_two).state}", "city" => "#{shippings(:destination_two).city}", "zip" => "#{shippings(:destination_two).zip}", "weights" => "#{shippings(:weights_two).weights}" }
     assert_difference('Shipping.count', 1) do
       post :create, { "shipping": shipment_data }
     end
@@ -30,8 +30,9 @@ class ShippingControllerTest < ActionController::TestCase
     assert_instance_of Hash, body
 
     # Check the returned data
-    assert_equal 1, body.keys.length
+    assert_equal 2, body.keys.length
     assert_equal "id", body.keys.first
+    assert_equal 14, body.keys[1].length
 
     shipment_from_database = Shipping.find(body["id"])
     assert_equal shipment_data["zip"], shipment_from_database.zip

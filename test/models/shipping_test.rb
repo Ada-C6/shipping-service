@@ -7,12 +7,13 @@ class ShippingTest < ActiveSupport::TestCase
   # end
 
   test "should create a destination" do
+    shipment = Shipping.new
     city = shippings(:destination_one).city
     state = shippings(:destination_one).state
     zip = shippings(:destination_one).zip
     country = shippings(:destination_one).country
     # address = country: '#{country}', state: '#{state}', city: '#{city}', zip: '#{zip}'"
-    location = Shipping.destination(country, state, city, zip)
+    location = shipment.destination(country, state, city, zip)
     assert_not_nil location
     assert_kind_of ActiveShipping::Location, location
   end
@@ -22,30 +23,31 @@ class ShippingTest < ActiveSupport::TestCase
     state = shippings(:destination_one).state
     zip = shippings(:destination_one).zip
     country = shippings(:destination_one).country
-
+    shipment = Shipping.new
     origin = ActiveShipping::Location.new(country: 'US', state: 'WA', city: 'Seattle', zip: '98122')
 
-    destination = Shipping.destination(country, state, city, zip)
+    destination = shipment.destination(country, state, city, zip)
     #
      weights_string = shippings(:weights_two).weights
     #
-    packages = Shipping.create_packages(weights_string)
+    packages =   shipment.create_packages(weights_string)
     #
 
     #shipment is the item
-    shipment = Shipping.ups(origin, destination, packages)
-    assert_not_nil shipment
-    assert_kind_of Array, shipment
-    assert_kind_of Array, shipment[0]
-    assert_equal shipment.count, 6
+    shipment_results =   shipment.ups(origin, destination, packages)
+    assert_not_nil shipment_results
+    assert_kind_of Array, shipment_results
+    assert_kind_of Array, shipment_results[0]
+    assert_equal shipment_results.count, 6
     # puts shipment
 
 
   end
 
   test "should return array of packages" do
+    shipment = Shipping.new
     weights_string = shippings(:weights_one).weights
-    packages = Shipping.create_packages(weights_string)
+    packages = shipment.create_packages(weights_string)
     assert_not_nil packages
     assert_kind_of Array, packages
     assert_equal packages.count, 5
@@ -54,17 +56,18 @@ class ShippingTest < ActiveSupport::TestCase
   test "usps method should return array of arrays with service name and cost" do
     ORIGIN = ActiveShipping::Location.new(country: 'US', state: 'WA', city: 'Seattle', zip: '98122')
     origin = ORIGIN
+    shipment = Shipping.new
 
     city = shippings(:destination_two).city
     state = shippings(:destination_two).state
     zip = shippings(:destination_two).zip
     country = shippings(:destination_two).country
-    destination = Shipping.destination(country, state, city, zip)
+    destination = shipment.destination(country, state, city, zip)
 
     weights_string = shippings(:weights_two).weights
-    packages = Shipping.create_packages(weights_string)
+    packages = shipment.create_packages(weights_string)
 
-    rates = Shipping.usps(origin, destination, packages)
+    rates = shipment.usps(origin, destination, packages)
     assert_not_nil rates
     assert_kind_of Array, rates
     assert_kind_of Array, rates[0]
