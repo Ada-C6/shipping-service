@@ -7,7 +7,8 @@ class ShipmentsController < ApplicationController
     if shipment.save
       render json: { "id": shipment.id }, status: :created
     else
-      render status: 400
+      # status 400: bad request
+      render status: :bad_request, nothing: true
     end
   end
 
