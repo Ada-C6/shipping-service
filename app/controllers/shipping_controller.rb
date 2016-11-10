@@ -37,11 +37,11 @@ class ShippingController < ApplicationController
       end
 
       packages << ActiveShipping::Package.new(
-        package_param[:weight],
+        package_param[:weight].to_i,
         [
-          package_param[:length],
-          package_param[:width],
-          package_param[:height]
+          package_param[:length].to_i,
+          package_param[:width].to_i,
+          package_param[:height].to_i
         ]
       )
     end
@@ -107,7 +107,7 @@ class ShippingController < ApplicationController
       }
     end
 
-    return render :json => responses.as_json
+    return render :json => responses.as_json, status: :created
   end
 
   private
