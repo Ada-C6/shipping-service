@@ -34,7 +34,7 @@ class ShipmentsController < ApplicationController
       country: params[:country],
       state: params[:state],
       city: params[:city],
-      postal_code: params[:postal_code]
+      postal_code: params[:billing_zip]
     }
 
     package = Shipment.package(package_weight, length, width, height)

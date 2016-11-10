@@ -14,7 +14,7 @@ class Shipment
 
 
   def self.origin
-    ActiveShipping::Location.new(country: "US", state: "WA", city: "Seattle", postal_code: "98161")
+    ActiveShipping::Location.new(country: "US", state: "WA", city: "Seattle", postal_code: 98161)
   end
 
   # destination_hash = {country: "US", state :"XX", city: "Zxxxx", zip: "00000"}
