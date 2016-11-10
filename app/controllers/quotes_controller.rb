@@ -1,15 +1,20 @@
+require 'shipment'
+
 class QuotesController < ApplicationController
-    def create
-        logger.info(">>>>>>> AHSK: #{ request.body.read }")
-        logger.info(">>>>>>> AHSK: #{ params }")
-        quote = Shipment.new(shipment_params)
-        render json: { "quotes": quote.all_quotes }, status: :created
+
+    def index
+      logger.info(">>>>>>> AHSK: #{ request.body.read }")
+      logger.info(">>>>>>> AHSK: #{ params }")
+      quote = Shipment.new(shipment_params)
+      render json: { "quotes": quote.all_quotes }, status: :created
     end
 
 
     private
     def shipment_params
-        params.require(:shipment).permit(:weight, :country, :state, :city, :zip)
+        # params.require(:shipment).permit(:weight, :country, :state, :city, :zip)
+        # ^^ we are hard coding these below to get our controller to work - these will normally come in from petsy's api-wrapper
+      { weight: 15, country: 'US', state: 'OH', city: 'Akron', zip: '44333' }
     end
 
 end
