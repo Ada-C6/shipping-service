@@ -107,28 +107,27 @@ class ShippingControllerTest < ActionController::TestCase
 
   end
 
-
-    test 'when address is missing an element, should get an error back' do
-      def address_helper_method
-        post :quote, @params
-        assert_response :bad_request
-        body = JSON.parse(response.body)
-        assert_instance_of(Hash, body)
-        assert_equal(body["error"], "package hash must have 'weight', 'height', 'length', 'width'")
-      end
-
-      @params[:country] = nil
-      address_helper_method
-      @params[:country] = "cat"
-      @params[:city] = nil
-      address_helper_method
-      @params[:city] = "cat"
-      @params[:state] = nil
-      address_helper_method
-      @params[:state] = "cat"
-      @params[:zip] = nil
-      address_helper_method
-
+  test 'when address is missing an element, should get an error back' do
+    def address_helper_method(error)
+      post :quote, @params
+      assert_response :bad_request
+      body = JSON.parse(response.body)
+      assert_instance_of(Hash, body)
+      assert_equal(body["error"], "missing '#{error}' field")
     end
+
+    @params[:country] = nil
+    address_helper_method("country")
+    @params[:country] = "cat"
+    @params[:city] = nil
+    address_helper_method("city")
+    @params[:city] = "cat"
+    @params[:state] = nil
+    address_helper_method("state")
+    @params[:state] = "cat"
+    @params[:zip] = nil
+    address_helper_method("zip")
+
+  end
 
 end

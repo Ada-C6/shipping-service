@@ -11,8 +11,18 @@ class ShipWrapperTest < ActiveSupport::TestCase
     assert true
   end
 
-  test 'self.get_rates returns an array of arrays and inside each element there is a name of a service & a price'  do
+  test 'self.get_rates works with usps'  do
     rates = ShipWrapper.get_rates('usps', @package, @buyer_location)
+    assert_instance_of Array, rates
+    rates.each do |rate|
+      assert_instance_of ActiveShipping::RateEstimate, rate
+      # assert_instance_of String, rate[0]
+      # assert_instance_of Fixnum, rate[1]
+    end
+  end
+
+  test 'self.get_rates works with fedex'  do
+    rates = ShipWrapper.get_rates('fedex', @package, @buyer_location)
     assert_instance_of Array, rates
     rates.each do |rate|
       assert_instance_of ActiveShipping::RateEstimate, rate
