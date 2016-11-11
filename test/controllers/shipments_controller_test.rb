@@ -44,5 +44,25 @@ class ShipmentsControllerTest < ActionController::TestCase
     assert_response :bad_request
   end
 
-  # where should Timeout error should go?
+  # TODO: This test is for ActiveUtils::Connection Error. It passed when we turned off the wifi connection to simulate connection issue. But it broke other tests so we decided to comment it out.
+
+  # test "#create will flash Connection Timeout error when we cannot access ActiveShipping to generate rates" do
+  #   VCR.use_cassette("shipments") do
+  #     shipment = shipments(:one)
+  #     error = assert_raises(ActiveUtils::ConnectionError) do
+  #       begin
+  #         shipment.ups_rates
+  #         shipment.usps_rates
+  #       rescue
+  #         raise ActiveUtils::ConnectionError
+  #       end
+  #     end
+  #
+  #     assert_kind_of RateResponse, error.response
+  #     refute error.message.empty?
+  #     assert error.response.raw_responses.any?
+  #     assert_equal Hash.new, error.response.params
+  #   end
+  # end
+
 end

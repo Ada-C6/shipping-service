@@ -3,10 +3,16 @@ class ShipmentsController < ApplicationController
   def create
     logger.info(">>>>>>>> #{request.body.read}")
     logger.info(">>>>>>>> #{params}")
+
     shipment = Shipment.new(shipment_params)
+
     if shipment.save
-      shipment.ups_rates
-      shipment.usps_rates
+      begin
+        shipment.ups_rates
+        shipment.usps_rates
+      rescue
+        raise ActiveUtils::ConnectionError
+      end
       render json: { "id": shipment.id }, status: :created
     else
       # status 400: bad request
