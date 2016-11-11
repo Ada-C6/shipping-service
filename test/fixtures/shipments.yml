@@ -1,0 +1,24 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  weight: 12.0
+  height: 12.0
+  length: 12.0
+  width: 12.0
+  city: Las Vegas
+  state: NV
+  country: United States
+  zipcode: 89121
+  units: imperial
+
+
+two:
+  weight: 12.0
+  height: 12.0
+  length: 12.0
+  width: 12.0
+  city: Las Vegas
+  state: NV
+  country: United States
+  zipcode: 89121
+  units: metric
