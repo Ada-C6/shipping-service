@@ -22,6 +22,7 @@ class ShipWrapper
   end
 
   def self.get_rates(carrier, packages, buyer_address)
+    rates = []
     case carrier.downcase
     when 'usps'
       usps = ActiveShipping::USPS.new(login: USPS_LOGIN)
@@ -37,10 +38,6 @@ class ShipWrapper
         fedex.find_rates(SELLER_ADDRESS, buyer_address, packages)
       end
       rates = response.rates.sort_by(&:price).to_a
-    # when 'ups'
-    #   # same as above
-    #
-    # end
     end
     return rates #=> [["usps blah blah", 3404], ["usps overnight", 49383]]
   end
