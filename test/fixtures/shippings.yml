@@ -1,0 +1,29 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# This model initially had no columns defined.  If you add columns to the
+# model remove the '{}' from the fixture names and add the columns immediately
+# below each fixture, per the syntax in the comments below
+#
+destination_one:
+  country: 'US'
+  state: 'OR'
+  city: 'Portland'
+  zip: '97201'
+
+destination_two:
+  country: 'US'
+  state: 'WA'
+  city: 'Seattle'
+  zip: '98126'
+
+destination_three:
+  country: 'CA'
+  state: 'British Columbia'
+  city: 'Vancouver'
+  zip: 'V6C 2Y9'
+
+weights_one:
+  weights: '1, 2, 4.5, 7.31, 29.45'
+
+weights_two:
+  weights: '3.5, 2.67, 12'
