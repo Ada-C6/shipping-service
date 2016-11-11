@@ -4,114 +4,115 @@ require 'json'
 
 class ShippingController < ApplicationController
   def quote
-    unless carrier = params[:carrier]
-      return render :json => {:error => "must specify carrier field"}.to_json, status: :bad_request
-    end
+    # new function below collapses all error handling into a single function rather than spreading it out within this one.
+    errors = handle_input_errors(params)
+    if errors
+      return errors
 
-    unless ShipWrapper.is_valid_carrier?(carrier)
-      return render :json => {:error => "must specify a carrier from #{ShipWrapper.valid_carriers.join(', ')}"}.to_json, status: :bad_request
-    end
+    # if there are no errors, then we drop down and perform the function as planned.
+    else
+      packages_param = params[:packages]
+      carrier = params[:carrier]
+      # make each package into ActiveShipping package object
+      packages = []
+        packages_param.each do |package_param|
+          packages << ActiveShipping::Package.new(
+            package_param[:weight].to_i,
+            [package_param[:length].to_i,
+              package_param[:width].to_i,
+              package_param[:height].to_i])
+        end
 
-    packages_param = params[:packages]
-
-    unless packages_param
-      return render :json => {:error => "missing packages field"}.to_json, status: :bad_request
-    end
-
-    unless packages_param.is_a?(Array)
-      return render :json => {:error => "packages field must be an array of package hash"}.to_json, status: :bad_request
-    end
-
-    unless packages_param.length > 0
-      return render :json => {:error => "packages field must not be empty"}.to_json, status: :bad_request
-    end
-
-    packages = []
-    packages_param.each do |package_param|
-      unless package_param.is_a?(Hash)
-        return render :json => {:error => "packages field must be an array of package hash"}.to_json, status: :bad_request
-      end
-
-      if [:weight, :height, :length, :width].any? {|field| !package_param[field] }
-        return render :json => {:error => "package hash must have 'weight', 'height', 'length', 'width'"}.to_json, status: :bad_request
-      end
-
-      packages << ActiveShipping::Package.new(
-        package_param[:weight].to_i,
-        [
-          package_param[:length].to_i,
-          package_param[:width].to_i,
-          package_param[:height].to_i
-        ]
-      )
-    end
-
-    unless buyer_country = params[:country]
-      return render :json => {:error => "missing 'country' field"}.to_json, status: :bad_request
-    end
-
-    unless buyer_state = params[:state]
-      return render :json => {:error => "missing 'state' field"}.to_json, status: :bad_request
-    end
-
-    unless buyer_city = params[:city]
-      return render :json => {:error => "missing 'city' field"}.to_json, status: :bad_request
-    end
-
-    unless buyer_zip = params[:zip]
-      return render :json => {:error => "missing 'zip' field"}.to_json, status: :bad_request
-    end
-
-    request = Request.create(
-      packages_json: packages_param.to_json,
-      buyer_country: buyer_country,
-      buyer_state: buyer_state,
-      buyer_city: buyer_city,
-      buyer_zip: buyer_zip
-    )
-
-
-    destination = ActiveShipping::Location.new(
-      country: buyer_country,
-      state: buyer_state,
-      city: buyer_city,
-      zip: buyer_zip
-    )
-
-    # error handling for request does not process in a timely manner
-    begin
-      rates = ShipWrapper.get_rates(carrier, packages, destination)
-    rescue Timeout::Error
-      return render :json => {:error => "active shipper timed out"}.to_json, status: :internal_server_error
-    end
-
-    responses = []
-    rates.each do |rate|
-      carrier = rate.carrier
-      service_name = rate.service_name
-      delivery_date = rate.delivery_date
-      total_price = rate.total_price
-
-      Quote.create(
-        carrier: carrier,
-        rate: total_price,
-        request_id: request.id
+      # make a new request in our database
+      request = Request.create(
+        packages_json: packages_param.to_json,
+        buyer_country: params[:country],
+        buyer_state: params[:state],
+        buyer_city: params[:city],
+        buyer_zip: params[:zip]
       )
 
-      responses << {
-        :carrier            => carrier,
-        :service_name       => service_name,
-        :cost               => total_price,
-        :tracking_info      => nil,
-        :delivery_estimate  => delivery_date,
-      }
-    end
+      # make a new ActiveShipping Location object
+      destination = ActiveShipping::Location.new(
+        country: params[:country],
+        state: params[:state],
+        city: params[:city],
+        zip: params[:zip]
+      )
 
-    return render :json => responses.as_json, status: :created
+      # error handling for request does not process in a timely manner
+      begin
+        rates = ShipWrapper.get_rates(carrier, packages, destination)
+      rescue Timeout::Error
+        return render :json => {:error => "active shipper timed out"}.to_json, status: :internal_server_error
+      end
+
+      responses = []
+      # with the rates returned by ActiveShipping, parse information to save in our database & render to user.
+      rates.each do |rate|
+        carrier = rate.carrier
+        service_name = rate.service_name
+        delivery_date = rate.delivery_date
+        total_price = rate.total_price
+
+        # save each shipping quote in our database
+        Quote.create(
+          carrier: carrier,
+          rate: total_price,
+          request_id: request.id
+        )
+
+        responses << {
+          :carrier            => carrier,
+          :service_name       => service_name,
+          :cost               => total_price,
+          :tracking_info      => nil,
+          :delivery_estimate  => delivery_date,
+        }
+      end
+
+      # and finally, a result!
+      return render :json => responses.as_json, status: :created
+    end
   end
 
   private
   def shipping_params
     params.require(:request).permit(:weight, :length, :width, :height, :country, :state, :city, :zip)
+  end
+
+  def handle_input_errors(params)
+    p_p = params[:packages]
+
+    if !params[:carrier]
+      render :json => {:error => "must specify carrier field"}.to_json, status: :bad_request
+    elsif !ShipWrapper.is_valid_carrier?(params[:carrier])
+      render :json => {:error => "must specify a carrier from #{ShipWrapper.valid_carriers.join(', ')}"}.to_json, status: :bad_request
+    elsif !p_p
+      render :json => {:error => "missing packages field"}.to_json, status: :bad_request
+    elsif !p_p.is_a?(Array)
+      render :json => {:error => "packages field must be an array of package hash"}.to_json, status: :bad_request
+    elsif p_p.empty?
+      render :json => {:error => "packages field must not be empty"}.to_json, status: :bad_request
+    elsif !p_p.all? { |element| element.is_a?(Hash)  }
+      render :json => {:error => "packages field must be an array of package hash"}.to_json, status: :bad_request
+
+    # error handling for the address is handled within this elsif. if it passes the first condition (that each package hash has the correct keys), then it will continue on to check the address. there was simply no way i could find to make the package hash check a single line for the elsif condition -- i'm sure one's out there but everything i tried failed!
+    elsif p_p.is_a?(Array)
+      p_p.each do |package|
+        if [:weight, :height, :length, :width].any? {|field| !package[field] }
+          render :json => {:error => "package hash must have 'weight', 'height', 'length', 'width'"}.to_json, status: :bad_request
+        end
+      end
+      if !params[:country]
+        render :json => {:error => "missing 'country' field"}.to_json, status: :bad_request
+      elsif !params[:state]
+        render :json => {:error => "missing 'state' field"}.to_json, status: :bad_request
+      elsif !params[:city]
+        render :json => {:error => "missing 'city' field"}.to_json, status: :bad_request
+      elsif !params[:zip]
+        render :json => {:error => "missing 'zip' field"}.to_json, status: :bad_request
+      end
+    end
   end
 end
