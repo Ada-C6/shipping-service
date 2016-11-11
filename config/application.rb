@@ -10,7 +10,6 @@ module ShippingService
   class Application < Rails::Application
     config.eager_load_paths += %W(#{config.root}/lib)
     config.eager_load_paths += Dir["#{config.root}/lib/**/"]
-    YAML.load_file("#{::Rails.root}/config/secrets.yml")[::Rails.env].each {|k,v| ENV[k] = v }
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
