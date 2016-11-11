@@ -52,12 +52,14 @@ attr_reader :origin, :destination, :package
   end
 
   def carrier_quotes(carriers)
+
     quotes = []
     carriers.each do |carrier|
       requesting_quote(carrier).each do |quote|
         quotes << quote
       end
     end
+
     return quotes # array of arrays
   end
 

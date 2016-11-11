@@ -9,11 +9,11 @@ CARRIERS = ["ups", "usps"]
 
     logger.info(destination_hash = {country: params["destination"]["destination_country"], state: params["destination"]["destination_state"], city: params["destination"]["destination_city"], zip: params["destination"]["destination_zip"]})
 
-    ShippingQuote.setup(weight, origin_hash, destination_hash)
+    parcel = ShippingQuote.setup(weight, origin_hash, destination_hash)
 
 
 
-    render json: ShippingQuote.carrier_quotes(CARRIERS)
+    render json: parcel.carrier_quotes(CARRIERS)
   end
 
 end
