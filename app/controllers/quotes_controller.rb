@@ -1,4 +1,3 @@
-require 'shipment'
 require 'timeout'
 
 class QuotesController < ApplicationController
@@ -22,12 +21,11 @@ class QuotesController < ApplicationController
     def shipment_params
         # params.require(:shipment).permit(:weight, :country, :state, :city, :zip)
         # ^^ we are hard coding these below to get our controller to work - these will normally come in from petsy's api-wrapper
-      { weight: 15, country: 'US', state: 'OH', city: 'Akron' }
+      { weight: 15, country: 'US', state: 'OH', city: 'Akron', zip: '44333' }
     end
 
 end
 
-ActiveShipping::ResponseError
 # # Pet data from the user looks like
 # # { "pet": {"name": "fido", "age": 3, "human": "ada"}}
 # def create
