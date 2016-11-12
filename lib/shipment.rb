@@ -39,8 +39,11 @@ class Shipment
     def all_quotes
         all = []
         all += ups_quotes + usps_quotes
+        # this comes back as an array of arrays, first with all UPS shipping option quotes, followed by all USPS shipping option quotes.
     end
 end
+
+# this was used during our development, could delete at this point...
 
 # shipment_info_hash = {weight: 15, country: 'US', state: 'OH', city: 'Akron', zip: '44333' }
 # a = Shipment.new(shipment_info_hash)
