@@ -39,5 +39,13 @@ class QuotesControllerTest < ActionController::TestCase
         end
     end
 
-    
+    # test "#index with missing shipping_info_hash input will return no content--negative test case" do
+    #     VCR.use_cassette "test_shipments" do
+    #         VCR.use_cassette "missing_shipment_info" do
+    #             get :index
+    #             assert_response :not_found
+    #             assert_empty response.body
+    #         end
+    #     end
+    # end
 end
