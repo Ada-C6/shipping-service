@@ -96,22 +96,25 @@ class ShippingController < ApplicationController
       render :json => {:error => "packages field must not be empty"}.to_json, status: :bad_request
     elsif !p_p.all? { |element| element.is_a?(Hash)  }
       render :json => {:error => "packages field must be an array of package hash"}.to_json, status: :bad_request
+    elsif !check_packages_fields(p_p)
+      render :json => {:error => "package hash must have 'weight', 'height', 'length', 'width'"}.to_json, status: :bad_request
+    elsif !params[:country]
+      render :json => {:error => "missing 'country' field"}.to_json, status: :bad_request
+    elsif !params[:state]
+      render :json => {:error => "missing 'state' field"}.to_json, status: :bad_request
+    elsif !params[:city]
+      render :json => {:error => "missing 'city' field"}.to_json, status: :bad_request
+    elsif !params[:zip]
+      render :json => {:error => "missing 'zip' field"}.to_json, status: :bad_request
+    end
+  end
 
-    # error handling for the address is handled within this elsif. if it passes the first condition (that each package hash has the correct keys), then it will continue on to check the address. there was simply no way i could find to make the package hash check a single line for the elsif condition -- i'm sure one's out there but everything i tried failed!
-    elsif p_p.is_a?(Array)
-      p_p.each do |package|
-        if [:weight, :height, :length, :width].any? {|field| !package[field] }
-          render :json => {:error => "package hash must have 'weight', 'height', 'length', 'width'"}.to_json, status: :bad_request
-        end
-      end
-      if !params[:country]
-        render :json => {:error => "missing 'country' field"}.to_json, status: :bad_request
-      elsif !params[:state]
-        render :json => {:error => "missing 'state' field"}.to_json, status: :bad_request
-      elsif !params[:city]
-        render :json => {:error => "missing 'city' field"}.to_json, status: :bad_request
-      elsif !params[:zip]
-        render :json => {:error => "missing 'zip' field"}.to_json, status: :bad_request
+  def check_packages_fields(p_p)
+    p_p.each do |package|
+      if [:weight, :height, :length, :width].any? {|field| !package[field] }
+        return false
+      else
+        return true
       end
     end
   end
