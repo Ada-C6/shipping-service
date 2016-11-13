@@ -1,0 +1,568 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://production.shippingapis.com/ShippingAPI.dll?API=RateV4&XML=%3C?xml%20version=%221.0%22?%3E%0A%3CRateV4Request%20USERID=%22677JADED7283%22%3E%0A%20%20%3CPackage%20ID=%220%22%3E%0A%20%20%20%20%3CService%3EALL%3C/Service%3E%0A%20%20%20%20%3CFirstClassMailType/%3E%0A%20%20%20%20%3CZipOrigination%3E98101%3C/ZipOrigination%3E%0A%20%20%20%20%3CZipDestination%3E46561%3C/ZipDestination%3E%0A%20%20%20%20%3CPounds%3E0%3C/Pounds%3E%0A%20%20%20%20%3COunces%3E192.0%3C/Ounces%3E%0A%20%20%20%20%3CContainer%3ERECTANGULAR%3C/Container%3E%0A%20%20%20%20%3CSize%3ELARGE%3C/Size%3E%0A%20%20%20%20%3CWidth%3E10.00%3C/Width%3E%0A%20%20%20%20%3CLength%3E15.00%3C/Length%3E%0A%20%20%20%20%3CHeight%3E4.50%3C/Height%3E%0A%20%20%20%20%3CGirth%3E29.00%3C/Girth%3E%0A%20%20%20%20%3CMachinable%3ETRUE%3C/Machinable%3E%0A%20%20%3C/Package%3E%0A%3C/RateV4Request%3E%0A
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Backside-Transport:
+      - OK OK
+      Cache-Control:
+      - private
+      Content-Type:
+      - text/xml
+      Server:
+      - Microsoft-IIS/7.5
+      X-Aspnet-Version:
+      - 2.0.50727
+      X-Powered-By:
+      - ASP.NET
+      Date:
+      - Fri, 11 Nov 2016 21:14:35 GMT
+      X-Client-Ip:
+      - 56.0.70.6
+      X-Global-Transaction-Id:
+      - '946996177'
+      Access-Control-Allow-Origin:
+      - "*"
+      Connection:
+      - Keep-Alive
+      Ntcoent-Length:
+      - '1072'
+      X-Frame-Options:
+      - SAMEORIGIN
+      Content-Length:
+      - '388'
+    body:
+      encoding: ASCII-8BIT
+      string: |-
+        <?xml version="1.0" encoding="UTF-8"?>
+        <RateV4Response><Package ID="0"><ZipOrigination>98101</ZipOrigination><ZipDestination>46561</ZipDestination><Pounds>0</Pounds><Ounces>192.0</Ounces><Size>LARGE</Size><Machinable>TRUE</Machinable><Zone>7</Zone><Postage CLASSID="3"><MailService>Priority Mail Express 1-Day&amp;lt;sup&amp;gt;&amp;#8482;&amp;lt;/sup&amp;gt;</MailService><Rate>90.65</Rate></Postage><Postage CLASSID="2"><MailService>Priority Mail Express 1-Day&amp;lt;sup&amp;gt;&amp;#8482;&amp;lt;/sup&amp;gt; Hold For Pickup</MailService><Rate>90.65</Rate></Postage><Postage CLASSID="1"><MailService>Priority Mail 3-Day&amp;lt;sup&amp;gt;&amp;#8482;&amp;lt;/sup&amp;gt;</MailService><Rate>39.45</Rate></Postage><Postage CLASSID="4"><MailService>USPS Retail Ground&amp;lt;sup&amp;gt;&amp;#8482;&amp;lt;/sup&amp;gt;</MailService><Rate>33.94</Rate></Postage><Postage CLASSID="6"><MailService>Media Mail Parcel</MailService><Rate>7.89</Rate></Postage><Postage CLASSID="7"><MailService>Library Mail Parcel</MailService><Rate>7.54</Rate></Postage></Package></RateV4Response>
+    http_version: 
+  recorded_at: Fri, 11 Nov 2016 21:14:39 GMT
+- request:
+    method: post
+    uri: https://onlinetools.ups.com/ups.app/xml/Rate
+    body:
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0"?>
+        <AccessRequest>
+          <AccessLicenseNumber>7CE85DED4C9D07AB</AccessLicenseNumber>
+          <UserId>shopifolk</UserId>
+          <Password>Shopify_rocks</Password>
+        </AccessRequest>
+        <?xml version="1.0"?>
+        <RatingServiceSelectionRequest>
+          <Request>
+            <RequestAction>Rate</RequestAction>
+            <RequestOption>Shop</RequestOption>
+          </Request>
+          <PickupType>
+            <Code>01</Code>
+          </PickupType>
+          <CustomerClassification>
+            <Code>01</Code>
+          </CustomerClassification>
+          <Shipment>
+            <Shipper>
+              <Address>
+                <City>Seattle</City>
+                <StateProvinceCode>WA</StateProvinceCode>
+                <PostalCode>98101</PostalCode>
+                <CountryCode>US</CountryCode>
+                <ResidentialAddressIndicator>true</ResidentialAddressIndicator>
+              </Address>
+            </Shipper>
+            <ShipTo>
+              <Address>
+                <City>Osceola</City>
+                <StateProvinceCode>IN</StateProvinceCode>
+                <PostalCode>46561</PostalCode>
+                <CountryCode>US</CountryCode>
+                <ResidentialAddressIndicator>true</ResidentialAddressIndicator>
+              </Address>
+            </ShipTo>
+            <Package>
+              <PackagingType>
+                <Code>02</Code>
+              </PackagingType>
+              <Dimensions>
+                <UnitOfMeasurement>
+                  <Code>IN</Code>
+                </UnitOfMeasurement>
+                <Length>15.0</Length>
+                <Width>10.0</Width>
+                <Height>4.5</Height>
+              </Dimensions>
+              <PackageWeight>
+                <UnitOfMeasurement>
+                  <Code>LBS</Code>
+                </UnitOfMeasurement>
+                <Weight>12.0</Weight>
+              </PackageWeight>
+              <PackageServiceOptions/>
+            </Package>
+          </Shipment>
+        </RatingServiceSelectionRequest>
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Fri, 11 Nov 2016 21:26:34 GMT
+      Server:
+      - Apache
+      X-Frame-Options:
+      - SAMEORIGIN
+      Strict-Transport-Security:
+      - max-age=15768000; includeSubDomains
+      Pragma:
+      - no-cache
+      Content-Length:
+      - '7222'
+      X-Content-Type-Options:
+      - nosniff
+      Content-Type:
+      - application/xml
+    body:
+      encoding: UTF-8
+      string: |-
+        <?xml version="1.0"?>
+        <RatingServiceSelectionResponse><Response><ResponseStatusCode>1</ResponseStatusCode><ResponseStatusDescription>Success</ResponseStatusDescription></Response><RatedShipment><Service><Code>03</Code></Service><RatedShipmentWarning>Your invoice may vary from the displayed reference rates</RatedShipmentWarning><BillingWeight><UnitOfMeasurement><Code>LBS</Code></UnitOfMeasurement><Weight>12.0</Weight></BillingWeight><TransportationCharges><CurrencyCode>USD</CurrencyCode><MonetaryValue>19.69</MonetaryValue></TransportationCharges><ServiceOptionsCharges><CurrencyCode>USD</CurrencyCode><MonetaryValue>0.00</MonetaryValue></ServiceOptionsCharges><TotalCharges><CurrencyCode>USD</CurrencyCode><MonetaryValue>19.69</MonetaryValue></TotalCharges><GuaranteedDaysToDelivery/><ScheduledDeliveryTime/><RatedPackage><TransportationCharges><CurrencyCode>USD</CurrencyCode><MonetaryValue>19.69</MonetaryValue></TransportationCharges><ServiceOptionsCharges><CurrencyCode>USD</CurrencyCode><MonetaryValue>0.00</MonetaryValue></ServiceOptionsCharges><TotalCharges><CurrencyCode>USD</CurrencyCode><MonetaryValue>19.69</MonetaryValue></TotalCharges><Weight>12.0</Weight><BillingWeight><UnitOfMeasurement><Code>LBS</Code></UnitOfMeasurement><Weight>12.0</Weight></BillingWeight></RatedPackage></RatedShipment><RatedShipment><Service><Code>12</Code></Service><RatedShipmentWarning>Your invoice may vary from the displayed reference rates</RatedShipmentWarning><BillingWeight><UnitOfMeasurement><Code>LBS</Code></UnitOfMeasurement><Weight>12.0</Weight></BillingWeight><TransportationCharges><CurrencyCode>USD</CurrencyCode><MonetaryValue>54.13</MonetaryValue></TransportationCharges><ServiceOptionsCharges><CurrencyCode>USD</CurrencyCode><MonetaryValue>0.00</MonetaryValue></ServiceOptionsCharges><TotalCharges><CurrencyCode>USD</CurrencyCode><MonetaryValue>54.13</MonetaryValue></TotalCharges><GuaranteedDaysToDelivery>3</GuaranteedDaysToDelivery><ScheduledDeliveryTime/><RatedPackage><TransportationCharges><CurrencyCode>USD</CurrencyCode><MonetaryValue>54.13</MonetaryValue></TransportationCharges><ServiceOptionsCharges><CurrencyCode>USD</CurrencyCode><MonetaryValue>0.00</MonetaryValue></ServiceOptionsCharges><TotalCharges><CurrencyCode>USD</CurrencyCode><MonetaryValue>54.13</MonetaryValue></TotalCharges><Weight>12.0</Weight><BillingWeight><UnitOfMeasurement><Code>LBS</Code></UnitOfMeasurement><Weight>12.0</Weight></BillingWeight></RatedPackage></RatedShipment><RatedShipment><Service><Code>02</Code></Service><RatedShipmentWarning>Your invoice may vary from the displayed reference rates</RatedShipmentWarning><BillingWeight><UnitOfMeasurement><Code>LBS</Code></UnitOfMeasurement><Weight>12.0</Weight></BillingWeight><TransportationCharges><CurrencyCode>USD</CurrencyCode><MonetaryValue>84.48</MonetaryValue></TransportationCharges><ServiceOptionsCharges><CurrencyCode>USD</CurrencyCode><MonetaryValue>0.00</MonetaryValue></ServiceOptionsCharges><TotalCharges><CurrencyCode>USD</CurrencyCode><MonetaryValue>84.48</MonetaryValue></TotalCharges><GuaranteedDaysToDelivery>2</GuaranteedDaysToDelivery><ScheduledDeliveryTime/><RatedPackage><TransportationCharges><CurrencyCode>USD</CurrencyCode><MonetaryValue>84.48</MonetaryValue></TransportationCharges><ServiceOptionsCharges><CurrencyCode>USD</CurrencyCode><MonetaryValue>0.00</MonetaryValue></ServiceOptionsCharges><TotalCharges><CurrencyCode>USD</CurrencyCode><MonetaryValue>84.48</MonetaryValue></TotalCharges><Weight>12.0</Weight><BillingWeight><UnitOfMeasurement><Code>LBS</Code></UnitOfMeasurement><Weight>12.0</Weight></BillingWeight></RatedPackage></RatedShipment><RatedShipment><Service><Code>13</Code></Service><RatedShipmentWarning>Your invoice may vary from the displayed reference rates</RatedShipmentWarning><BillingWeight><UnitOfMeasurement><Code>LBS</Code></UnitOfMeasurement><Weight>12.0</Weight></BillingWeight><TransportationCharges><CurrencyCode>USD</CurrencyCode><MonetaryValue>130.78</MonetaryValue></TransportationCharges><ServiceOptionsCharges><CurrencyCode>USD</CurrencyCode><MonetaryValue>0.00</MonetaryValue></ServiceOptionsCharges><TotalCharges><CurrencyCode>USD</CurrencyCode><MonetaryValue>130.78</MonetaryValue></TotalCharges><GuaranteedDaysToDelivery>1</GuaranteedDaysToDelivery><ScheduledDeliveryTime/><RatedPackage><TransportationCharges><CurrencyCode>USD</CurrencyCode><MonetaryValue>130.78</MonetaryValue></TransportationCharges><ServiceOptionsCharges><CurrencyCode>USD</CurrencyCode><MonetaryValue>0.00</MonetaryValue></ServiceOptionsCharges><TotalCharges><CurrencyCode>USD</CurrencyCode><MonetaryValue>130.78</MonetaryValue></TotalCharges><Weight>12.0</Weight><BillingWeight><UnitOfMeasurement><Code>LBS</Code></UnitOfMeasurement><Weight>12.0</Weight></BillingWeight></RatedPackage></RatedShipment><RatedShipment><Service><Code>14</Code></Service><RatedShipmentWarning>Your invoice may vary from the displayed reference rates</RatedShipmentWarning><BillingWeight><UnitOfMeasurement><Code>LBS</Code></UnitOfMeasurement><Weight>12.0</Weight></BillingWeight><TransportationCharges><CurrencyCode>USD</CurrencyCode><MonetaryValue>178.33</MonetaryValue></TransportationCharges><ServiceOptionsCharges><CurrencyCode>USD</CurrencyCode><MonetaryValue>0.00</MonetaryValue></ServiceOptionsCharges><TotalCharges><CurrencyCode>USD</CurrencyCode><MonetaryValue>178.33</MonetaryValue></TotalCharges><GuaranteedDaysToDelivery>1</GuaranteedDaysToDelivery><ScheduledDeliveryTime>8:30 A.M.</ScheduledDeliveryTime><RatedPackage><TransportationCharges><CurrencyCode>USD</CurrencyCode><MonetaryValue>178.33</MonetaryValue></TransportationCharges><ServiceOptionsCharges><CurrencyCode>USD</CurrencyCode><MonetaryValue>0.00</MonetaryValue></ServiceOptionsCharges><TotalCharges><CurrencyCode>USD</CurrencyCode><MonetaryValue>178.33</MonetaryValue></TotalCharges><Weight>12.0</Weight><BillingWeight><UnitOfMeasurement><Code>LBS</Code></UnitOfMeasurement><Weight>12.0</Weight></BillingWeight></RatedPackage></RatedShipment><RatedShipment><Service><Code>01</Code></Service><RatedShipmentWarning>Your invoice may vary from the displayed reference rates</RatedShipmentWarning><BillingWeight><UnitOfMeasurement><Code>LBS</Code></UnitOfMeasurement><Weight>12.0</Weight></BillingWeight><TransportationCharges><CurrencyCode>USD</CurrencyCode><MonetaryValue>147.13</MonetaryValue></TransportationCharges><ServiceOptionsCharges><CurrencyCode>USD</CurrencyCode><MonetaryValue>0.00</MonetaryValue></ServiceOptionsCharges><TotalCharges><CurrencyCode>USD</CurrencyCode><MonetaryValue>147.13</MonetaryValue></TotalCharges><GuaranteedDaysToDelivery>1</GuaranteedDaysToDelivery><ScheduledDeliveryTime>10:30 A.M.</ScheduledDeliveryTime><RatedPackage><TransportationCharges><CurrencyCode>USD</CurrencyCode><MonetaryValue>147.13</MonetaryValue></TransportationCharges><ServiceOptionsCharges><CurrencyCode>USD</CurrencyCode><MonetaryValue>0.00</MonetaryValue></ServiceOptionsCharges><TotalCharges><CurrencyCode>USD</CurrencyCode><MonetaryValue>147.13</MonetaryValue></TotalCharges><Weight>12.0</Weight><BillingWeight><UnitOfMeasurement><Code>LBS</Code></UnitOfMeasurement><Weight>12.0</Weight></BillingWeight></RatedPackage></RatedShipment></RatingServiceSelectionResponse>
+    http_version: 
+  recorded_at: Fri, 11 Nov 2016 21:26:35 GMT
+- request:
+    method: get
+    uri: http://production.shippingapis.com/ShippingAPI.dll?API=RateV4&XML=%3C?xml%20version=%221.0%22?%3E%0A%3CRateV4Request%20USERID=%22677JADED7283%22%3E%0A%20%20%3CPackage%20ID=%220%22%3E%0A%20%20%20%20%3CService%3EALL%3C/Service%3E%0A%20%20%20%20%3CFirstClassMailType/%3E%0A%20%20%20%20%3CZipOrigination%3E98101%3C/ZipOrigination%3E%0A%20%20%20%20%3CZipDestination/%3E%0A%20%20%20%20%3CPounds%3E0%3C/Pounds%3E%0A%20%20%20%20%3COunces%3E192.0%3C/Ounces%3E%0A%20%20%20%20%3CContainer%3ERECTANGULAR%3C/Container%3E%0A%20%20%20%20%3CSize%3ELARGE%3C/Size%3E%0A%20%20%20%20%3CWidth%3E10.00%3C/Width%3E%0A%20%20%20%20%3CLength%3E15.00%3C/Length%3E%0A%20%20%20%20%3CHeight%3E4.50%3C/Height%3E%0A%20%20%20%20%3CGirth%3E29.00%3C/Girth%3E%0A%20%20%20%20%3CMachinable%3ETRUE%3C/Machinable%3E%0A%20%20%3C/Package%3E%0A%3C/RateV4Request%3E%0A
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Backside-Transport:
+      - OK OK
+      Cache-Control:
+      - private
+      Content-Type:
+      - text/xml
+      Server:
+      - Microsoft-IIS/7.5
+      X-Aspnet-Version:
+      - 2.0.50727
+      X-Powered-By:
+      - ASP.NET
+      Date:
+      - Fri, 11 Nov 2016 21:28:31 GMT
+      X-Client-Ip:
+      - 56.0.70.6
+      X-Global-Transaction-Id:
+      - '1997500367'
+      Access-Control-Allow-Origin:
+      - "*"
+      Connection:
+      - Keep-Alive
+      Cteonnt-Length:
+      - '208'
+      X-Frame-Options:
+      - SAMEORIGIN
+      Content-Length:
+      - '181'
+    body:
+      encoding: ASCII-8BIT
+      string: |-
+        <?xml version="1.0" encoding="UTF-8"?>
+        <Error><Number>-2147219099</Number><Source>clsRateV4:UnpackRateNode</Source><Description>Missing value for ZipDestination.</Description><HelpFile/><HelpContext/></Error>
+    http_version: 
+  recorded_at: Fri, 11 Nov 2016 21:28:32 GMT
+- request:
+    method: post
+    uri: https://onlinetools.ups.com/ups.app/xml/Rate
+    body:
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0"?>
+        <AccessRequest>
+          <AccessLicenseNumber>7CE85DED4C9D07AB</AccessLicenseNumber>
+          <UserId>shopifolk</UserId>
+          <Password>Shopify_rocks</Password>
+        </AccessRequest>
+        <?xml version="1.0"?>
+        <RatingServiceSelectionRequest>
+          <Request>
+            <RequestAction>Rate</RequestAction>
+            <RequestOption>Shop</RequestOption>
+          </Request>
+          <PickupType>
+            <Code>01</Code>
+          </PickupType>
+          <CustomerClassification>
+            <Code>01</Code>
+          </CustomerClassification>
+          <Shipment>
+            <Shipper>
+              <Address>
+                <City>Seattle</City>
+                <StateProvinceCode>WA</StateProvinceCode>
+                <PostalCode>98101</PostalCode>
+                <CountryCode>US</CountryCode>
+                <ResidentialAddressIndicator>true</ResidentialAddressIndicator>
+              </Address>
+            </Shipper>
+            <ShipTo>
+              <Address>
+                <City>Osceola</City>
+                <StateProvinceCode>IN</StateProvinceCode>
+                <CountryCode>US</CountryCode>
+                <ResidentialAddressIndicator>true</ResidentialAddressIndicator>
+              </Address>
+            </ShipTo>
+            <Package>
+              <PackagingType>
+                <Code>02</Code>
+              </PackagingType>
+              <Dimensions>
+                <UnitOfMeasurement>
+                  <Code>IN</Code>
+                </UnitOfMeasurement>
+                <Length>15.0</Length>
+                <Width>10.0</Width>
+                <Height>4.5</Height>
+              </Dimensions>
+              <PackageWeight>
+                <UnitOfMeasurement>
+                  <Code>LBS</Code>
+                </UnitOfMeasurement>
+                <Weight>12.0</Weight>
+              </PackageWeight>
+              <PackageServiceOptions/>
+            </Package>
+          </Shipment>
+        </RatingServiceSelectionRequest>
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Fri, 11 Nov 2016 21:35:49 GMT
+      Server:
+      - Apache
+      X-Frame-Options:
+      - SAMEORIGIN
+      Strict-Transport-Security:
+      - max-age=15768000; includeSubDomains
+      Pragma:
+      - no-cache
+      Content-Length:
+      - '577'
+      X-Content-Type-Options:
+      - nosniff
+      Content-Type:
+      - application/xml
+    body:
+      encoding: UTF-8
+      string: |-
+        <?xml version="1.0"?>
+        <RatingServiceSelectionResponse><Response><ResponseStatusCode>0</ResponseStatusCode><ResponseStatusDescription>Failure</ResponseStatusDescription><Error><ErrorSeverity>Hard</ErrorSeverity><ErrorCode>111210</ErrorCode><ErrorDescription>The requested service is unavailable between the selected locations.</ErrorDescription></Error><Error><ErrorSeverity>Hard</ErrorSeverity><ErrorCode>111215</ErrorCode><ErrorDescription>The requested service is unavailable to residential destinations.</ErrorDescription></Error></Response></RatingServiceSelectionResponse>
+    http_version: 
+  recorded_at: Fri, 11 Nov 2016 21:35:49 GMT
+- request:
+    method: post
+    uri: https://onlinetools.ups.com/ups.app/xml/Rate
+    body:
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0"?>
+        <AccessRequest>
+          <AccessLicenseNumber>7CE85DED4C9D07AB</AccessLicenseNumber>
+          <UserId>shopifolk</UserId>
+          <Password>Shopify_rocks</Password>
+        </AccessRequest>
+        <?xml version="1.0"?>
+        <RatingServiceSelectionRequest>
+          <Request>
+            <RequestAction>Rate</RequestAction>
+            <RequestOption>Shop</RequestOption>
+          </Request>
+          <PickupType>
+            <Code>01</Code>
+          </PickupType>
+          <CustomerClassification>
+            <Code>01</Code>
+          </CustomerClassification>
+          <Shipment>
+            <Shipper>
+              <Address>
+                <City>Seattle</City>
+                <StateProvinceCode>WA</StateProvinceCode>
+                <PostalCode>98101</PostalCode>
+                <CountryCode>US</CountryCode>
+                <ResidentialAddressIndicator>true</ResidentialAddressIndicator>
+              </Address>
+            </Shipper>
+            <ShipTo>
+              <Address>
+                <City>Akron</City>
+                <StateProvinceCode>OH</StateProvinceCode>
+                <PostalCode>44333</PostalCode>
+                <CountryCode>US</CountryCode>
+                <ResidentialAddressIndicator>true</ResidentialAddressIndicator>
+              </Address>
+            </ShipTo>
+            <Package>
+              <PackagingType>
+                <Code>02</Code>
+              </PackagingType>
+              <Dimensions>
+                <UnitOfMeasurement>
+                  <Code>IN</Code>
+                </UnitOfMeasurement>
+                <Length>15.0</Length>
+                <Width>10.0</Width>
+                <Height>4.5</Height>
+              </Dimensions>
+              <PackageWeight>
+                <UnitOfMeasurement>
+                  <Code>LBS</Code>
+                </UnitOfMeasurement>
+                <Weight>15.0</Weight>
+              </PackageWeight>
+              <PackageServiceOptions/>
+            </Package>
+          </Shipment>
+        </RatingServiceSelectionRequest>
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sat, 12 Nov 2016 18:09:41 GMT
+      Server:
+      - Apache
+      X-Frame-Options:
+      - SAMEORIGIN
+      Strict-Transport-Security:
+      - max-age=15768000; includeSubDomains
+      Pragma:
+      - no-cache
+      Content-Length:
+      - '7226'
+      X-Content-Type-Options:
+      - nosniff
+      Content-Type:
+      - application/xml
+    body:
+      encoding: UTF-8
+      string: |-
+        <?xml version="1.0"?>
+        <RatingServiceSelectionResponse><Response><ResponseStatusCode>1</ResponseStatusCode><ResponseStatusDescription>Success</ResponseStatusDescription></Response><RatedShipment><Service><Code>03</Code></Service><RatedShipmentWarning>Your invoice may vary from the displayed reference rates</RatedShipmentWarning><BillingWeight><UnitOfMeasurement><Code>LBS</Code></UnitOfMeasurement><Weight>15.0</Weight></BillingWeight><TransportationCharges><CurrencyCode>USD</CurrencyCode><MonetaryValue>24.68</MonetaryValue></TransportationCharges><ServiceOptionsCharges><CurrencyCode>USD</CurrencyCode><MonetaryValue>0.00</MonetaryValue></ServiceOptionsCharges><TotalCharges><CurrencyCode>USD</CurrencyCode><MonetaryValue>24.68</MonetaryValue></TotalCharges><GuaranteedDaysToDelivery/><ScheduledDeliveryTime/><RatedPackage><TransportationCharges><CurrencyCode>USD</CurrencyCode><MonetaryValue>24.68</MonetaryValue></TransportationCharges><ServiceOptionsCharges><CurrencyCode>USD</CurrencyCode><MonetaryValue>0.00</MonetaryValue></ServiceOptionsCharges><TotalCharges><CurrencyCode>USD</CurrencyCode><MonetaryValue>24.68</MonetaryValue></TotalCharges><Weight>15.0</Weight><BillingWeight><UnitOfMeasurement><Code>LBS</Code></UnitOfMeasurement><Weight>15.0</Weight></BillingWeight></RatedPackage></RatedShipment><RatedShipment><Service><Code>12</Code></Service><RatedShipmentWarning>Your invoice may vary from the displayed reference rates</RatedShipmentWarning><BillingWeight><UnitOfMeasurement><Code>LBS</Code></UnitOfMeasurement><Weight>15.0</Weight></BillingWeight><TransportationCharges><CurrencyCode>USD</CurrencyCode><MonetaryValue>70.41</MonetaryValue></TransportationCharges><ServiceOptionsCharges><CurrencyCode>USD</CurrencyCode><MonetaryValue>0.00</MonetaryValue></ServiceOptionsCharges><TotalCharges><CurrencyCode>USD</CurrencyCode><MonetaryValue>70.41</MonetaryValue></TotalCharges><GuaranteedDaysToDelivery>3</GuaranteedDaysToDelivery><ScheduledDeliveryTime/><RatedPackage><TransportationCharges><CurrencyCode>USD</CurrencyCode><MonetaryValue>70.41</MonetaryValue></TransportationCharges><ServiceOptionsCharges><CurrencyCode>USD</CurrencyCode><MonetaryValue>0.00</MonetaryValue></ServiceOptionsCharges><TotalCharges><CurrencyCode>USD</CurrencyCode><MonetaryValue>70.41</MonetaryValue></TotalCharges><Weight>15.0</Weight><BillingWeight><UnitOfMeasurement><Code>LBS</Code></UnitOfMeasurement><Weight>15.0</Weight></BillingWeight></RatedPackage></RatedShipment><RatedShipment><Service><Code>02</Code></Service><RatedShipmentWarning>Your invoice may vary from the displayed reference rates</RatedShipmentWarning><BillingWeight><UnitOfMeasurement><Code>LBS</Code></UnitOfMeasurement><Weight>15.0</Weight></BillingWeight><TransportationCharges><CurrencyCode>USD</CurrencyCode><MonetaryValue>100.63</MonetaryValue></TransportationCharges><ServiceOptionsCharges><CurrencyCode>USD</CurrencyCode><MonetaryValue>0.00</MonetaryValue></ServiceOptionsCharges><TotalCharges><CurrencyCode>USD</CurrencyCode><MonetaryValue>100.63</MonetaryValue></TotalCharges><GuaranteedDaysToDelivery>2</GuaranteedDaysToDelivery><ScheduledDeliveryTime/><RatedPackage><TransportationCharges><CurrencyCode>USD</CurrencyCode><MonetaryValue>100.63</MonetaryValue></TransportationCharges><ServiceOptionsCharges><CurrencyCode>USD</CurrencyCode><MonetaryValue>0.00</MonetaryValue></ServiceOptionsCharges><TotalCharges><CurrencyCode>USD</CurrencyCode><MonetaryValue>100.63</MonetaryValue></TotalCharges><Weight>15.0</Weight><BillingWeight><UnitOfMeasurement><Code>LBS</Code></UnitOfMeasurement><Weight>15.0</Weight></BillingWeight></RatedPackage></RatedShipment><RatedShipment><Service><Code>13</Code></Service><RatedShipmentWarning>Your invoice may vary from the displayed reference rates</RatedShipmentWarning><BillingWeight><UnitOfMeasurement><Code>LBS</Code></UnitOfMeasurement><Weight>15.0</Weight></BillingWeight><TransportationCharges><CurrencyCode>USD</CurrencyCode><MonetaryValue>154.95</MonetaryValue></TransportationCharges><ServiceOptionsCharges><CurrencyCode>USD</CurrencyCode><MonetaryValue>0.00</MonetaryValue></ServiceOptionsCharges><TotalCharges><CurrencyCode>USD</CurrencyCode><MonetaryValue>154.95</MonetaryValue></TotalCharges><GuaranteedDaysToDelivery>1</GuaranteedDaysToDelivery><ScheduledDeliveryTime/><RatedPackage><TransportationCharges><CurrencyCode>USD</CurrencyCode><MonetaryValue>154.95</MonetaryValue></TransportationCharges><ServiceOptionsCharges><CurrencyCode>USD</CurrencyCode><MonetaryValue>0.00</MonetaryValue></ServiceOptionsCharges><TotalCharges><CurrencyCode>USD</CurrencyCode><MonetaryValue>154.95</MonetaryValue></TotalCharges><Weight>15.0</Weight><BillingWeight><UnitOfMeasurement><Code>LBS</Code></UnitOfMeasurement><Weight>15.0</Weight></BillingWeight></RatedPackage></RatedShipment><RatedShipment><Service><Code>14</Code></Service><RatedShipmentWarning>Your invoice may vary from the displayed reference rates</RatedShipmentWarning><BillingWeight><UnitOfMeasurement><Code>LBS</Code></UnitOfMeasurement><Weight>15.0</Weight></BillingWeight><TransportationCharges><CurrencyCode>USD</CurrencyCode><MonetaryValue>195.07</MonetaryValue></TransportationCharges><ServiceOptionsCharges><CurrencyCode>USD</CurrencyCode><MonetaryValue>0.00</MonetaryValue></ServiceOptionsCharges><TotalCharges><CurrencyCode>USD</CurrencyCode><MonetaryValue>195.07</MonetaryValue></TotalCharges><GuaranteedDaysToDelivery>1</GuaranteedDaysToDelivery><ScheduledDeliveryTime>8:30 A.M.</ScheduledDeliveryTime><RatedPackage><TransportationCharges><CurrencyCode>USD</CurrencyCode><MonetaryValue>195.07</MonetaryValue></TransportationCharges><ServiceOptionsCharges><CurrencyCode>USD</CurrencyCode><MonetaryValue>0.00</MonetaryValue></ServiceOptionsCharges><TotalCharges><CurrencyCode>USD</CurrencyCode><MonetaryValue>195.07</MonetaryValue></TotalCharges><Weight>15.0</Weight><BillingWeight><UnitOfMeasurement><Code>LBS</Code></UnitOfMeasurement><Weight>15.0</Weight></BillingWeight></RatedPackage></RatedShipment><RatedShipment><Service><Code>01</Code></Service><RatedShipmentWarning>Your invoice may vary from the displayed reference rates</RatedShipmentWarning><BillingWeight><UnitOfMeasurement><Code>LBS</Code></UnitOfMeasurement><Weight>15.0</Weight></BillingWeight><TransportationCharges><CurrencyCode>USD</CurrencyCode><MonetaryValue>163.87</MonetaryValue></TransportationCharges><ServiceOptionsCharges><CurrencyCode>USD</CurrencyCode><MonetaryValue>0.00</MonetaryValue></ServiceOptionsCharges><TotalCharges><CurrencyCode>USD</CurrencyCode><MonetaryValue>163.87</MonetaryValue></TotalCharges><GuaranteedDaysToDelivery>1</GuaranteedDaysToDelivery><ScheduledDeliveryTime>10:30 A.M.</ScheduledDeliveryTime><RatedPackage><TransportationCharges><CurrencyCode>USD</CurrencyCode><MonetaryValue>163.87</MonetaryValue></TransportationCharges><ServiceOptionsCharges><CurrencyCode>USD</CurrencyCode><MonetaryValue>0.00</MonetaryValue></ServiceOptionsCharges><TotalCharges><CurrencyCode>USD</CurrencyCode><MonetaryValue>163.87</MonetaryValue></TotalCharges><Weight>15.0</Weight><BillingWeight><UnitOfMeasurement><Code>LBS</Code></UnitOfMeasurement><Weight>15.0</Weight></BillingWeight></RatedPackage></RatedShipment></RatingServiceSelectionResponse>
+    http_version: 
+  recorded_at: Sat, 12 Nov 2016 18:09:44 GMT
+- request:
+    method: get
+    uri: http://production.shippingapis.com/ShippingAPI.dll?API=RateV4&XML=%3C?xml%20version=%221.0%22?%3E%0A%3CRateV4Request%20USERID=%22677JADED7283%22%3E%0A%20%20%3CPackage%20ID=%220%22%3E%0A%20%20%20%20%3CService%3EALL%3C/Service%3E%0A%20%20%20%20%3CFirstClassMailType/%3E%0A%20%20%20%20%3CZipOrigination%3E98101%3C/ZipOrigination%3E%0A%20%20%20%20%3CZipDestination%3E44333%3C/ZipDestination%3E%0A%20%20%20%20%3CPounds%3E0%3C/Pounds%3E%0A%20%20%20%20%3COunces%3E240.0%3C/Ounces%3E%0A%20%20%20%20%3CContainer%3ERECTANGULAR%3C/Container%3E%0A%20%20%20%20%3CSize%3ELARGE%3C/Size%3E%0A%20%20%20%20%3CWidth%3E10.00%3C/Width%3E%0A%20%20%20%20%3CLength%3E15.00%3C/Length%3E%0A%20%20%20%20%3CHeight%3E4.50%3C/Height%3E%0A%20%20%20%20%3CGirth%3E29.00%3C/Girth%3E%0A%20%20%20%20%3CMachinable%3ETRUE%3C/Machinable%3E%0A%20%20%3C/Package%3E%0A%3C/RateV4Request%3E%0A
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Backside-Transport:
+      - OK OK
+      Cache-Control:
+      - private
+      Content-Type:
+      - text/xml
+      Server:
+      - Microsoft-IIS/7.5
+      X-Aspnet-Version:
+      - 2.0.50727
+      X-Powered-By:
+      - ASP.NET
+      Date:
+      - Sat, 12 Nov 2016 18:09:41 GMT
+      X-Client-Ip:
+      - 56.0.70.6
+      X-Global-Transaction-Id:
+      - '3819303377'
+      Access-Control-Allow-Origin:
+      - "*"
+      Connection:
+      - Keep-Alive
+      Cteonnt-Length:
+      - '1074'
+      X-Frame-Options:
+      - SAMEORIGIN
+      Content-Length:
+      - '394'
+    body:
+      encoding: ASCII-8BIT
+      string: |-
+        <?xml version="1.0" encoding="UTF-8"?>
+        <RateV4Response><Package ID="0"><ZipOrigination>98101</ZipOrigination><ZipDestination>44333</ZipDestination><Pounds>0</Pounds><Ounces>240.0</Ounces><Size>LARGE</Size><Machinable>TRUE</Machinable><Zone>8</Zone><Postage CLASSID="3"><MailService>Priority Mail Express 1-Day&amp;lt;sup&amp;gt;&amp;#8482;&amp;lt;/sup&amp;gt;</MailService><Rate>106.40</Rate></Postage><Postage CLASSID="2"><MailService>Priority Mail Express 1-Day&amp;lt;sup&amp;gt;&amp;#8482;&amp;lt;/sup&amp;gt; Hold For Pickup</MailService><Rate>106.40</Rate></Postage><Postage CLASSID="1"><MailService>Priority Mail 3-Day&amp;lt;sup&amp;gt;&amp;#8482;&amp;lt;/sup&amp;gt;</MailService><Rate>50.80</Rate></Postage><Postage CLASSID="4"><MailService>USPS Retail Ground&amp;lt;sup&amp;gt;&amp;#8482;&amp;lt;/sup&amp;gt;</MailService><Rate>44.71</Rate></Postage><Postage CLASSID="6"><MailService>Media Mail Parcel</MailService><Rate>9.33</Rate></Postage><Postage CLASSID="7"><MailService>Library Mail Parcel</MailService><Rate>8.92</Rate></Postage></Package></RateV4Response>
+    http_version: 
+  recorded_at: Sat, 12 Nov 2016 18:09:45 GMT
+- request:
+    method: post
+    uri: https://onlinetools.ups.com/ups.app/xml/Rate
+    body:
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0"?>
+        <AccessRequest>
+          <AccessLicenseNumber>7CE85DED4C9D07AB</AccessLicenseNumber>
+          <UserId>shopifolk</UserId>
+          <Password>Shopify_rocks</Password>
+        </AccessRequest>
+        <?xml version="1.0"?>
+        <RatingServiceSelectionRequest>
+          <Request>
+            <RequestAction>Rate</RequestAction>
+            <RequestOption>Shop</RequestOption>
+          </Request>
+          <PickupType>
+            <Code>01</Code>
+          </PickupType>
+          <CustomerClassification>
+            <Code>01</Code>
+          </CustomerClassification>
+          <Shipment>
+            <Shipper>
+              <Address>
+                <City>Seattle</City>
+                <StateProvinceCode>WA</StateProvinceCode>
+                <PostalCode>98101</PostalCode>
+                <CountryCode>US</CountryCode>
+                <ResidentialAddressIndicator>true</ResidentialAddressIndicator>
+              </Address>
+            </Shipper>
+            <ShipTo>
+              <Address>
+                <City>Akron</City>
+                <StateProvinceCode>OH</StateProvinceCode>
+                <CountryCode>US</CountryCode>
+                <ResidentialAddressIndicator>true</ResidentialAddressIndicator>
+              </Address>
+            </ShipTo>
+            <Package>
+              <PackagingType>
+                <Code>02</Code>
+              </PackagingType>
+              <Dimensions>
+                <UnitOfMeasurement>
+                  <Code>IN</Code>
+                </UnitOfMeasurement>
+                <Length>15.0</Length>
+                <Width>10.0</Width>
+                <Height>4.5</Height>
+              </Dimensions>
+              <PackageWeight>
+                <UnitOfMeasurement>
+                  <Code>LBS</Code>
+                </UnitOfMeasurement>
+                <Weight>15.0</Weight>
+              </PackageWeight>
+              <PackageServiceOptions/>
+            </Package>
+          </Shipment>
+        </RatingServiceSelectionRequest>
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sat, 12 Nov 2016 18:42:34 GMT
+      Server:
+      - Apache
+      X-Frame-Options:
+      - SAMEORIGIN
+      Strict-Transport-Security:
+      - max-age=15768000; includeSubDomains
+      Pragma:
+      - no-cache
+      Content-Length:
+      - '577'
+      X-Content-Type-Options:
+      - nosniff
+      Content-Type:
+      - application/xml
+    body:
+      encoding: UTF-8
+      string: |-
+        <?xml version="1.0"?>
+        <RatingServiceSelectionResponse><Response><ResponseStatusCode>0</ResponseStatusCode><ResponseStatusDescription>Failure</ResponseStatusDescription><Error><ErrorSeverity>Hard</ErrorSeverity><ErrorCode>111210</ErrorCode><ErrorDescription>The requested service is unavailable between the selected locations.</ErrorDescription></Error><Error><ErrorSeverity>Hard</ErrorSeverity><ErrorCode>111215</ErrorCode><ErrorDescription>The requested service is unavailable to residential destinations.</ErrorDescription></Error></Response></RatingServiceSelectionResponse>
+    http_version: 
+  recorded_at: Sat, 12 Nov 2016 18:42:37 GMT
+recorded_with: VCR 3.0.3
