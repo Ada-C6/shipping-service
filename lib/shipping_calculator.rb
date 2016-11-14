@@ -47,14 +47,6 @@ class ShippingCalculator
 	   		outside<<hashy
 	   		hashy={}
 	   	end
-	   	
-
-	   
-	   	# arr.each do |line, i|
-	   		
-	   	# 	hashy[:name]=line[0]
-	   	# 	hashy[i+1][:price]=line[1]
-	   	# end
 
 	   	return outside
 	end
