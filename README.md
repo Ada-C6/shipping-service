@@ -1,3 +1,96 @@
+Mini-Documentation, for the teachers to grade us! 
+===============================================
+
+Our API takes post requests with JSONs attached. Below please find a sample JSON that can you can use to test. Our API also supports Fedex so you can change the carrier if you want, as well as the details of the 2 packages or the address. Basically everything is required, so please do not forget any attributes or you will get an error. `¯\_(ツ)_/¯`
+
+``` json 
+{
+    "packages": [
+        {
+            "weight": 12,
+            "length": 12,
+            "width": 30,
+            "height": 30
+        },
+        {
+            "weight": 30,
+            "length": 30,
+            "width": 30,
+            "height": 30
+        }
+    ],
+    "country": "USA",
+    "state": "WA",
+    "city": "Seattle",
+    "zip": "98001",
+    "carrier": "usps"
+}
+```
+
+Sample Output  
+
+```json 
+[
+  {
+    "carrier": "USPS",
+    "service_name": "USPS First-Class Mail Stamped Letter",
+    "cost": 157,
+    "tracking_info": null,
+    "delivery_estimate": null
+  },
+  {
+    "carrier": "USPS",
+    "service_name": "USPS First-Class Mail Metered Letter",
+    "cost": 157,
+    "tracking_info": null,
+    "delivery_estimate": null
+  },
+  {
+    "carrier": "USPS",
+    "service_name": "USPS Library Mail Parcel",
+    "cost": 496,
+    "tracking_info": null,
+    "delivery_estimate": null
+  },
+  {
+    "carrier": "USPS",
+    "service_name": "USPS Media Mail Parcel",
+    "cost": 522,
+    "tracking_info": null,
+    "delivery_estimate": null
+  },
+  {
+    "carrier": "USPS",
+    "service_name": "USPS First-Class Mail Parcel",
+    "cost": 524,
+    "tracking_info": null,
+    "delivery_estimate": null
+  },
+  {
+    "carrier": "USPS",
+    "service_name": "USPS Priority Mail 1-Day",
+    "cost": 1290,
+    "tracking_info": null,
+    "delivery_estimate": null
+  },
+  {
+    "carrier": "USPS",
+    "service_name": "USPS Priority Mail Express 1-Day",
+    "cost": 4590,
+    "tracking_info": null,
+    "delivery_estimate": null
+  },
+  {
+    "carrier": "USPS",
+    "service_name": "USPS Priority Mail Express 1-Day Hold For Pickup",
+    "cost": 4590,
+    "tracking_info": null,
+    "delivery_estimate": null
+  }
+]
+```
+
+
 # Shipping Service API
 Build a stand-alone shipping service API that calculates estimated shipping costs. Then, implement your shipping service API into the provided bEtsy application, [Petsy](https://github.com/Ada-C6/betsy-shipping).
 
